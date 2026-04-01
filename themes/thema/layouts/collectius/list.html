@@ -1,0 +1,17 @@
+{{ define "main" }}
+<div class="page-header">
+  <h1>Col·lectius</h1>
+  <p class="lead">Projectes artístics, socials i comunitaris que fan vida a la Nau</p>
+</div>
+
+<div class="grid-3">
+  {{ range .Paginator.Pages }}
+  <div class="card">
+    <h3><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
+    <p>{{ .Summary }}</p>
+  </div>
+  {{ end }}
+</div>
+
+{{ template "_internal/pagination.html" . }}
+{{ end }}

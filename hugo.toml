@@ -1,4 +1,5 @@
 baseURL = 'https://naubostik.com/'
+languageCode = 'ca'
 locale = 'ca'
 title = 'La Nau Bostik'
 theme = "thema"
@@ -26,21 +27,26 @@ theme = "thema"
   weight = 1
 
 [[menu.main]]
-  name = "Notícies"
-  url = "/noticies/"
+  name = "Activitats"
+  url = "/activitats/"
   weight = 2
 
 [[menu.main]]
-  name = "Espais"
-  url = "/espais/"
+  name = "Notícies"
+  url = "/noticies/"
   weight = 3
-
-[[menu.main]]
-  name = "Activitats"
-  url = "/activitats/"
-  weight = 4
 
 [[menu.main]]
   name = "Col·lectius"
   url = "/collectius/"
+  weight = 4
+
+[[menu.main]]
+  name = "Espais"
+  url = "/espais/"
   weight = 5
+
+[[menu.main]]
+  name = "Contacte"
+  url = "/contacte/"
+  weight = 6
