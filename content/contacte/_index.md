@@ -4,7 +4,7 @@ date = 2026-04-01
 draft = false
 +++
 
-## La Nau Bostik
+## Nau Bostik
 
 **Adreça:** Carrer de la Seu d'Urgell, 12
 08001 Barcelona (Barri de la Bordeta)

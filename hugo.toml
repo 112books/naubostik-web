@@ -1,7 +1,7 @@
 baseURL = 'https://112books.github.io/naubostik-web/'
 languageCode = 'ca'
 locale = 'ca'
-title = 'La Nau Bostik'
+title = 'Nau Bostik'
 theme = "thema"
 
 [markup]
