@@ -1,8 +1,8 @@
 <div class="container footer-inner">
   <p>&copy; {{ now.Year }} {{ site.Title }}. Tots els drets reservats.</p>
   <div class="footer-links">
-    <a href="/admin/">Admin</a>
-    <a href="/contacte">Contacte</a>
-    <a href="/privacitat">Privacitat</a>
+    <a href="{{ "admin/" | relLangURL }}">Admin</a>
+    <a href="{{ "contacte/" | relLangURL }}">Contacte</a>
+    <a href="{{ "privacitat/" | relLangURL }}">Privacitat</a>
   </div>
 </div>
