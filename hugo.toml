@@ -4,11 +4,6 @@ locale = 'ca'
 title = 'La Nau Bostik'
 theme = "thema"
 
-[module]
-  [[module.mounts]]
-    source = "assets"
-    target = "assets"
-
 [markup]
   [markup.tableOfContents]
     startLevel = 2
