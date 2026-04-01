@@ -1,0 +1,47 @@
+{{ define "main" }}
+<section class="hero">
+  <h1>{{ site.Title }}</h1>
+  <p>{{ site.Params.description | default "Un espai cultural autogestionat" }}</p>
+</section>
+
+{{ with where site.RegularPages "Section" "noticies" }}
+{{ if . }}
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">Notícies</h2>
+    <a href="/noticies/" class="section-link">Veure totes &rarr;</a>
+  </div>
+  <ul class="post-list">
+    {{ range first 3 . }}
+    <li class="post-card">
+      <h3><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
+      <p class="post-meta">{{ .Date.Format "02/01/2006" }}</p>
+      <p class="post-excerpt">{{ .Summary }}</p>
+    </li>
+    {{ end }}
+  </ul>
+</section>
+{{ end }}
+{{ end }}
+
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">Espais</h2>
+    <a href="/espais/" class="section-link">Veure tots &rarr;</a>
+  </div>
+  <div class="grid-3">
+    <div class="card">
+      <h3>Sala Principal</h3>
+      <p>Un espai polivalent per a espectacles, conferències i actes culturals.</p>
+    </div>
+    <div class="card">
+      <h3>Tallers</h3>
+      <p>Espais preparats per a tallers artístics, formatius i creatius.</p>
+    </div>
+    <div class="card">
+      <h3>Exterior</h3>
+      <p>Pati i zona exterior per a activitats a l'aire lliure.</p>
+    </div>
+  </div>
+</section>
+{{ end }}

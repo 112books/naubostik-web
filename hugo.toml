@@ -1,0 +1,46 @@
+baseURL = 'https://naubostik.com/'
+locale = 'ca'
+title = 'La Nau Bostik'
+theme = "thema"
+
+[module]
+  [[module.mounts]]
+    source = "assets"
+    target = "assets"
+
+[markup]
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[params]
+  description = "Un espai cultural autogestionat a Barcelona"
+
+[[menu.main]]
+  name = "Inici"
+  url = "/"
+  weight = 1
+
+[[menu.main]]
+  name = "Notícies"
+  url = "/noticies/"
+  weight = 2
+
+[[menu.main]]
+  name = "Espais"
+  url = "/espais/"
+  weight = 3
+
+[[menu.main]]
+  name = "Activitats"
+  url = "/activitats/"
+  weight = 4
+
+[[menu.main]]
+  name = "Col·lectius"
+  url = "/collectius/"
+  weight = 5
