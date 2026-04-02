@@ -1,4 +1,4 @@
-baseURL = 'https://zesty-snickerdoodle-c1887f.netlify.app/'
+baseURL = 'https://naubostik.netlify.app/'
 languageCode = 'ca'
 locale = 'ca'
 title = 'Nau Bostik'
@@ -55,3 +55,8 @@ theme = "thema"
   name = "Contacte"
   url = "/contacte/"
   weight = 8
+
+[[menu.main]]
+  name = "Cercar"
+  url = "/cercar/"
+  weight = 9
