@@ -4,26 +4,39 @@ date = 2026-04-01
 draft = false
 +++
 
-## Espai exterior
+## Espai exterior - Pati
 
 El pati exterior de Nau Bostik és un espai obert de 200m² ideal per a activitats a l'aire lliure.
 
 ### Característiques
 
-- Capacitat per a 200 persones
+- Superfície: 200m²
+- Capacitat: 200 persones
 - Terra de llambordes
-- Coberta parcial
+- Cobertura parcial (pergola)
 - Accés des del carrer
-- Adequat per a actes populars i activitats comunitàries
+
+### Equipament
+
+- Cadires i taules mòbils
+- Endolls exteriors
+- WiFi
 
 ### Usos habituals
 
-- Balls populars
-- Trobades de colles sardanistes
+- Balls populars i sardanes
+- Trobades de colles
 - Tasts i fires
 - Projeccions a l'aire lliure
 - Activitats infantils
+- Reposos entre activitats
 
-### Horaris
+### Activitats regulars
 
-L'espai exterior està disponible segons el calendari d'activitats. Contacta'ns per a consultes.
+- **Sardanes**: Dissabtes 11h - 13h (Colla Sardanista)
+- **Fires d'intercanvi**: Mensuals
+- **Projeccions d'estiu**: Dijous d'estiu
+
+### Lloguer
+
+Contacta'ns per a preus i disponibilitat: info@naubostik.cat
