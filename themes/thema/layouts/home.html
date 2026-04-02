@@ -1,13 +1,43 @@
 {{ define "main" }}
+
 <section class="hero">
-  <h1>{{ site.Title }}</h1>
-  <p>{{ site.Params.description | default "Un espai cultural autogestionat" }}</p>
+  <div class="hero-content">
+    <h1>{{ site.Title }}</h1>
+    <p>{{ site.Params.description | default "Un espai cultural autogestionat" }}</p>
+  </div>
+  <div class="slideshow">
+    <div class="slideshow-inner">
+      <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=1200')">
+        <div class="slide-content">
+          <h2>Cultura al barri</h2>
+          <p>Activitats obertes a tothom</p>
+        </div>
+      </div>
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200')">
+        <div class="slide-content">
+          <h2>Art i creativitat</h2>
+          <p>Tallers i espais de creació</p>
+        </div>
+      </div>
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1200')">
+        <div class="slide-content">
+          <h2>Comunitat</h2>
+          <p>Un espai de trobada</p>
+        </div>
+      </div>
+    </div>
+    <div class="slideshow-dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+  </div>
 </section>
 
 <section class="section">
   <div class="section-header">
-    <h2 class="section-title">Activitats</h2>
-    <a href="/activitats/" class="section-link">Veure totes &rarr;</a>
+    <h2 class="section-title">Pròximes activitats</h2>
+    <a href="/activitats/" class="section-link">Veure agenda completa &rarr;</a>
   </div>
   <div class="grid-3">
     {{ range first 3 (where site.RegularPages "Section" "activitats") }}

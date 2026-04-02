@@ -1,8 +1,37 @@
-<div class="container footer-inner">
-  <p>&copy; {{ now.Year }} {{ site.Title }}. Tots els drets reservats.</p>
-  <div class="footer-links">
-    <a href="{{ "admin/" | relLangURL }}">Admin</a>
-    <a href="{{ "contacte/" | relLangURL }}">Contacte</a>
-    <a href="{{ "privacitat/" | relLangURL }}">Privacitat</a>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-section">
+      <h4>{{ site.Title }}</h4>
+      <p>Un espai cultural autogestionat<br>al barri de la Bordeta, Barcelona</p>
+    </div>
+    <div class="footer-section">
+      <h4>Navegació</h4>
+      <ul>
+        <li><a href="{{ "/" | relLangURL }}">Inici</a></li>
+        <li><a href="{{ "/activitats/" | relLangURL }}">Activitats</a></li>
+        <li><a href="{{ "/espais/" | relLangURL }}">Espais</a></li>
+        <li><a href="{{ "/qui-som/" | relLangURL }}">Qui som</a></li>
+        <li><a href="{{ "/contacte/" | relLangURL }}">Contacte</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Xarxes socials</h4>
+      <ul>
+        <li><a href="https://www.instagram.com/naubostik" target="_blank">Instagram</a></li>
+        <li><a href="https://www.facebook.com/naubostik" target="_blank">Facebook</a></li>
+        <li><a href="mailto:info@naubostik.cat">Correu electrònic</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="{{ "/privacitat/" | relLangURL }}">Política de privacitat</a></li>
+        <li><a href="{{ "/admin/" | relLangURL }}">Admin</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; {{ now.Year }} {{ site.Title }}. Contingut sota llicència CC BY-SA 4.0</p>
+      <p>Fet amb <a href="https://gohugo.io" target="_blank">Hugo</a> · <a href="https://www.netlify.com" target="_blank">Netlify</a></p>
+    </div>
   </div>
-</div>
+</footer>
