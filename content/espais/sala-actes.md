@@ -1,6 +1,7 @@
 +++
 title = "Sala d'actes"
 date = 2026-04-01
+planta = "Segona Planta"
 draft = false
 +++
 
@@ -28,8 +29,3 @@ Espai semiexterior cobert, perfecte per a actes de petit i mig format.
 - Recitals de poesia
 - Microoberts
 - Assaigs oberts
-- Activitats de petit format
-
-### Lloguer
-
-Contacta'ns per a preus i disponibilitat: info@naubostik.cat

@@ -1,12 +1,13 @@
 +++
-title = "Sala Polivalent (Pb-2)"
+title = "Sala Polivalent Pb-2"
 date = 2026-04-01
+planta = "Planta Baixa"
 draft = false
 +++
 
 ## Sala Polivalent Pb-2
 
-Segon espai polivalent, perfectament comunicat amb Pb-1 per a activitats que requereixin més espai.
+Segon espai polivalent, perfectament comunicat amb Pb-1.
 
 ### Característiques
 
@@ -30,4 +31,4 @@ Segon espai polivalent, perfectament comunicat amb Pb-1 per a activitats que req
 
 ### Lloguer
 
-Contacta'ns per a preus i disponibilitat: info@naubostik.cat
+Contacta'ns: info@naubostik.cat

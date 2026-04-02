@@ -4,13 +4,29 @@
   <p class="lead">Espais disponibles per a activitats culturals</p>
 </div>
 
-<div class="grid-3">
-  {{ range .Paginator.Pages }}
-  <div class="card card-espai">
-    <h3><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
-    <p>{{ .Summary }}</p>
-    <a href="{{ .RelPermalink }}" class="card-link">Veure espai &rarr;</a>
-  </div>
+{{ range slice "Planta Baixa" "Primera Planta" "Segona Planta" "Tercera Planta" }}
+  {{ $planta := . }}
+  {{ $pages := where (where site.RegularPages "Section" "espais") "Params.planta" $planta }}
+  {{ if $pages }}
+  <section class="planta-section">
+    <h2 class="planta-title">{{ $planta }}</h2>
+    <div class="planta-grid">
+      {{ range $pages }}
+      <a href="{{ .RelPermalink }}" class="espai-card">
+        <div class="espai-card-image">
+          {{ if .Params.imatge }}
+          <img src="{{ .Params.imatge }}" alt="{{ .Title }}">
+          {{ else }}
+          <div class="espai-card-placeholder">
+            <span>{{ substr .Title 0 1 }}</span>
+          </div>
+          {{ end }}
+        </div>
+        <h3 class="espai-card-title">{{ .Title }}</h3>
+      </a>
+      {{ end }}
+    </div>
+  </section>
   {{ end }}
-</div>
+{{ end }}
 {{ end }}

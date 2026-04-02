@@ -537,3 +537,83 @@ main.container {
   border-radius: 4px;
   overflow: hidden;
 }
+
+.planta-section {
+  margin-bottom: 4rem;
+}
+
+.planta-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--color-accent);
+}
+
+.planta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.espai-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-surface);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.espai-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.espai-card-image {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+
+.espai-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.espai-card-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+}
+
+.espai-card-placeholder span {
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+  opacity: 0.8;
+}
+
+.espai-card-title {
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .planta-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .espai-card-title {
+    font-size: 0.9rem;
+    padding: 0.75rem;
+  }
+}

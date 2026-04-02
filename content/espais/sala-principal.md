@@ -1,6 +1,7 @@
 +++
 title = "Sala Principal"
 date = 2026-04-01
+planta = "Planta Baixa"
 draft = false
 +++
 

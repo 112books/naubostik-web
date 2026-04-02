@@ -1,6 +1,7 @@
 +++
-title = "Sala Polivalent (Pb-3)"
+title = "Sala Polivalent Pb-3"
 date = 2026-04-01
+planta = "Planta Baixa"
 draft = false
 +++
 
@@ -29,4 +30,4 @@ Espai íntimm per a activitats de petit format.
 
 ### Lloguer
 
-Contacta'ns per a preus i disponibilitat: info@naubostik.cat
+Contacta'ns: info@naubostik.cat

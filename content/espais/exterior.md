@@ -1,6 +1,7 @@
 +++
 title = "Espai exterior"
 date = 2026-04-01
+planta = "Planta Baixa"
 draft = false
 +++
 
@@ -29,14 +30,8 @@ El pati exterior de Nau Bostik és un espai obert de 200m² ideal per a activita
 - Tasts i fires
 - Projeccions a l'aire lliure
 - Activitats infantils
-- Reposos entre activitats
 
 ### Activitats regulars
 
-- **Sardanes**: Dissabtes 11h - 13h (Colla Sardanista)
+- **Sardanes**: Dissabtes 11h - 13h
 - **Fires d'intercanvi**: Mensuals
-- **Projeccions d'estiu**: Dijous d'estiu
-
-### Lloguer
-
-Contacta'ns per a preus i disponibilitat: info@naubostik.cat

@@ -1,12 +1,13 @@
 +++
-title = "Sala Polivalent (Pb-1)"
+title = "Sala Polivalent Pb-1"
 date = 2026-04-01
+planta = "Planta Baixa"
 draft = false
 +++
 
 ## Sala Polivalent Pb-1
 
-Espai versatile per a activitats diverses, ideal per a tallers, reunions i assaigs.
+Espai versàtil per a activitats diverses, ideal per a tallers, reunions i assaigs.
 
 ### Característiques
 
@@ -31,4 +32,4 @@ Espai versatile per a activitats diverses, ideal per a tallers, reunions i assai
 
 ### Lloguer
 
-Contacta'ns per a preus i disponibilitat: info@naubostik.cat
+Contacta'ns: info@naubostik.cat

@@ -1,6 +1,7 @@
 +++
 title = "Tallers i laboratoris"
 date = 2026-04-01
+planta = "Primera Planta"
 draft = false
 +++
 
@@ -25,15 +26,9 @@ Els espais de taller estan pensats per a la creació artística i la formació.
 
 - 8 ordinadors amb programari lliure
 - Impressora 3D
-- Tallador làser (sota demanda)
 - Equipament per a edició de vídeo i àudio
 
 ### Serveis comuns
 
 - WiFi
 - Projector compartit
-- Zona de magatzematge per a materials
-
-### Lloguer
-
-Contacta'ns per a preus i disponibilitat: info@naubostik.cat
