@@ -328,7 +328,18 @@ main.container {
 .card p {
   font-size: 0.95rem;
   color: var(--color-secondary);
-  margin-bottom: 0;
+  margin-bottom: 1rem;
+}
+
+.card-link {
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-accent);
+}
+
+.card-link:hover {
+  text-decoration: underline;
 }
 
 .content {

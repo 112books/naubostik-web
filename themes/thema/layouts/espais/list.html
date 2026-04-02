@@ -4,14 +4,13 @@
   <p class="lead">Espais disponibles per a activitats culturals</p>
 </div>
 
-<ul class="post-list">
+<div class="grid-3">
   {{ range .Paginator.Pages }}
-  <li class="post-card">
-    <article>
-      <h3><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
-      <p class="post-excerpt">{{ .Summary }}</p>
-    </article>
-  </li>
+  <div class="card card-espai">
+    <h3><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
+    <p>{{ .Summary }}</p>
+    <a href="{{ .RelPermalink }}" class="card-link">Veure espai &rarr;</a>
+  </div>
   {{ end }}
-</ul>
+</div>
 {{ end }}
