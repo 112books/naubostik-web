@@ -1,0 +1,47 @@
+{{ define "main" }}
+<div class="page-header">
+  <h1>Cercador</h1>
+  <p class="lead">Troba el que busques a Nau Bostik</p>
+</div>
+
+<form id="search-form" class="search-form">
+  <input type="text" id="search-input" placeholder="Escriu per cercar..." autocomplete="off">
+  <button type="submit">Cercar</button>
+</form>
+
+<div id="search-results"></div>
+
+<script>
+const searchInput = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+
+const pages = [
+{{ range where site.RegularPages "Section" "!=" "" }}
+  { title: "{{ .Title | replaceRE "\"" "\\x22" }}", url: "{{ .RelPermalink }}", section: "{{ .Section }}", excerpt: "{{ .Summary | truncate 100 | replaceRE "\"" "\\x22" }}" },
+{{ end }}
+];
+
+searchInput.addEventListener('input', function(e) {
+  const query = e.target.value.toLowerCase().trim();
+  searchResults.innerHTML = '';
+  
+  if (query.length < 2) return;
+  
+  const results = pages.filter(page => 
+    page.title.toLowerCase().includes(query) || 
+    page.excerpt.toLowerCase().includes(query)
+  );
+  
+  if (results.length === 0) {
+    searchResults.innerHTML = '<p>No s\'han trobat resultats per a "<strong>' + query + '</strong>"</p>';
+    return;
+  }
+  
+  searchResults.innerHTML = '<p><strong>' + results.length + '</strong> resultat(s) trobat(s):</p><ul class="search-list">';
+  results.forEach(page => {
+    searchResults.innerHTML += '<li><a href="' + page.url + '"><strong>' + page.title + '</strong></a><p>' + page.excerpt + '</p></li>';
+  });
+  searchResults.innerHTML += '</ul>';
+});
+</script>
+{{ end }}
