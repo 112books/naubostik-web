@@ -494,3 +494,35 @@ main.container {
   color: var(--color-secondary);
   margin-top: 0.5rem;
 }
+
+.agenda-section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 3rem 0 0.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.agenda-section-title:first-of-type {
+  margin-top: 2rem;
+  padding-top: 0;
+  border-top: none;
+}
+
+.agenda-section-desc {
+  color: var(--color-secondary);
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.section-desc {
+  color: var(--color-secondary);
+  margin-bottom: 2rem;
+}
+
+.map-container {
+  margin: 2rem 0;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  overflow: hidden;
+}

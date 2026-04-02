@@ -1,6 +1,6 @@
 +++
 title = "Tallers de creació"
-date = 2026-04-01
+date = 2026-04-07
 draft = false
 +++
 

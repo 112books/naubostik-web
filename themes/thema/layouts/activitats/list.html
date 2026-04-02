@@ -4,8 +4,11 @@
   <p class="lead">Tallers, cursos, projeccions i activitats obertes a tothom</p>
 </div>
 
+<h2 class="agenda-section-title">Programació pròpia</h2>
+<p class="agenda-section-desc">Activitats organitzades per Nau Bostik</p>
+
 <ul class="post-list">
-  {{ range .Paginator.Pages }}
+  {{ range where (where site.RegularPages "Section" "activitats") "Params.entitat" nil }}
   <li class="post-card">
     <article>
       <h3><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
@@ -16,5 +19,18 @@
   {{ end }}
 </ul>
 
-{{ template "_internal/pagination.html" . }}
+<h2 class="agenda-section-title">Activitats d'entitats</h2>
+<p class="agenda-section-desc">Activitats dels col·lectius que fan vida a Nau Bostik</p>
+
+<ul class="post-list">
+  {{ range where (where site.RegularPages "Section" "activitats") "Params.entitat" "!=" nil }}
+  <li class="post-card">
+    <article>
+      <h3><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
+      <p class="post-meta">{{ .Date.Format "02/01/2006" }} · {{ .Params.entitat }}</p>
+      <p class="post-excerpt">{{ .Summary }}</p>
+    </article>
+  </li>
+  {{ end }}
+</ul>
 {{ end }}

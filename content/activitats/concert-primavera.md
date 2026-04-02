@@ -1,12 +1,12 @@
 +++
 title = "Concert de primavera"
-date = 2026-04-15
+date = 2026-04-18
 draft = false
 +++
 
 Concert especial de primavera amb grups del barri.
 
-**Data:** 15 d'abril, 20h
+**Data:** 18 d'abril, 20h
 **Lloc:** Sala Principal
 **Preu:** A donatiu
 

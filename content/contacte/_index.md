@@ -13,10 +13,7 @@ draft = false
 
 **Autobusos:** 115, 124
 
-## Contacte
-
-- **Correu electrònic:** info@naubostik.cat
-- **Telèfon:** 93 441 00 00
+**Telèfon:** 93 441 00 00
 
 ## Horaris
 
@@ -25,20 +22,35 @@ Caps de setmana segons activitats programades.
 
 ## On som
 
+<div class="map-container">
 <iframe 
-  src="https://www.openstreetmap.org/export/embed.html?bbox=2.1650%2C41.3740%2C2.1750%2C41.3840&amp;layer=mapnik&amp;marker=41.3790%2C2.1700" 
+  src="https://www.openstreetmap.org/export/embed.html?bbox=2.1620%2C41.3750%2C2.1750%2C41.3850&amp;layer=mapnik&amp;marker=41.3795%2C2.1685" 
   width="100%" 
   height="400" 
-  style="border: 1px solid #e5e5e5; border-radius: 4px; margin: 2rem 0;"
+  style="border: none;"
   loading="lazy">
 </iframe>
+</div>
+
+<a href="https://www.openstreetmap.org/?mlat=41.3795&mlon=2.1685#map=16/41.3795/2.1685" target="_blank">Veure mapa més gran a OpenStreetMap</a>
 
 ## Com arribar
 
-La Nau Bostik es troba al barri de la Bordeta, molt propera a la plaça de la Mercè i al parc de la Ciutadella.
+Nau Bostik es troba al barri de la Bordeta, molt propera a la plaça de la Mercè i al parc de la Ciutadella.
 
 ### Transport
 
-- **Metro:** Línia 1 (Santa Eulàlia) o Línia 5 (Sant Pau - Dos de Maig)
-- **Autobús:** Línies 115, 124
-- **A peu:** 5 minuts des de la plaça de la Mercè
+| Transport | Línia |
+|-----------|--------|
+| Metro L1 | Santa Eulàlia (10 min a peu) |
+| Metro L5 | Sant Pau - Dos de Maig (8 min a peu) |
+| Autobús | 115, 124 |
+
+### Des de plaça Espanya
+
+- Línia L1 o L5 fins a Santa Eulàlia o Sant Pau
+- 8-10 minuts a peu
+
+### Des del Paral·lel
+
+- Bus 115 o a peu (15 min)
