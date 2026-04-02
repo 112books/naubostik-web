@@ -14,9 +14,8 @@
     <main class="container">
       {{ block "main" . }}{{ end }}
     </main>
-    <footer class="site-footer">
-      {{ partial "footer.html" . }}
-    </footer>
+    {{ partial "footer.html" . }}
   </div>
+  <script src="{{ "js/main.js" | relURL }}"></script>
 </body>
 </html>
