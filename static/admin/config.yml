@@ -4,8 +4,14 @@ backend:
 
 local_backend: true
 
+# Enable Netlify Identity widget
+publish_mode: editorial_workflow
+
 media_folder: "static/images/uploads"
 public_folder: "/images/uploads"
+
+site_url: https://zesty-snickerdoodle-c1887f.netlify.app
+display_url: https://zesty-snickerdoodle-c1887f.netlify.app
 
 collections:
   - name: "noticies"
