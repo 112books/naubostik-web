@@ -1,7 +1,0 @@
-{
-  "name": "naubostik-web",
-  "version": "1.0.0",
-  "devDependencies": {
-    "@netlify/plugin-hugo-install": "^0.1.0"
-  }
-}
