@@ -1,5 +1,5 @@
 <div class="container header-inner">
-  <a href="{{ "/" | relURL }}" class="site-title">{{ site.Title }}</a>
+  <a href="{{ site.Home.RelPermalink }}" class="site-title">{{ site.Title }}</a>
   <nav class="main-nav">
     {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
     <div class="social-links">

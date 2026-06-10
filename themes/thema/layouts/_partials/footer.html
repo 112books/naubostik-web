@@ -1,3 +1,4 @@
+{{- $home := site.Home.RelPermalink }}
 <footer class="site-footer">
   <div class="container">
     <div class="footer-section">
@@ -7,11 +8,11 @@
     <div class="footer-section">
       <h4>Navegació</h4>
       <ul>
-        <li><a href="{{ "/" | relLangURL }}">Inici</a></li>
-        <li><a href="{{ "/activitats/" | relLangURL }}">Activitats</a></li>
-        <li><a href="{{ "/espais/" | relLangURL }}">Espais</a></li>
-        <li><a href="{{ "/qui-som/" | relLangURL }}">Qui som</a></li>
-        <li><a href="{{ "/contacte/" | relLangURL }}">Contacte</a></li>
+        <li><a href="{{ $home }}">Inici</a></li>
+        <li><a href="{{ $home }}activitats/">Activitats</a></li>
+        <li><a href="{{ $home }}espais/">Espais</a></li>
+        <li><a href="{{ $home }}qui-som/">Qui som</a></li>
+        <li><a href="{{ $home }}contacte/">Contacte</a></li>
       </ul>
     </div>
     <div class="footer-section">
@@ -25,8 +26,8 @@
     <div class="footer-section">
       <h4>Legal</h4>
       <ul>
-        <li><a href="{{ "/privacitat/" | relLangURL }}">Política de privacitat</a></li>
-        <li><a href="{{ "/admin/" | relLangURL }}">Admin</a></li>
+        <li><a href="{{ $home }}privacitat/">Política de privacitat</a></li>
+        <li><a href="{{ $home }}admin/">Admin</a></li>
       </ul>
     </div>
     <div class="footer-bottom">

@@ -37,7 +37,7 @@
 <section class="section">
   <div class="section-header">
     <h2 class="section-title">Pròximes activitats</h2>
-    <a href="/activitats/" class="section-link">Veure agenda completa &rarr;</a>
+    <a href="{{ "activitats/" | absLangURL }}" class="section-link">Veure agenda completa &rarr;</a>
   </div>
   <div class="grid-3">
     {{ range first 3 (where site.RegularPages "Section" "activitats") }}
@@ -54,7 +54,7 @@
 <section class="section">
   <div class="section-header">
     <h2 class="section-title">Notícies</h2>
-    <a href="/noticies/" class="section-link">Veure totes &rarr;</a>
+    <a href="{{ "noticies/" | absLangURL }}" class="section-link">Veure totes &rarr;</a>
   </div>
   <ul class="post-list">
     {{ range first 3 . }}
@@ -72,7 +72,7 @@
 <section class="section">
   <div class="section-header">
     <h2 class="section-title">Col·lectius</h2>
-    <a href="/collectius/" class="section-link">Coneixe'ls &rarr;</a>
+    <a href="{{ "collectius/" | absLangURL }}" class="section-link">Coneixe'ls &rarr;</a>
   </div>
   <div class="grid-3">
     {{ range first 3 (where site.RegularPages "Section" "collectius") }}
@@ -87,7 +87,7 @@
 <section class="section">
   <div class="section-header">
     <h2 class="section-title">Espais</h2>
-    <a href="/espais/" class="section-link">Veure tots &rarr;</a>
+    <a href="{{ "espais/" | absLangURL }}" class="section-link">Veure tots &rarr;</a>
   </div>
   <div class="grid-3">
     {{ range first 3 (where site.RegularPages "Section" "espais") }}
