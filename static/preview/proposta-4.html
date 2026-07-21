@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Proposta 4 — Brutalista · Nau Bostik</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--tar:#e75112;--black:#0a0a0a;--white:#faf7f2;--gray:#d4cfc4;--accent:#2d7a4a}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--white);color:var(--black);line-height:1.4;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+svg{display:block}
+*:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+.display{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-0.04em;line-height:0.9}
+.mono-label{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.2em}
+
+/* ─── MARQUEE ─── */
+.marquee{white-space:nowrap;overflow:hidden;background:var(--black);color:var(--tar);padding:8px 0;border-bottom:4px solid var(--tar)}
+.marquee__track{display:inline-block;animation:scroll 20s linear infinite;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.9rem;text-transform:uppercase;letter-spacing:0.15em}
+.marquee__track span{margin-right:3rem}
+.marquee__track span::before{content:"▸ ";color:var(--tar)}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.marquee__track{animation:none}}
+
+/* ─── HEADER ─── */
+.hdr{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1rem;padding:1rem 1.5rem;border-bottom:4px solid var(--black);position:sticky;top:0;background:var(--white);z-index:20}
+.hdr__logo{font-family:'Space Grotesk';font-weight:700;font-size:1.5rem;color:var(--tar);text-transform:lowercase;letter-spacing:-0.03em}
+.hdr__nav{display:none;list-style:none;gap:1.5rem}
+.hdr__nav a{font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;border-bottom:4px solid transparent;padding-bottom:2px;transition:border-color 100ms}
+.hdr__nav a:hover{border-bottom-color:var(--tar)}
+.hdr__cta{background:var(--tar);color:#fff;padding:10px 1.5rem;font-family:'Space Grotesk';font-weight:700;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.1em;display:inline-flex;align-items:center;gap:8px;min-height:44px;border:2px solid var(--black)}
+.hdr__cta:hover{background:var(--black)}
+@media(min-width:768px){.hdr__nav{display:flex}}
+
+/* ─── HERO ─── */
+.hero{padding:2rem 1.5rem 0;border-bottom:4px solid var(--black)}
+.hero__claim{font-size:clamp(2.5rem,8vw,6rem);text-transform:uppercase;color:var(--black);max-width:14ch}
+.hero__claim span{color:var(--tar)}
+.hero__desc{font-size:1rem;color:var(--black);margin-top:1.5rem;max-width:50ch;line-height:1.5}
+.hero__meta{display:flex;gap:1rem;margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--gray);flex-wrap:wrap}
+.hero__meta-item{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--black)}
+.hero__meta-item strong{color:var(--tar);font-size:2rem;display:block;font-family:'Space Grotesk';letter-spacing:-0.02em}
+
+/* ─── BLOCKS ─── */
+.block{padding:2rem 1.5rem;border-bottom:4px solid var(--black)}
+.block__title{font-size:clamp(1.5rem,4vw,3rem);text-transform:uppercase;margin-bottom:1.5rem;border-bottom:2px solid var(--black);padding-bottom:0.5rem;display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+.block__title small{font-size:0.75rem;font-weight:400;color:var(--black);opacity:0.5;text-transform:none;letter-spacing:0}
+
+/* ─── CARDS BRUTALISTA ─── */
+.cards{display:grid;gap:1px;background:var(--black);border:4px solid var(--black);grid-template-columns:1fr}
+.card{background:var(--white);padding:1.5rem;display:flex;flex-direction:column;gap:0.75rem;transition:background 100ms}
+.card:hover{background:#f0ebe0}
+.card__num{font-family:'Space Grotesk';font-weight:700;font-size:2.5rem;color:var(--tar);line-height:1}
+.card__date{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em}
+.card__title{font-size:1.1rem;font-weight:600;line-height:1.2}
+.card__meta{font-size:0.8rem;color:#555;display:flex;gap:8px;align-items:center;margin-bottom:0.5rem}
+.card__tag{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:4px 8px;border:2px solid var(--black);align-self:flex-start}
+.card__tag--green{background:var(--accent);color:#fff;border-color:var(--accent)}
+.card__tag--orange{background:var(--tar);color:#fff;border-color:var(--tar)}
+@media(min-width:600px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.cards{grid-template-columns:repeat(4,1fr)}}
+
+/* ─── STACK BLOCKS (residents) ─── */
+.stack{display:flex;flex-direction:column;gap:1px;background:var(--black);border:4px solid var(--black)}
+.stack__item{background:var(--white);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;transition:background 100ms}
+.stack__item:hover{background:#f0ebe0;padding-left:2rem}
+.stack__name{font-family:'Space Grotesk';font-weight:700;font-size:1.25rem}
+.stack__type{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--tar);padding:4px 12px;border:2px solid var(--tar)}
+.stack__arrow{font-size:1.5rem;color:var(--tar);font-weight:700;transition:transform 150ms}
+.stack__item:hover .stack__arrow{transform:translateX(8px)}
+
+/* ─── CTA SÒCI ─── */
+.cta{padding:3rem 1.5rem;background:var(--tar);color:#fff;border-bottom:4px solid var(--black);text-align:center}
+.cta__title{font-size:clamp(2rem,6vw,4rem);text-transform:uppercase;line-height:0.9}
+.cta__desc{font-size:1rem;margin:1rem 0 2rem;max-width:40ch;margin-inline:auto}
+.cta__btn{background:var(--white);color:var(--tar);padding:1rem 2rem;font-family:'Space Grotesk';font-weight:700;font-size:1rem;text-transform:uppercase;letter-spacing:0.1em;border:3px solid var(--black);display:inline-flex;gap:0.5rem;align-items:center;min-height:44px;transition:transform 100ms}
+.cta__btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--black)}
+.cta__btn:active{transform:translate(0,0);box-shadow:none}
+
+/* ─── GOOGLE MAPS STYLE PANEL ─── */
+.panel{padding:2rem 1.5rem;border-bottom:4px solid var(--black);display:grid;gap:1.5rem;grid-template-columns:1fr}
+@media(min-width:768px){.panel{grid-template-columns:1fr 1fr;gap:3rem}}
+.panel__col h3{font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.75rem;color:var(--tar)}
+.panel__col p{font-size:0.95rem;line-height:1.6}
+.panel__col ul{list-style:none;display:flex;flex-direction:column;gap:0.5rem}
+.panel__col li{font-size:0.9rem;padding-left:1rem;position:relative}
+.panel__col li::before{content:"▸";position:absolute;left:0;color:var(--tar);font-weight:700}
+
+footer{padding:2rem 1.5rem;background:var(--black);color:var(--white);font-size:0.8rem;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center}
+footer a:hover{color:var(--tar)}
+.footer__claim{font-family:'Space Grotesk';font-weight:700;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--tar)}
+</style>
+</head>
+<body>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span>La Sagrera necessita més un centre cultural que una estació d'alta velocitat</span>
+    <span>30 entitats · 4 plantes · 2000 m²</span>
+    <span>Autogestionat · Cooperatiu · Obert</span>
+    <span>La Sagrera necessita més un centre cultural que una estació d'alta velocitat</span>
+    <span>30 entitats · 4 plantes · 2000 m²</span>
+    <span>Autogestionat · Cooperatiu · Obert</span>
+  </div>
+</div>
+
+<header class="hdr">
+  <a href="#" class="hdr__logo">naubostik</a>
+  <ul class="hdr__nav">
+    <li><a href="#">Agenda</a></li>
+    <li><a href="#">Espais</a></li>
+    <li><a href="#">Residents</a></li>
+    <li><a href="#">Arxiu</a></li>
+    <li><a href="#">Qui som</a></li>
+  </ul>
+  <a href="#" class="hdr__cta">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    Fes-te sòcia
+  </a>
+</header>
+
+<section class="hero">
+  <h1 class="hero__claim display">La Sagrera <span>necessita</span> un centre cultural.</h1>
+  <p class="hero__desc">Nau Bostik: un espai industrial autogestionat on cooperatives, artistes i col·lectius fan cultura de barri des de la Sagrera.</p>
+  <div class="hero__meta">
+    <div class="hero__meta-item"><strong>30</strong>entitats residents</div>
+    <div class="hero__meta-item"><strong>4</strong>plantes · 2000 m²</div>
+    <div class="hero__meta-item"><strong>14</strong>anys d'autogestió</div>
+    <div class="hero__meta-item"><strong>0</strong>subvenció estatal directa</div>
+  </div>
+</section>
+
+<section class="block">
+  <h2 class="block__title display">Agenda <small>04 / 2026</small></h2>
+  <div class="cards">
+    <article class="card">
+      <div class="card__num display">18</div>
+      <div class="card__date">ABR · 20:00</div>
+      <h3 class="card__title">Concert de primavera</h3>
+      <p class="card__meta">Sala Principal · 200 m²</p>
+      <span class="card__tag card__tag--orange">A donatiu</span>
+    </article>
+    <article class="card">
+      <div class="card__num display">07</div>
+      <div class="card__date">ABR · 18-21H</div>
+      <h3 class="card__title">Tallers de creació</h3>
+      <p class="card__meta">Taller 1 · Setmanal</p>
+      <span class="card__tag card__tag--green">Obert</span>
+    </article>
+    <article class="card">
+      <div class="card__num display">11</div>
+      <div class="card__date">ABR · 20:00</div>
+      <h3 class="card__title">Cicle cinema independent</h3>
+      <p class="card__meta">Sala d'Actes · Divendres</p>
+      <span class="card__tag">Lliure</span>
+    </article>
+    <article class="card">
+      <div class="card__num display">20</div>
+      <div class="card__date">ABR · 10-14H</div>
+      <h3 class="card__title">Fira d'intercanvi</h3>
+      <p class="card__meta">Pati exterior · Mensual</p>
+      <span class="card__tag card__tag--green">Comunitari</span>
+    </article>
+  </div>
+</section>
+
+<section class="block">
+  <h2 class="block__title display">Residents <small>06 entitats</small></h2>
+  <div class="stack">
+    <a href="#" class="stack__item">
+      <span class="stack__name">Mescladis</span>
+      <span class="stack__type">Cooperativa social</span>
+      <span class="stack__arrow">→</span>
+    </a>
+    <a href="#" class="stack__item">
+      <span class="stack__name">Azimut 360</span>
+      <span class="stack__type">Cooperativa tècnica</span>
+      <span class="stack__arrow">→</span>
+    </a>
+    <a href="#" class="stack__item">
+      <span class="stack__name">Trèbol</span>
+      <span class="stack__type">Projecte social</span>
+      <span class="stack__arrow">→</span>
+    </a>
+    <a href="#" class="stack__item">
+      <span class="stack__name">Grup de fotografia</span>
+      <span class="stack__type">Col·lectiu</span>
+      <span class="stack__arrow">→</span>
+    </a>
+    <a href="#" class="stack__item">
+      <span class="stack__name">Colla sardanista</span>
+      <span class="stack__type">Colla cultural</span>
+      <span class="stack__arrow">→</span>
+    </a>
+    <a href="#" class="stack__item">
+      <span class="stack__name">Col·lectiu Artivista</span>
+      <span class="stack__type">Artivisme</span>
+      <span class="stack__arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel__col">
+    <h3>On som</h3>
+    <p>Ferran Turné 1-11, 08027 Barcelona.<br>Barri de la Sagrera.<br>Metro L1/L5 Sagrera.</p>
+  </div>
+  <div class="panel__col">
+    <h3>Què fem</h3>
+    <ul>
+      <li>Tallers de fotografia i art urbà</li>
+      <li>Concerts i cicles de cinema</li>
+      <li>Arxiu documental de street art efímer</li>
+      <li>Activitats assembleàries obertes</li>
+    </ul>
+  </div>
+</section>
+
+<section class="cta">
+  <h2 class="cta__title display">Fes-te sòcia.</h2>
+  <p class="cta__desc">5 €/mes. Accés a tallers, avís anticipat d'activitats, descompte en lloguer i veu a la propera assemblea.</p>
+  <a href="#" class="cta__btn">
+    ✊ Una-m'hi →
+  </a>
+</section>
+
+<footer>
+  <span class="footer__claim">Nau Bostik · Sagrera · BCN</span>
+  <span>Ferran Turné 1-11 · 08027 · info@naubostik.cat</span>
+  <a href="#">Privacitat</a> · <a href="#">Transparència</a> · <a href="#">Admin</a>
+</footer>
+
+</body>
+</html>

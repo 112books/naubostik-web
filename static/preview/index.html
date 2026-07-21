@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Propostes d'arquitectura web — Nau Bostik</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#e75112;--bg:#faf7f2;--surface:#fff;--fg:#1a1a1a;--muted:#6b645b;--border:#e8e1d3;--accent:#2d7a4a}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--fg);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+a{text-decoration:none;color:inherit;cursor:pointer}
+svg{display:block}
+*:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+
+header{padding:2rem 1.5rem;text-align:center;border-bottom:1px solid var(--border)}
+header h1{font-size:clamp(1.5rem,4vw,2.5rem);font-weight:700;letter-spacing:-0.02em;line-height:1.1;margin-bottom:0.5rem}
+header h1 span{color:var(--primary)}
+header p{color:var(--muted);font-size:0.95rem;max-width:60ch;margin:0 auto}
+
+main{flex:1;max-width:1100px;width:100%;margin:0 auto;padding:2rem 1.5rem}
+.grid{display:grid;gap:1.5rem;grid-template-columns:1fr}
+@media(min-width:768px){.grid{grid-template-columns:repeat(2,1fr)}}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:2rem;display:flex;flex-direction:column;gap:1rem;transition:transform 200ms ease,box-shadow 200ms ease}
+.card:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(26,26,26,.12)}
+.card__num{font-size:0.75rem;font-weight:700;color:var(--primary);letter-spacing:0.15em;text-transform:uppercase}
+.card__title{font-size:1.5rem;font-weight:700;letter-spacing:-0.01em}
+.card__desc{color:var(--muted);font-size:0.95rem;line-height:1.5;flex:1}
+.card__tags{display:flex;flex-wrap:wrap;gap:0.5rem}
+.tag{font-size:0.75rem;font-weight:500;padding:4px 12px;border-radius:9999px;background:#f3efe7;color:var(--muted)}
+.tag--accent{background:rgba(231,81,18,.12);color:var(--primary)}
+.tag--green{background:rgba(45,122,74,.14);color:var(--accent)}
+.card__btn{align-self:flex-start;background:var(--primary);color:#fff;padding:10px 20px;border-radius:9999px;font-weight:500;display:inline-flex;align-items:center;gap:0.5rem;min-height:44px;transition:background 150ms}
+.card__btn:hover{background:#c4440d}
+.card--featured{border-color:var(--primary);border-width:2px}
+
+footer{padding:2rem 1.5rem;text-align:center;color:var(--muted);font-size:0.85rem;border-top:1px solid var(--border);background:var(--surface)}
+footer a:hover{color:var(--primary)}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Propostes d'arquitectura web · <span>Nau Bostik</span></h1>
+  <p>4 propostes de disseny per a la nova web de la Nau Bostik. Cada proposta és un prototip HTML navegable, mobile-first i accessible. Totes comparteixen la paleta taronja de la marca real (#e75112) i la tipografia DM Sans.</p>
+</header>
+
+<main>
+  <div class="grid">
+
+    <a href="proposta-1.html" class="card">
+      <span class="card__num">Proposta 1</span>
+      <h2 class="card__title">La Nau App</h2>
+      <p class="card__desc">Mobile-first app-like amb bottom navigation fixa (5 icones SVG), scroll-snap horitzontal de cards a mòbil, claim polític sticky. A desktop, top-nav horitzontal + grid de cards adaptables.</p>
+      <div class="card__tags">
+        <span class="tag tag--accent">Mobile-first</span>
+        <span class="tag">Bottom nav</span>
+        <span class="tag">Scroll-snap</span>
+        <span class="tag tag--green">Accessible</span>
+      </div>
+      <span class="card__btn">Veure preview →</span>
+    </a>
+
+    <a href="proposta-2.html" class="card">
+      <span class="card__num">Proposta 2</span>
+      <h2 class="card__title">Tres Portes</h2>
+      <p class="card__desc">Arquitectura per intenció del visitant, no per secció administrativa. 3 portes amb color de context: Veure (verd), Conèixer (blau), Participar (taronja). Cada porta té el seu sub-lloc amb el seu to.</p>
+      <div class="card__tags">
+        <span class="tag tag--accent">Intent-based</span>
+        <span class="tag">Color de context</span>
+        <span class="tag">3 portals</span>
+        <span class="tag tag--green">Accessible</span>
+      </div>
+      <span class="card__btn">Veure preview →</span>
+    </a>
+
+    <a href="proposta-3.html" class="card">
+      <span class="card__num">Proposta 3</span>
+      <h2 class="card__title">La Nau Virtual</h2>
+      <p class="card__desc">La nau ÉS la interfície. Visualització isomètrica en SVG de les 4 plantes, generada a build-time per Hugo. Clic a una sala = pàgina de contingut. Triple navegació simultània: visual + search + accions laterals.</p>
+      <div class="card__tags">
+        <span class="tag tag--accent">SVG isomètric</span>
+        <span class="tag">Sense JS crític</span>
+        <span class="tag">Build-time</span>
+        <span class="tag tag--green">Navegable amb teclat</span>
+      </div>
+      <span class="card__btn">Veure preview →</span>
+    </a>
+
+    <a href="proposta-4.html" class="card card--featured">
+      <span class="card__num">Proposta 4 · ★ Trencadora</span>
+      <h2 class="card__title">Brutalista Nau</h2>
+      <p class="card__desc">Màxim contemporani i trencador. Brutalisme pur amb taronja Nau Bostik: tipografia gegant (6-8rem), vores negres 4px, grid exposat, marquee animat, botons amb shadow brutalist. L'estètica del "raw" industrial.</p>
+      <div class="card__tags">
+        <span class="tag tag--accent">Brutalisme</span>
+        <span class="tag">Display giant</span>
+        <span class="tag">Marquee animat</span>
+        <span class="tag tag--green">prefers-reduced-motion</span>
+      </div>
+      <span class="card__btn">Veure preview →</span>
+    </a>
+
+  </div>
+</main>
+
+<footer>
+  <p>Nau Bostik · Prototips de disseny · 2026-07-22</p>
+  <p style="margin-top:0.5rem;opacity:0.7">Generat per GLM-5.2 amb skill <code>ui-ux-pro-max</code> · Paleta: #e75112 · DM Sans + Space Grotesk</p>
+</footer>
+
+</body>
+</html>

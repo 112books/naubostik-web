@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Proposta 1 — La Nau App · Nau Bostik</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --color-primary: #e75112; --color-on-primary: #ffffff;
+  --color-secondary: #1a1a1a; --color-on-secondary: #ffffff;
+  --color-background: #faf7f2; --color-surface: #ffffff;
+  --color-foreground: #1a1a1a; --color-muted: #6b645b;
+  --color-border: #e8e1d3; --color-accent: #2d7a4a;
+  --color-on-accent: #ffffff; --color-destructive: #c41e3a;
+  --color-focus-ring: #e75112;
+  --color-primary-hover: #c4440d; --color-primary-active: #a83a0a;
+  --color-muted-soft: #f3efe7;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;
+  --space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;--space-16:64px;
+  --radius-sm:4px;--radius-md:8px;--radius-lg:12px;--radius-xl:16px;
+  --radius-pill:9999px;
+  --shadow-sm:0 1px 2px rgba(26,26,26,.05);
+  --shadow-md:0 4px 12px rgba(26,26,26,.08);
+  --shadow-lg:0 12px 24px rgba(26,26,26,.12);
+  --z-base:0;--z-sticky:10;--z-header:20;--z-overlay:40;--z-modal:100;z:1000;
+  --max-width:1280px;
+  --font-family:'DM Sans',system-ui,-apple-system,sans-serif;
+}
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body { font-family:var(--font-family); background:var(--color-background);
+  color:var(--color-foreground); line-height:1.6; -webkit-font-smoothing:antialiased;
+  min-height:100vh; }
+button { font:inherit; color:inherit; background:none; border:none; cursor:pointer; }
+a { color:inherit; text-decoration:none; }
+svg { display:block; }
+
+/* ============ HEADER (top) — visible a desktop, amagat a mobile ============ */
+.top-nav { display:none; align-items:center; justify-content:space-between;
+  gap:var(--space-8); padding:var(--space-4) var(--space-8); position:sticky;
+  top:0; background:rgba(255,255,255,.96); backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--color-border); z-index:var(--z-header);
+}
+.top-nav__logo { font-size:1.5rem; font-weight:700; letter-spacing:-0.02em;
+  color:var(--color-primary); display:flex;align-items:center;gap:var(--space-2); }
+.top-nav__links { display:flex; gap:var(--space-6); list-style:none; }
+.top-nav__links a { font-size:.95rem; font-weight:500; color:var(--color-muted);
+  padding:.25rem 0; border-bottom:2px solid transparent; transition:color 150ms,border-color 150ms; }
+.top-nav__links a:hover { color:var(--color-primary); }
+.top-nav__links a.active { color:var(--color-foreground); border-bottom-color:var(--color-primary); }
+.top-nav__cta { background:var(--color-primary); color:var(--color-on-primary);
+  padding:10px 20px; border-radius:var(--radius-pill); font-weight:500;
+  display:inline-flex; align-items:center; gap:var(--space-2); transition:background 150ms; }
+.top-nav__cta:hover { background:var(--color-primary-hover); }
+@media (min-width:768px) { .top-nav { display:flex; } }
+
+/* ============ STICKY CLAIM ============ */
+.sticky-claim {
+  position:sticky; top:0; z-index:var(--z-sticky);
+  background:rgba(231,81,18,.96);
+  color:var(--color-on-primary); padding:8px var(--space-4);
+  text-align:center; font-size:.75rem; letter-spacing:.5px;
+  font-weight:500; backdrop-filter:blur(8px);
+}
+.sticky-claim strong { font-weight:700; }
+
+/* ============ HERO ============ */
+.hero { background:linear-gradient(180deg,var(--color-background),#fff);
+  padding-block:var(--space-8); }
+.hero__container { max-width:var(--max-width); margin:0 auto;
+  padding-inline:var(--space-4); }
+.hero__visual { aspect-ratio:16/9; background:var(--color-muted-soft);
+  border-radius:var(--radius-lg); position:relative; overflow:hidden;
+  display:flex; align-items:flex-end; padding:var(--space-6);
+  background-image:linear-gradient(135deg,#1a1a1a 0%,#3d3a35 100%);
+  color:#fff; }
+.hero__visual::before { content:""; position:absolute; inset:0;
+  background:radial-gradient(ellipse at 30% 20%, rgba(231,81,18,.15), transparent 60%);
+  pointer-events:none; }
+.hero__caption { font-size:.75rem; opacity:.85; margin-top:var(--space-2);
+  letter-spacing:.3px; text-transform:uppercase; }
+.hero__title { font-size:1.75rem; font-weight:700;
+  margin:var(--space-6) 0 var(--space-3); letter-spacing:-0.02em;
+  line-height:1.1; }
+.hero__desc { color:var(--color-muted); font-size:1.05rem; max-width:60ch; }
+@media (min-width:768px) {
+  .hero__visual { aspect-ratio:21/9; }
+  .hero__title { font-size:2.5rem; margin:var(--space-8) 0 var(--space-4); }
+}
+
+/* ============ SECTION TITLE + LINK ============ */
+.section-header { display:flex; align-items:baseline; justify-content:space-between;
+  max-width:var(--max-width); margin:var(--space-10) auto var(--space-4);
+  padding-inline:var(--space-4); padding-bottom:var(--space-3);
+  border-bottom:1px solid var(--color-border); }
+.section-header h2 { font-size:1.25rem; font-weight:600; letter-spacing:-0.01em; }
+.section-header a { font-size:.875rem; color:var(--color-muted); font-weight:500; }
+.section-header a:hover { color:var(--color-primary); }
+
+/* ============ H-SCROLL CARDS (mobile) → GRID (desktop) ============ */
+.h-scroll { display:grid; gap:var(--space-4);
+  grid-auto-flow:column; overflow-x:auto; scroll-snap-type:x mandatory;
+  scroll-padding:0 var(--space-4); padding:0 var(--space-4) var(--space-4);
+  -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  max-width:var(--max-width); margin:0 auto;
+  grid-template-columns:1fr; }
+.h-scroll::-webkit-scrollbar { display:none; }
+.h-scroll > * { scroll-snap-align:start; min-width:260px; }
+@media (min-width:768px) {
+  .h-scroll {
+    grid-auto-flow:row;
+    overflow:visible; scroll-snap-type:none;
+    grid-template-columns:repeat(auto-fill, minmax(260px,1fr));
+    padding:0 var(--space-8) var(--space-4);
+  }
+  .h-scroll > * { min-width:0; }
+  .section-header { padding-inline:var(--space-8); }
+  .hero__container { padding-inline:var(--space-8); }
+}
+
+/* ============ CARD ============ */
+.card { background:var(--color-surface); border:1px solid var(--color-border);
+  border-radius:var(--radius-md); padding:var(--space-6);
+  transition:transform 200ms ease, box-shadow 200ms ease; display:flex;
+  flex-direction:column; gap:var(--space-2); }
+.card:hover { transform:translateY(-2px); box-shadow:var(--shadow-md); }
+.card:active { transform:translateY(0); box-shadow:var(--shadow-sm); }
+.card__date { font-size:.75rem; font-weight:600; color:var(--color-primary);
+  letter-spacing:1px; text-transform:uppercase; }
+.card__title { font-size:1.1rem; font-weight:600; line-height:1.2; }
+.card__meta { font-size:.875rem; color:var(--color-muted); display:flex;
+  align-items:center; gap:var(--space-2); }
+.card__chip { display:inline-flex; align-items:center; gap:4px;
+  padding:4px 12px; border-radius:var(--radius-pill); font-size:.75rem;
+  font-weight:500; background:var(--color-muted-soft); color:var(--color-muted);
+  align-self:flex-start; }
+.card__chip--primary { background:rgba(231,81,18,.12); color:var(--color-primary); }
+.card__chip--accent  { background:rgba(45,122,74,.14); color:var(--color-accent); }
+
+/* ============ INFO PILL (descripció ràpida) ============ */
+.info-box { background:var(--color-surface); border:1px solid var(--color-border);
+  border-radius:var(--radius-lg); padding:var(--space-6);
+  max-width:var(--max-width); margin:0 auto var(--space-10);
+  margin-inline:var(--space-4); }
+.info-box h2 { font-size:1.25rem; margin-bottom:var(--space-3); font-weight:600; }
+.info-box__list { list-style:none; display:flex; flex-direction:column;
+  gap:var(--space-3); }
+.info-box__list li { display:flex; align-items:flex-start; gap:var(--space-3);
+  color:var(--color-muted); font-size:.95rem; }
+.info-box__list svg { color:var(--color-primary); flex-shrink:0; margin-top:2px; }
+@media (min-width:768px) { .info-box { margin-inline:auto; padding:var(--space-8); } }
+
+/* ============ CTA Sòcia ============ */
+.cta-socia { background:var(--color-primary); color:var(--color-on-primary);
+  border-radius:var(--radius-lg); padding:var(--space-8) var(--space-6);
+  text-align:center; max-width:var(--max-width); margin:0 auto var(--space-10);
+  margin-inline:var(--space-4); }
+.cta-socia h2 { font-size:1.5rem; font-weight:700; margin-bottom:var(--space-2); }
+.cta-socia p { opacity:.9; margin-bottom:var(--space-6); }
+.cta-socia__btn { background:#fff; color:var(--color-primary);
+  padding:12px 24px; border-radius:var(--radius-pill); font-weight:600;
+  display:inline-flex; align-items:center; gap:var(--space-2);
+  transition:background 150ms; min-height:44px; }
+.cta-socia__btn:hover { background:#faf7f2; }
+@media (min-width:768px) { .cta-socia { margin-inline:auto; padding:var(--space-12); } }
+
+/* ============ BOTTOM NAV (mobile only) ============ */
+.bottom-nav { position:fixed; bottom:0; left:0; right:0; height:64px;
+  padding-bottom:env(safe-area-inset-bottom); background:var(--color-surface);
+  border-top:1px solid var(--color-border); display:flex;
+  justify-content:space-around; z-index:var(--z-header); }
+.bottom-nav__item { min-width:48px; min-height:48px; display:flex;
+  flex-direction:column; align-items:center; justify-content:center; gap:4px;
+  color:var(--color-muted); font-size:.65rem; font-weight:500;
+  border-radius:var(--radius-sm); transition:color 150ms; padding:0 var(--space-2); }
+.bottom-nav__item.active { color:var(--color-primary); }
+.bottom-nav__item:hover { color:var(--color-foreground); }
+@media (min-width:768px) { .bottom-nav { display:none; } body { padding-bottom:0; } }
+body { padding-bottom:64px; }
+
+main { display:block; }
+footer { padding:var(--space-8) var(--space-4); color:var(--color-muted);
+  font-size:.85rem; text-align:center; border-top:1px solid var(--color-border);
+  background:var(--color-surface); }
+@media (min-width:768px) { footer { padding:var(--space-10) var(--space-8); } }
+
+/* Focus ring */
+*:focus-visible { outline:3px solid var(--color-focus-ring); outline-offset:2px;
+  border-radius:var(--radius-sm); }
+/* Reduced motion */
+@media (prefers-reduced-motion:reduce) {
+  *,*::before,*::after { animation:none!important; transition:none!important; }
+  html { scroll-behavior:auto; }
+}
+</style>
+</head>
+<body>
+<div class="sticky-claim">
+  <strong>La Sagrera necessita més un centre cultural que una estació d'alta velocitat.</strong>
+</div>
+
+<nav class="top-nav" aria-label="Primària">
+  <a href="#" class="top-nav__logo" aria-label="Nau Bostik — inici">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/>
+    </svg>
+    Nau Bostik
+  </a>
+  <ul class="top-nav__links">
+    <li><a href="#" class="active" aria-current="page">Inici</a></li>
+    <li><a href="#">Agenda</a></li>
+    <li><a href="#">Nau</a></li>
+    <li><a href="#">Arxiu</a></li>
+    <li><a href="#">Nau Vida</a></li>
+  </ul>
+  <a href="#" class="top-nav__cta">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+    </svg>
+    Fes-te sòcia
+  </a>
+</nav>
+
+<main>
+  <header class="hero">
+    <div class="hero__container">
+      <div class="hero__visual">
+        <div>
+          <p class="hero__caption">Foto: Grup de Fotografia · Nau Bostik, 2024</p>
+          <p class="hero__caption" style="font-size:.7rem;opacity:.7">[imatge pròpia de resident — substitueix Unsplash]</p>
+        </div>
+      </div>
+      <h1 class="hero__title">Un espai cultural autogestionat al cor de la Sagrera</h1>
+      <p class="hero__desc">30 entitats, 4 plantes, 2000 m². Cooperatives, artistes i col·lectius que fan cultura de barri.</p>
+    </div>
+  </header>
+
+  <div class="section-header">
+    <h2>Aquesta setmana</h2>
+    <a href="#">Veure agenda →</a>
+  </div>
+  <div class="h-scroll" role="list" aria-label="Activitats destacades">
+    <article class="card" role="listitem">
+      <span class="card__date">18 ABR · 20:00</span>
+      <h3 class="card__title">Concert de primavera</h3>
+      <p class="card__meta">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.5" aria-hidden="true">
+          <path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/>
+        </svg>
+        Sala Principal
+      </p>
+      <span class="card__chip card__chip--primary">A donatiu</span>
+    </article>
+    <article class="card" role="listitem">
+      <span class="card__date">DL–DS · 18–21H</span>
+      <h3 class="card__title">Tallers de creació</h3>
+      <p class="card__meta">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.5" aria-hidden="true">
+          <path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/>
+        </svg>
+        Taller 1
+      </p>
+      <span class="card__chip card__chip--accent">Setmanal</span>
+    </article>
+    <article class="card" role="listitem">
+      <span class="card__date">DV · 20:00</span>
+      <h3 class="card__title">Cicle de cinema independent</h3>
+      <p class="card__meta">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.5" aria-hidden="true">
+          <path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/>
+        </svg>
+        Sala d'Actes
+      </p>
+      <span class="card__chip">Lliure + donatiu</span>
+    </article>
+    <article class="card" role="listitem">
+      <span class="card__date">20 ABR · 10–14H</span>
+      <h3 class="card__title">Fira d'intercanvi</h3>
+      <p class="card__meta">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.5" aria-hidden="true">
+          <path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/>
+        </svg>
+        Espai exterior
+      </p>
+      <span class="card__chip card__chip--accent">Comunitari</span>
+    </article>
+    <article class="card" role="listitem">
+      <span class="card__date">DT · 19–21H</span>
+      <h3 class="card__title">Trobada de fotografia</h3>
+      <p class="card__meta">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.5" aria-hidden="true">
+          <path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/>
+        </svg>
+        Biblioteca
+      </p>
+      <span class="card__chip">Quincenal</span>
+    </article>
+  </div>
+
+  <section class="info-box" aria-label="Resum de la nau">
+    <h2>Nau Bostik en 30 segons</h2>
+    <ul class="info-box__list">
+      <li>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.5" aria-hidden="true">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        <span><strong>30 entitats residents</strong> — cooperatives (Mescladis, Azimut 360, Trèbol), col·lectius culturals, artistes individuals.</span>
+      </li>
+      <li>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.5" aria-hidden="true">
+          <path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/>
+        </svg>
+        <span><strong>4 plantes · 2000 m²</strong> — Sala Principal (150 p.), pati exterior, tallers, biblioteca i laboratori digital.</span>
+      </li>
+      <li>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.5" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <span><strong>Disciplines fortes:</strong> fotografia, art urbà, arquitectura. Arxiu documental de street art efímer del barri.</span>
+      </li>
+    </ul>
+  </section>
+
+  <section class="cta-socia">
+    <h2>Fes-te sòcia</h2>
+    <p>Participa de la governança de la nau. A partir de 5 €/mes. Accés a tallers, avís anticipat d'activitats i descompte en lloguer d'espais.</p>
+    <a href="#" class="cta-socia__btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+      Una-m'hi
+    </a>
+  </section>
+</main>
+
+<footer>
+  <p>Nau Bostik · Ferran Turné 1-11, 08027 Barcelona (la Sagrera) · info@naubostik.cat</p>
+  <p style="margin-top:var(--space-2);opacity:.7">Prototip preview · Proposta 1 — La Nau App (mobile-first, bottom nav + scroll-snap)</p>
+</footer>
+
+<nav class="bottom-nav" aria-label="Navegació inferior">
+  <a href="#" class="bottom-nav__item active" aria-current="page" aria-label="Inici">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+    </svg>
+    Inici
+  </a>
+  <a href="#" class="bottom-nav__item" aria-label="Agenda">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+    </svg>
+    Agenda
+  </a>
+  <a href="#" class="bottom-nav__item" aria-label="Nau (espais)">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/>
+    </svg>
+    Nau
+  </a>
+  <a href="#" class="bottom-nav__item" aria-label="Arxiu">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+    </svg>
+    Arxiu
+  </a>
+  <a href="#" class="bottom-nav__item" aria-label="Nau Vida (qui som)">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+    </svg>
+    Nau Vida
+  </a>
+</nav>
+</body>
+</html>

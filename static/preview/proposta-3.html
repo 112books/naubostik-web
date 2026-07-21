@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Proposta 3 — La Nau Virtual · Nau Bostik</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{--color-primary:#e75112;--color-on-primary:#fff;--color-secondary:#1a1a1a;--color-background:#faf7f2;--color-surface:#fff;--color-foreground:#1a1a1a;--color-muted:#6b645b;--color-border:#e8e1d3;--color-accent:#2d7a4a;--space-4:16px;--space-6:24px;--space-8:32px;--space-12:48px;--radius-md:8px;--radius-lg:12px;--radius-pill:9999px;--shadow-md:0 4px 12px rgba(26,26,26,.08);--shadow-lg:0 12px 24px rgba(26,26,26,.12);--max-width:1280px;--font-family:'DM Sans',system-ui,sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-family);background:var(--color-background);color:var(--color-foreground);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none;cursor:pointer}
+svg{display:block}
+*:focus-visible{outline:3px solid var(--color-primary);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+.sticky-claim{position:sticky;top:0;z-index:10;background:rgba(231,81,18,.96);color:#fff;padding:8px var(--space-4);text-align:center;font-size:.75rem;font-weight:500;letter-spacing:.5px;backdrop-filter:blur(8px)}
+.sticky-claim strong{font-weight:700}
+
+.top-nav{display:flex;align-items:center;justify-content:space-between;gap:var(--space-8);padding:var(--space-4);position:sticky;top:0;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--color-border);z-index:20}
+.top-nav__logo{font-size:1.35rem;font-weight:700;color:var(--color-primary);display:flex;align-items:center;gap:var(--space-4)}
+.top-nav__actions{display:flex;gap:var(--space-4);align-items:center}
+.icon-btn{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-pill);color:var(--color-muted);transition:background 150ms,color 150ms}
+.icon-btn:hover{background:#f3efe7;color:var(--color-primary)}
+.icon-btn--cta{background:var(--color-primary);color:#fff;padding:0 var(--space-6);width:auto;gap:var(--space-2);font-weight:500;font-size:.9rem}
+.icon-btn--cta:hover{background:#c4440d}
+
+.hero{max-width:var(--max-width);margin:0 auto;padding:var(--space-8) var(--space-4) var(--space-6)}
+.hero__title{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin-bottom:var(--space-4);max-width:22ch}
+@media(min-width:768px){.hero__title{font-size:2.25rem}}
+
+/* LA NAU — SVG isomètric */
+.nau-wrap{max-width:var(--max-width);margin:0 auto;padding:0 var(--space-4) var(--space-8);display:grid;gap:var(--space-6);grid-template-columns:1fr}
+@media(min-width:1024px){.nau-wrap{grid-template-columns:1fr 300px;padding:0 var(--space-8) var(--space-8)}}
+
+.nau-svg{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-4);overflow:hidden}
+.nau-svg svg{width:100%;height:auto;display:block}
+.nau-svg text{font-family:var(--font-family);font-size:11px;font-weight:500;fill:var(--color-muted)}
+.nau-room{cursor:pointer;transition:fill 200ms,stroke 200ms}
+.nau-room:hover{fill:rgba(231,81,18,.25)!important;stroke:var(--color-primary)!important;stroke-width:2}
+.nau-room:focus-visible{outline:3px solid var(--color-primary);outline-offset:2px}
+
+.sidebar{display:flex;flex-direction:column;gap:var(--space-4)}
+.sidebar__block{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-6)}
+.sidebar__block h2{font-size:1.1rem;font-weight:600;margin-bottom:var(--space-4)}
+.mini-card{padding:var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md);margin-bottom:var(--space-4)}
+.mini-card:last-child{margin-bottom:0}
+.mini-card__date{font-size:.7rem;font-weight:600;color:var(--color-primary);letter-spacing:1px;text-transform:uppercase}
+.mini-card__title{font-size:1rem;font-weight:600;margin:4px 0}
+.mini-card__meta{font-size:.8rem;color:var(--color-muted)}
+.action-btn{display:flex;align-items:center;gap:var(--space-2);padding:var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md);margin-bottom:var(--space-2);font-weight:500;font-size:.9rem;color:var(--color-foreground);transition:border-color 150ms,color 150ms}
+.action-btn:last-child{margin-bottom:0}
+.action-btn:hover{border-color:var(--color-primary);color:var(--color-primary)}
+.action-btn svg{color:var(--color-primary);flex-shrink:0}
+
+.residents{max-width:var(--max-width);margin:var(--space-8) auto;padding:0 var(--space-4) var(--space-8)}
+.residents__header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:var(--space-4);padding-bottom:var(--space-4);border-bottom:1px solid var(--color-border)}
+.residents__header h2{font-size:1.25rem;font-weight:600}
+.residents__grid{display:grid;gap:var(--space-4);grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+.resident{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-4);text-align:center;transition:transform 200ms,box-shadow 200ms}
+.resident:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.resident__avatar{width:48px;height:48px;border-radius:var(--radius-pill);background:linear-gradient(135deg,var(--color-primary),#c4440d);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto var(--space-2);font-weight:700;font-size:1.2rem}
+.resident__name{font-size:.9rem;font-weight:600}
+.resident__type{font-size:.75rem;color:var(--color-muted)}
+@media(min-width:768px){.residents{padding:0 var(--space-8) var(--space-8)}.residents__grid{gap:var(--space-6)}}
+
+footer{padding:var(--space-8) var(--space-4);color:var(--color-muted);font-size:.85rem;text-align:center;border-top:1px solid var(--color-border);background:#fff}
+</style>
+</head>
+<body>
+
+<div class="sticky-claim"><strong>La Sagrera necessita més un centre cultural que una estació d'alta velocitat.</strong></div>
+
+<nav class="top-nav" aria-label="Primària">
+  <a href="#" class="top-nav__logo" aria-label="Nau Bostik">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/></svg>
+    Nau Bostik
+  </a>
+  <div class="top-nav__actions">
+    <button class="icon-btn" aria-label="Cercar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <a href="#" class="icon-btn icon-btn--cta">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      Sòcia
+    </a>
+  </div>
+</nav>
+
+<header class="hero">
+  <h1 class="hero__title">Entra a la Nau. Cada sala és una porta a una història.</h1>
+</header>
+
+<div class="nau-wrap">
+  <div class="nau-svg" role="img" aria-label="Planta isomètrica de la Nau Bostik. Tres plantes. Tercera: sala d'actes. Segona: biblioteca i tallers. Primera: sala principal. Planta baixa: pati exterior i sala polivalent.">
+
+    <svg viewBox="0 0 400 360" xmlns="http://www.w3.org/2000/svg" aria-hidden="false">
+      <!-- TERCERA PLANTA -->
+      <text x="20" y="25" font-weight="700" fill="#1a1a1a">Tercera Planta</text>
+      <!-- Sala d'Actes -->
+      <a href="#" class="nau-room" tabindex="0" aria-label="Sala d'Actes, tercera planta, 50 persones">
+        <polygon points="80,55 200,30 280,50 160,80" fill="#f3efe7" stroke="#e8e1d3" stroke-width="1.5" class="nau-room"/>
+        <polygon points="80,55 80,90 160,115 160,80" fill="#faf7f2" stroke="#e8e1d3" stroke-width="1.5"/>
+        <polygon points="160,80 160,115 280,90 280,50" fill="#fff" stroke="#e8e1d3" stroke-width="1.5"/>
+        <text x="170" y="75">Sala d'Actes</text>
+        <text x="190" y="100" font-size="9">50 persones</text>
+      </a>
+
+      <!-- SEGONA PLANTA -->
+      <text x="20" y="135" font-weight="700" fill="#1a1a1a">Segona Planta</text>
+      <!-- Biblioteca -->
+      <a href="#" class="nau-room" tabindex="0" aria-label="Biblioteca, segona planta">
+        <polygon points="60,165 140,145 200,160 120,180" fill="#f3efe7" stroke="#e8e1d3" stroke-width="1.5" class="nau-room"/>
+        <polygon points="60,165 60,200 120,220 120,180" fill="#faf7f2" stroke="#e8e1d3" stroke-width="1.5"/>
+        <polygon points="120,180 120,220 200,200 200,160" fill="#fff" stroke="#e8e1d3" stroke-width="1.5"/>
+        <text x="105" y="192">Biblioteca</text>
+      </a>
+      <!-- Tallers -->
+      <a href="#" class="nau-room" tabindex="0" aria-label="Tallers i laboratoris, segona planta">
+        <polygon points="220,160 300,140 360,155 280,175" fill="#f3efe7" stroke="#e8e1d3" stroke-width="1.5" class="nau-room"/>
+        <polygon points="220,160 220,195 280,215 280,175" fill="#faf7f2" stroke="#e8e1d3" stroke-width="1.5"/>
+        <polygon points="280,175 280,215 360,195 360,155" fill="#fff" stroke="#e8e1d3" stroke-width="1.5"/>
+        <text x="265" y="187">Tallers</text>
+      </a>
+
+      <!-- PRIMERA PLANTA -->
+      <text x="20" y="235" font-weight="700" fill="#1a1a1a">Primera Planta</text>
+      <!-- Sala Principal -->
+      <a href="#" class="nau-room" tabindex="0" aria-label="Sala Principal, primera planta, 150 persones">
+        <polygon points="50,265 180,240 280,260 150,285" fill="#f3efe7" stroke="#e8e1d3" stroke-width="1.5" class="nau-room"/>
+        <polygon points="50,265 50,310 150,335 150,285" fill="#faf7f2" stroke="#e8e1d3" stroke-width="1.5"/>
+        <polygon points="150,285 150,335 280,310 280,260" fill="#fff" stroke="#e8e1d3" stroke-width="1.5"/>
+        <text x="140" y="295">Sala Principal</text>
+        <text x="165" y="318" font-size="9">150 persones · 200 m²</text>
+      </a>
+
+      <!-- PLANTA BAIXA -->
+      <text x="20" y="345" font-weight="700" fill="#1a1a1a">Planta Baixa · Entrada</text>
+      <!-- Pati Exterior -->
+      <a href="#" class="nau-room" tabindex="0" aria-label="Pati exterior, planta baixa, 200 persones">
+        <polygon points="30,270 110,255 110,330 30,345" fill="#eef5ef" stroke="#2d7a4a" stroke-width="1.5" opacity="0.5" class="nau-room"/>
+        <text x="40" y="307" fill="#2d7a4a">Pati</text>
+      </a>
+      <!-- Polivalent -->
+      <a href="#" class="nau-room" tabindex="0" aria-label="Sala polivalent Pb-1, planta baixa">
+        <polygon points="200,325 300,310 320,330 220,345" fill="#f3efe7" stroke="#e8e1d3" stroke-width="1.5" class="nau-room"/>
+        <text x="230" y="335">Polivalent</text>
+      </a>
+      <!-- Entrada marker -->
+      <circle cx="155" cy="340" r="4" fill="#e75112"/>
+      <text x="165" y="344" font-size="9" fill="#e75112" font-weight="600">ENTRADA</text>
+    </svg>
+  </div>
+
+  <aside class="sidebar" aria-label="Resum">
+    <div class="sidebar__block">
+      <h2>Aquesta setmana</h2>
+      <div class="mini-card">
+        <div class="mini-card__date">18 ABR · 20:00</div>
+        <div class="mini-card__title">Concert de primavera</div>
+        <div class="mini-card__meta">Sala Principal</div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-card__date">DV · 20:00</div>
+        <div class="mini-card__title">Cicle de cinema</div>
+        <div class="mini-card__meta">Sala d'Actes</div>
+      </div>
+    </div>
+
+    <div class="sidebar__block">
+      <h2>Accions ràpides</h2>
+      <a href="#" class="action-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Fes-te sòcia (5€/mes)
+      </a>
+      <a href="#" class="action-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/></svg>
+        Lloga un espai
+      </a>
+      <a href="#" class="action-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+        Proposa activitat
+      </a>
+      <a href="#" class="action-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Butlletí
+      </a>
+    </div>
+  </aside>
+</div>
+
+<section class="residents">
+  <div class="residents__header"><h2>Comunitat a la nau</h2><a href="#" style="font-size:.85rem;color:var(--color-muted)">Veure tots →</a></div>
+  <div class="residents__grid">
+    <a href="#" class="resident"><div class="resident__avatar">M</div><div class="resident__name">Mescladis</div><div class="resident__type">Cooperativa</div></a>
+    <a href="#" class="resident"><div class="resident__avatar">A</div><div class="resident__name">Azimut 360</div><div class="resident__type">Cooperativa</div></a>
+    <a href="#" class="resident"><div class="resident__avatar">T</div><div class="resident__name">Trèbol</div><div class="resident__type">Projecte social</div></a>
+    <a href="#" class="resident"><div class="resident__avatar">F</div><div class="resident__name">Fotografia</div><div class="resident__type">Col·lectiu</div></a>
+    <a href="#" class="resident"><div class="resident__avatar">S</div><div class="resident__name">Sardanistes</div><div class="resident__type">Colla</div></a>
+    <a href="#" class="resident"><div class="resident__avatar">A</div><div class="resident__name">Artivistes</div><div class="resident__type">Col·lectiu</div></a>
+  </div>
+</section>
+
+<footer>
+  <p>Nau Bostik · Ferran Turné 1-11, 08027 Barcelona (la Sagrera) · info@naubostik.cat</p>
+  <p style="margin-top:8px;opacity:.7">Prototip preview · Proposta 3 — La Nau Virtual (SVG isomètric interactiva)</p>
+</footer>
+</body>
+</html>
