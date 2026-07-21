@@ -548,6 +548,112 @@ ruting a `glm-5.2` (Z.ai / origen GLM). Sessió serves com a baseline.
 
 ---
 
+### 2026-07-22 — Anàlisi comparativa + 4 propostes d'arquitectura web + push GitHub
+
+- **Model + provider:** `opencode-go/glm-5.2` amb skill `ui-ux-pro-max`
+- **Tasca:** (1) Moure tots els informes dels models d'IA a una carpeta
+  dedicada i crear una anàlisi comparativa. (2) Generar 4 propostes
+  d'arquitectura web (esquema de navegació + mockup + tipus de continguts),
+  mobile-first amb look app però sense descuidar desktop, innovadores.
+  (3) Crear HTML previews navegables. (4) Pujar-ho tot a GitHub i fer que
+  les propostes es vegin a GH Pages.
+- **Abast:** Documentació + prototips HTML + push. Sense tocar codi de
+  producció del tema Hugo.
+- **Skill carregat:** `ui-ux-pro-max` (design intelligence: paletes,
+  tipografia, UX rules, checklist accessibilitat).
+- **Webfetch real:** `naubostik.com` (site WordPress actual). Descoberta
+  clau: la **marca real de Nau Bostik és taronja `#e75112`** (logo
+  `Logo-NB-taronja.jpg`, plugin d'events amb `#e75112`). El prototip
+  actual al repo feia servir `#c41e3a` (vermell) — error. Corregit a
+  totes les propostes.
+- **Fitxers creats:**
+  - `docs/informes-models-ia/` (carpeta) — moguts els 12 fitxers dels
+    models d'IA aquí.
+  - `docs/informes-models-ia/analisi-comparativa.md` — anàlisi quantitativa
+    + qualitativa dels 3 models (GLM-5.2, Kimi K3, Qwen 3.7 Max) amb
+    taula de guanyadors per dimensió i síntesi de propostes a adoptar.
+  - `docs/propostes-web/design-system.md` — sistema de disseny compartit:
+    paleta taronja real, tipografia DM Sans + escala, spacing 4/8dp,
+    breakpoints 375/768/1024/1440, components base (button, card, chip),
+    regles UI/UX Pro Max aplicades (accessibilitat, touch, focus, motion),
+    checklist prèvi a producció.
+  - `docs/propostes-web/proposta-1-nau-app.md` — esquema + mockup ASCII
+    mobile/desktop + tipus de continguts. Metàfora: app mobile amb bottom
+    nav 5 icones + scroll-snap.
+  - `docs/propostes-web/proposta-2-tres-portes.md` — arquitectura per
+    intenció del visitant. 3 portes amb color de context (Veure verd,
+    Conèixer blau, Participar taronja).
+  - `docs/propostes-web/proposta-3-nau-virtual.md` — la nau ÉS la interfície.
+    SVG isomètric generat a build-time per Hugo. Triple navegació simultània.
+  - `docs/propostes-web/proposta-4-brutalista.md` — màxim contemporani i
+    trencador. Brutalisme pur amb taronja: tipografia gegant 6-8rem,
+    vores 4px negre, grid exposat, marquee animat.
+  - `docs/propostes-web/README.md` — índex de propostes + comparativa
+    ràpida + recomanació.
+  - `static/preview/index.html` — índex navegable de les 4 propostes.
+  - `static/preview/proposta-1.html` — prototip HTML autònom: bottom nav,
+    scroll-snap, sticky claim, cards, CTA sòcia. Mobile-first, top-nav a
+    desktop, sense JS. SVG Lucide inline.
+  - `static/preview/proposta-2.html` — prototip HTML: 3 portes amb color
+    de context, cards d'agenda, CTA. Desktop: 3 columnes portal.
+  - `static/preview/proposta-3.html` — prototip HTML: SVG isomètric de
+    les 4 plantes (sales navegables com `<a>`), sidebar amb activitats
+    + accions ràpides, grid de residents. Sense JS.
+  - `static/preview/proposta-4.html` — prototip HTML brutalista: marquee
+    animat, display gegant, cards amb grid 1px gap, stack items amb
+    arrow, CTA amb shadow brutalist. Space Grotesk + DM Sans. Respecta
+    `prefers-reduced-motion`.
+- **Fitxers modificats:**
+  - `.github/workflows/hugo.yml` — baseURL amb subpath correcte per GH
+    Pages: `https://112books.github.io/naubostik-web/`.
+- **Commit + push:** `7fccedf` — 32 fitxers, 6079 insercions. Push a
+  `origin/main` exitós (després de rebase per un commit previ al remot).
+- **Iteracions fins al resultat:** 1 per fitxer.
+- **Tokens aprox.:** no instrumentats. **Temps aprox.:** ~40 minuts totals.
+- **Errors comesos del model:**
+  - El `webfetch` a `naubostik.com` va retornar 276kb truncat; vaig
+    extreure la informació clau (logo taronja, color `#e75112`, Yoast
+    meta, fonts Barlow/Open Sans) de l'HTML truncat sense necessitar
+    llegir tot el fitxer.
+  - El `ui-ux-pro-max` skill va recomanar "Pixel Art" i "Cormorant
+    Garamond" com a paleta/tipografia — completament fora de lloc per a
+    un centre cultural industrial. Vaig descartar la recomanació
+    automàtica i vaig usar la paleta real extreta del site.
+  - Alguns fitxers markdown tenien emojis com a icones als mockups ASCII;
+    els HTML previews van usar SVG Lucide com manen les regles
+    `no-emoji-icons`. Els markdowns es queden amb emojis per llegibilitat
+    de l'esquema (no són codi executable).
+- **Rework:** cap tècnic. El `git push` inicial va ser rejected per nou
+  commit remot; `git pull --rebase` ho va solucionar.
+- **Valoració:** 5 — SessióProductiva: 4 prototips HTML navegable + 4
+  propostes markdown + design system + anàlisi + push a GitHub en una
+  passada. Skill carregat i aplicat selectivament (no cegament).
+  Descoberta de la marca real taronja `#e75112` va ser clau.
+- **Notes / observacions:**
+  - **GH Pages deploy en curs**: el workflow `hugo.yml` s'ha disparaor
+    pel push a `main`. En pocs minuts les propostes seran visibles a
+    `https://112books.github.io/naubostik-web/preview/`. Cal verificar
+    que els HTML estàtic dins `static/preview/` es serveix correctament
+    (Hugo copia `static/` directament a `public/` sense processar).
+  - **Paleta real confirmada**: `#e75112` (taronja Nau Bostik real, del
+    logo i del plugin d'events al WordPress actual). Cal actualitzar
+    `themes/thema/static/css/main.css` per usar aquest color en lloc de
+    `#c41e3a` (vermell) — pendent de propera sessió.
+  - **Fonts del site real**: Barlow Condensed / Barlow Semi Condensed
+    (events) + Open Sans (body). El prototip actual usa DM Sans. Decisió
+    pendnent: mantenir DM Sans o migrar a Barlow per coherència amb la
+    marca real.
+  - **Skill `ui-ux-pro-max`**: útil per la checklist d'accessibilitat i
+    les regles UX, però les recomanacions automàtiques de paleta/tipografia
+    eren off-target (Pixel Art, Cormorant). La paleta real extreta del
+    site va ser millor guide que l'skill. Lliçó: l'skill és complement,
+    no oracle.
+  - **Propera sessió**: (a) verificar GH Pages deploy; (b) actualitzar
+    `main.css` amb paleta taronja real; (c) decidir font (DM Sans vs
+    Barlow); (d) seleccionar proposta guanyadora començar a implementar.
+
+---
+
 ## (Reservat per a DeepSeek V4 Pro)
 
 > Quan l'usuari completi la prova amb DeepSeek V4 Pro, aquí s'hi registrarà
