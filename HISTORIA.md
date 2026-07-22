@@ -654,6 +654,82 @@ ruting a `glm-5.2` (Z.ai / origen GLM). Sessió serves com a baseline.
 
 ---
 
+### 2026-07-22 — Plantejament funcional del web (anàlisi multidisciplinari)
+
+- **Model + provider:** `opencode-go/glm-5.2`
+- **Tasca:** Anàlisi objectiva de totes les funcionalitats que ha de tenir
+  el web, basant-nos en tot el desenvolupat fins ara (3 informes de models
+  d'IA + anàlisi comparativa + 4 propostes d'arquitectura + estat del
+  repo). Actuam com a equip multidisciplinari: comunicació, gestió
+  d'espais, UX/UI, desenvolupament web, usabilitat, gestió cultural.
+- **Abast:** Document decisiu. No inventari passiu. Cada funcionalitat té
+  prioritat, destí (portada/interna/aparcar/descartar) i responsable.
+- **Metodologia:**
+  1. Tasca delegada (general agent) per llegir els 15 fitxers clau i
+     extreure 65 funcionalitats consolidades sense duplicats.
+  2. Rellegida de `analisi-comparativa.md` per confirmar la síntesi.
+  3. Consolidació en 38 funcionalitats finals, organitzades en 7 àrees
+     (A identitat, B activitats, C residents, D espais, E arxiu,
+     F participació, G infraestructura).
+  4. Debats simulats entre les 6 veus de l'equip (es marquen
+     discrepàncies explícitament).
+- **Fitxers creats:**
+  - `docs/plantejament-funcional.md` — document decisiu amb:
+    - Inventari de 38 funcionalitats en 7 àrees, amb prioritat (P0-P3),
+      destí (portada/interna/aparcar/descartar), responsable, notes equip.
+    - Decisió de portada amb 4 blocs (claim + mosaic arxiu + aquesta
+      setmana + participa).
+    - 5 funcionals descartades + 7 aparcaes + 5 internes.
+    - Triple capa de governança editorial (assemblea → comissió → 4 rols).
+    - SLA d'edició per tipus de contingut.
+    - Estratègia CMS per type de contingut (no global): no ampliar Decap,
+      swap alentit, fase 1 formularis, fase 2 Sveltia amb sub-usuaris.
+    - Matriu final P0 (10) / P1 (13) / P2 (10) / P3 (8) / descartades (5).
+    - Recomanació sintètica: proposta 1 com a base + elements de la 4
+      per força expressiva.
+- **Decisions clau registrades:**
+  - **Portada = 4 blocs només** (rebutgem la temptació de comunicació de
+    posar 6+). Claim sticky + mosaic arxiu (NO Unsplash) + 3-4 activitats
+    destacades + CTA sòcia amb 3 rutes secundàries.
+  - **Bloqueig crític D4 (protocol assemblea)**: sense ell, ni calendari,
+    ni reserves, ni notícies per entitat tenen legitimitat. L'assemblea
+    ha de tancar-lo abans de M4.
+  - **"Fes-te sòcia"**: motivador transversal present a home + footer.
+    Contribució més original i reproduïble de Qwen 3.7 Max (basada en
+    Can Batlló + 32° East).
+  - **Arxiu visual**: actiu únic del centre. No decoració, patrimoni.
+    Combinació fotografia + art urbà efímer = avantatge competitiu real.
+  - **CMS**: no ampliar Decap (consens 3/3 models), swap alentit amb
+    comparativa escrita, subdelegar edicions via formulari mentrestant.
+  - **Data límit 6 mesos**: rebutgem el prototip zombi indefinit.
+- **De la tasca delegada (general agent):** l'agent va extreure una
+  taula de 65 funcionalitats amb origen, descripció i públic objectiu.
+  La meva consolidació a 38 va descartar duplicats, va separar
+  "internes" de "públiques", i va fixar prioritats segons consens /
+  valor afegit / bloqueig assemblea.
+- **Iteracions fins al resultat:** 1 (tasca delegada + escriptura del
+  document).
+- **Tokens aprox.:** no instrumentats. **Temps aprox.:** ~12 minuts.
+- **Errors comesos del model:** cap tècnic.
+- **Valoració:** 5 — Document decisiu queorta els 3 informes + les 4
+  propostes en un únic document executable. L'equip multidisciplinari
+  simulat amb discrepàncies explícites (comunicació vs UX/UI, desenvolupament
+  vs gestió cultural) aporta credibilitat i evita el biaix d'una sola veu.
+- **Notes / observacions:**
+  - El document és **decisiu, no decoratiu**: cada funcionalitat té un
+    destí i un responsable. És el primer document que pot llegir
+    assemblea + comissió + sysadmis i saber què cal fer.
+  - **Recomanació de proposta guanyadora:** proposta 1 (Nau App) com
+    base + elements de la 4 (Brutalista) per força expressiva. Proposta
+    3 (Nau Virtual) és la més expressiva però la més costosa; reserva
+    per v2.
+  - **Pròxims pasos operatius:** (a) commit + push; (b) assemblea
+    valida D4 (protocol); (c) comissió comunicació valida portada 4
+    blocs; (d) començar implementació per P0 (adreça, paleta, baseURL,
+    residents migration, formulari contacte).
+
+---
+
 ## (Reservat per a DeepSeek V4 Pro)
 
 > Quan l'usuari completi la prova amb DeepSeek V4 Pro, aquí s'hi registrarà
