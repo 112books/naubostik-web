@@ -30,4 +30,4 @@ Espai íntimm per a activitats de petit format.
 
 ### Lloguer
 
-Contacta'ns: info@naubostik.cat
+Contacta'ns: info@naubostik.com

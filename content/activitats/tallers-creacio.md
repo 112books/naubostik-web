@@ -16,4 +16,4 @@ Taller setmanal de creació artística ober a tothom qui vulgui explorar la seva
 
 **Preu:** A donatiu
 
-Més informació: tallers@naubostik.cat
+Més informació: tallers@naubostik.com

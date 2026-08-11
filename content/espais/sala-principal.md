@@ -35,4 +35,4 @@ La Sala Principal és l'espai central de Nau Bostik. Amb una capacitat per a 150
 
 ### Lloguer
 
-Contacta'ns per a preus i disponibilitat: info@naubostik.cat
+Contacta'ns per a preus i disponibilitat: info@naubostik.com

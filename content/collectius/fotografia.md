@@ -14,4 +14,4 @@ Grup de fotografs del barri que documenten la vida quotidiana i les activitats d
 
 **Ritme:** Quincenal
 
-**Contacte:** fotografia@naubostik.cat
+**Contacte:** fotografia@naubostik.com

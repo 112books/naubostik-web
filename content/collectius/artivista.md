@@ -17,4 +17,4 @@ Grup d'artistes compromesos amb la transformació social a través de l'art.
 - Mur de la memòria
 - Participació a manifestacions culturals
 
-**Contacte:** artivistes@naubostik.cat
+**Contacte:** artivistes@naubostik.com

@@ -31,4 +31,4 @@ Segon espai polivalent, perfectament comunicat amb Pb-1.
 
 ### Lloguer
 
-Contacta'ns: info@naubostik.cat
+Contacta'ns: info@naubostik.com

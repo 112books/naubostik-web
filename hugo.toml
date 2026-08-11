@@ -18,7 +18,7 @@ ignoreLogs = ['warning-goldmark-raw-html']
   tag = "tags"
 
 [params]
-  description = "Un espai cultural autogestionat a Barcelona"
+  description = "Nau Bostik. Equipament sociocultural de gestió comunitària situat al barri de La Sagrera."
 
 [[menu.main]]
   name = "Inici"

@@ -18,7 +18,7 @@ Les dades enviades a través del formulari de contacte s'utilitzen exclusivament
 
 ### Drets
 
-Pots exercir els teus drets d'accés, rectificació i supressió de les teves dades enviant un correu a info@naubostik.cat.
+Pots exercir els teus drets d'accés, rectificació i supressió de les teves dades enviant un correu a info@naubostik.com.
 
 ### Actualitzacions
 

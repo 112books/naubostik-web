@@ -13,4 +13,4 @@ Colla sardanista que promou la dansa tradicional catalana des del barri.
 
 **Horari:** Dissabtes 11h - 13h (La Nau)
 
-Més informació: sardanes@naubostik.cat
+Més informació: sardanes@naubostik.com

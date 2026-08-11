@@ -27,4 +27,4 @@ Els preus varien segons l'espai i la durada. Contacta'ns per a més informació.
 
 ### Contacte
 
-Escriu-nos a: info@naubostik.cat
+Escriu-nos a: info@naubostik.com

@@ -1,12 +1,12 @@
 +++
 title = "Benvinguts a Nau Bostik"
-date = 2026-04-01
-description = 'Un espai cultural col·laboratiu al cor de Barcelona'
+date = 2026-08-12
+description = 'Un espai cultural autogestionat al barri de la Sagrera, Barcelona'
 +++
 
 ## Nau Bostik
 
-Nau Bostik és un espai cultural autogestionat situat al barri de la Bordeta, a Barcelona. Un espai on conviuen projectes artístics, socials i comunitaris.
+Nau Bostik és un equipament sociocultural de gestió comunitària situat a l'antiga fàbrica de la Bostik, al barri de la Sagrera, a Barcelona. Un espai on conviuen projectes artístics, socials i comunitaris.
 
 ### Què fem
 

@@ -32,4 +32,4 @@ Espai versàtil per a activitats diverses, ideal per a tallers, reunions i assai
 
 ### Lloguer
 
-Contacta'ns: info@naubostik.cat
+Contacta'ns: info@naubostik.com

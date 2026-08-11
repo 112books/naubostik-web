@@ -6,7 +6,7 @@ draft = false
 
 ## Nau Bostik
 
-Nau Bostik és un espai cultural autogestionat situat al barri de la Bordeta, a Barcelona. Un espai on conviuen projectes artístics, socials i comunitaris.
+Nau Bostik és un equipament sociocultural de gestió comunitària situat a l'antiga fàbrica de la Bostik, al barri de la Sagrera, a Barcelona. Un espai on conviuen projectes artístics, socials i comunitaris.
 
 ### La nostra història
 
@@ -26,6 +26,6 @@ La Nau acull diversos col·lectius que fan vida a l'espai, des de grups de fotog
 
 ### Contacte
 
-- **Correu:** info@naubostik.cat
-- **Telèfon:** 93 441 00 00
-- **Adreça:** Carrer de la Seu d'Urgell, 12, Barcelona
+- **Correu:** info@naubostik.com
+- **Telèfon:** +34 933 408 350
+- **Adreça:** Carrer Ferran Turné, 1-11, 08027 Barcelona (La Sagrera)

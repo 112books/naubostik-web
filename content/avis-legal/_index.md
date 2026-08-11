@@ -1,6 +1,6 @@
 +++
 title = "Avís legal"
-date = 2026-08-12
+date = 2026-04-01
 draft = false
 +++
 
