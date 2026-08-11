@@ -1,0 +1,51 @@
+{{- $home := site.Home.RelPermalink }}
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-section footer-about">
+        <h4>{{ site.Title }}</h4>
+        <p class="footer-tagline">Equipament sociocultural de gestió comunitària de La Sagrera.</p>
+        <address>
+          Carrer Ferran Turné, 1-11<br>
+          08027 Barcelona<br>
+          <a href="tel:+34933408350">+34 933 408 350</a><br>
+          <a href="mailto:info@naubostik.com">info@naubostik.com</a>
+        </address>
+      </div>
+      <div class="footer-section">
+        <h4>Navegació</h4>
+        <ul>
+          {{ range site.Menus.main }}
+          <li><a href="{{ .URL | relLangURL }}">{{ .Name }}</a></li>
+          {{ end }}
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Xarxes</h4>
+        <ul>
+          <li><a href="https://www.instagram.com/naubostik" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.facebook.com/labostik" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="https://x.com/naubostik" target="_blank" rel="noopener">X</a></li>
+          <li><a href="mailto:info@naubostik.com">Correu electrònic</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="{{ $home }}contacte/">Contacte</a></li>
+          <li><a href="{{ $home }}avis-legal/">Avís legal</a></li>
+          <li><a href="{{ $home }}privacitat/">Privacitat</a></li>
+          <li><a href="{{ $home }}cookies/">Cookies</a></li>
+          <li><a href="{{ $home }}accessibilitat/">Accessibilitat</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; {{ now.Year }} {{ site.Title }} · Contingut sota llicència CC BY-SA 4.0</p>
+      <p class="footer-powered">
+        <a href="https://www.linuxbcn.com" target="_blank" rel="noopener">Powered by LinuxBCN</a>
+        <span class="footer-powered-reveal">· programari lliure i sobirania digital</span>
+      </p>
+    </div>
+  </div>
+</footer>

@@ -1,52 +1,41 @@
 {{ define "main" }}
 
 <section class="hero">
-  <div class="hero-content">
-    <h1>{{ site.Title }}</h1>
-    <p>{{ site.Params.description | default "Un espai cultural autogestionat" }}</p>
-  </div>
-  <div class="slideshow">
-    <div class="slideshow-inner">
-      <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=1200')">
-        <div class="slide-content">
-          <h2>Cultura al barri</h2>
-          <p>Activitats obertes a tothom</p>
-        </div>
-      </div>
-      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200')">
-        <div class="slide-content">
-          <h2>Art i creativitat</h2>
-          <p>Tallers i espais de creació</p>
-        </div>
-      </div>
-      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1200')">
-        <div class="slide-content">
-          <h2>Comunitat</h2>
-          <p>Un espai de trobada</p>
-        </div>
-      </div>
-    </div>
-    <div class="slideshow-dots">
-      <span class="dot active"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
+  <p class="hero-claim">✊ La Sagrera necessita més un centre cultural que una estació d'Alta Velocitat.</p>
+  <div class="hero-card hero-placeholder">
+    <p class="hero-kicker">Nau Bostik</p>
+    <h1>Un espai cultural autogestionat<br>a la Sagrera</h1>
+    <p class="hero-sub">Equipament sociocultural de gestió comunitària. 30 col·lectius · 4 plantes · fotografia, art urbà i creació.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="{{ "activitats/" | relLangURL }}">Agenda</a>
+      <a class="btn btn-secondary" href="{{ "qui-som/" | relLangURL }}">Coneix la nau</a>
     </div>
   </div>
 </section>
 
 <section class="section">
   <div class="section-header">
-    <h2 class="section-title">Pròximes activitats</h2>
-    <a href="{{ "activitats/" | absLangURL }}" class="section-link">Veure agenda completa &rarr;</a>
+    <h2 class="section-title">Aquesta setmana</h2>
+    <a href="{{ "activitats/" | relLangURL }}" class="section-link">Veure agenda &rarr;</a>
   </div>
   <div class="grid-3">
     {{ range first 3 (where site.RegularPages "Section" "activitats") }}
     <div class="card">
       <h3><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
       <p>{{ .Summary }}</p>
+      <a class="card-link" href="{{ .RelPermalink }}">Detalls &rarr;</a>
     </div>
     {{ end }}
   </div>
+</section>
+
+<section class="section section-metric">
+  <h2 class="section-title">Nau Bostik en 30 segons</h2>
+  <ul class="metric-list">
+    <li>30 entitats · 4 plantes</li>
+    <li>Autogestionat · La Sagrera</li>
+    <li>Fotografia + art urbà + creació</li>
+  </ul>
 </section>
 
 {{ with where site.RegularPages "Section" "noticies" }}
@@ -54,7 +43,7 @@
 <section class="section">
   <div class="section-header">
     <h2 class="section-title">Notícies</h2>
-    <a href="{{ "noticies/" | absLangURL }}" class="section-link">Veure totes &rarr;</a>
+    <a href="{{ "noticies/" | relLangURL }}" class="section-link">Veure totes &rarr;</a>
   </div>
   <ul class="post-list">
     {{ range first 3 . }}
@@ -72,7 +61,7 @@
 <section class="section">
   <div class="section-header">
     <h2 class="section-title">Col·lectius</h2>
-    <a href="{{ "collectius/" | absLangURL }}" class="section-link">Coneixe'ls &rarr;</a>
+    <a href="{{ "collectius/" | relLangURL }}" class="section-link">Coneixe'ls &rarr;</a>
   </div>
   <div class="grid-3">
     {{ range first 3 (where site.RegularPages "Section" "collectius") }}
@@ -87,7 +76,7 @@
 <section class="section">
   <div class="section-header">
     <h2 class="section-title">Espais</h2>
-    <a href="{{ "espais/" | absLangURL }}" class="section-link">Veure tots &rarr;</a>
+    <a href="{{ "espais/" | relLangURL }}" class="section-link">Veure tots &rarr;</a>
   </div>
   <div class="grid-3">
     {{ range first 3 (where site.RegularPages "Section" "espais") }}

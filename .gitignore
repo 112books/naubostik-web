@@ -15,3 +15,6 @@ Thumbs.db
 
 # Git
 .git/
+
+# Time tracking
+.taques/

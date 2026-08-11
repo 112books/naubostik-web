@@ -2,7 +2,7 @@ baseURL = 'https://112books.github.io/naubostik-web/'
 languageCode = 'ca'
 locale = 'ca'
 title = 'Nau Bostik'
-theme = "thema"
+theme = "NauBostik"
 
 ignoreLogs = ['warning-goldmark-raw-html']
 
