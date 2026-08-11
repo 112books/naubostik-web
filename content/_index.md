@@ -1,6 +1,6 @@
 +++
 title = "Benvinguts a Nau Bostik"
-date = 2026-08-12
+date = 2026-04-01
 description = 'Un espai cultural autogestionat al barri de la Sagrera, Barcelona'
 +++
 

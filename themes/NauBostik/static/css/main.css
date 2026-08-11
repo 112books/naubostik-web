@@ -92,6 +92,45 @@ img {
   color: var(--color-primary);
 }
 
+.site-logo {
+  display: inline-flex;
+  align-items: center;
+}
+
+.site-logo img {
+  width: 72px;
+  height: auto;
+  display: block;
+}
+
+.claim-bar {
+  background: #14130f;
+  color: #f5efe4;
+  border-bottom: 3px solid var(--color-accent);
+  position: relative;
+  z-index: 110;
+}
+
+.claim-bar-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0.55rem 0;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.claim-bar-fist {
+  color: var(--color-accent);
+  margin-right: 0.5rem;
+  letter-spacing: 0;
+}
+
 .main-nav {
   display: flex;
   align-items: center;

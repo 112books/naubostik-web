@@ -1,5 +1,7 @@
 <div class="container header-inner">
-  <a href="{{ site.Home.RelPermalink }}" class="site-title">{{ site.Title }}</a>
+  <a href="{{ site.Home.RelPermalink }}" class="site-logo" aria-label="Nau Bostik — anar a l'inici">
+    <img src="{{ "img/logo-nb-taronja.jpg" | relURL }}" alt="Logo Nau Bostik" width="72" height="68">
+  </a>
   <nav class="main-nav">
     {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
   </nav>
