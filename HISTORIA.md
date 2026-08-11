@@ -906,3 +906,53 @@ ruting a `glm-5.2` (Z.ai / origen GLM). Sessió serves com a baseline.
 
 > Mantenir un apartat `## <Model>` per a cada nou model provat, ordenat
 > cronològicament dins de cada model. Això facilita la comparativa.
+
+---
+
+## DeepSeek V4 Flash (opencode/deepseek-v4-flash-free)
+
+### 2026-08-12 — FASE 0: identitat industrial + dades reals (inici de producció)
+
+- **Model + provider:** `opencode/deepseek-v4-flash-free`
+- **Tasca:** Executar la FASE 0 del pla: iniciar la producció sobre el repo
+  `naubostik-web`, aplicant les decisions ja preses (rename tema, footer,
+  paleta, adreça, identitat de portada P1).
+- **Abast:** Codi i continguts. Sense tocar producció (`naubostik.com`).
+- **Decisions preses prèvies aplicades:**
+  - Rename del tema `thema` → `NauBostik` (primer commit net).
+  - Portada: proposta **P1 «La Nau App»** (bottom-nav mobile + cards,
+    claim fundacional sticky).
+  - Slideshow Unsplash eliminat → hero amb card estàtica (mai Unsplash en
+    producció).
+  - Corporatiu: paleta taronja real `#e75112` (Ze verifica a `naubostik.com`),
+    domini `info@naubostik.com`, adreça Ferran Turné 1-11, 08027 (Sagrera).
+  - Toc industrial lleuger a superfícies (formigó càlid, cantonades rectes,
+    filigranes taronja), sense estètica cyberpunk.
+- **Fitxers creats:**
+  - `themes/NauBostik/` (rename de `themes/thema/`).
+  - `content/avis-legal/_index.md`, `content/cookies/_index.md`,
+    `content/accessibilitat/_index.md`.
+- **Fitxers modificats:**
+  - `hugo.toml` (theme + meta description), `themes/NauBostik/static/css/main.css`,
+    `themes/NauBostik/layouts/_partials/{header,footer}.html`,
+    `themes/NauBostik/layouts/home.html`, `themes/NauBostik/static/js/main.js`,
+    `content/{_index,qui-som,contacte,privacitat}/_index.md` i 11 fitxers amb
+    domini erroni `.cat`.
+- **Mètriques:** 6 blocs de treball dins la FASE 0; 5 commits + 5 pushes
+  (`6af2964`, `fb6bd5d`, `9c4e695` + els de contacte i peces). Build de
+  51 pàgines sense errors. L'estat de la etapa s'ha pujat a GitHub Pages
+  (staging) de forma automàtica.
+- **Errades comeses i resolució:**
+  - Les 3 pàgines legals no es renderitzaven (0 pàgines al `public/`).
+    Causa: `date` de frontmatter al futur/avui (`2026-08-12`). Solució:
+    establir `date = 2026-04-01` (coherent amb la resta del contingut).
+  - Recordatori de «mode plan/read-only» que bloquejava edicions; resolt en
+    mode build.
+- **Valoració subjectiva:** 4 — Execució correcta i ordenada per blocs,
+  orientació a decisions ja preses estalviant temps, control de qualitat
+  (build + pàgines legals). Sense rework significatiu.
+- **Notes:** L'usuari ha demanat treballar «per blocs» i pujar cada canvi
+  per seguir l'evolució de la feina; els 3 blocs d'estructures + continguts
+  ja s'han separat i pujat. Aquest repositori ara viu a
+  `~/Documents/Obsidian/naubostik.com` (repo `112books/naubostik-web`), amb
+  backup de la còpia antiga a `~/Documents/Obsidian/naubostik.com-BACKUP-JUL2026`.
