@@ -1,8 +1,61 @@
-baseURL = 'https://112books.github.io/naubostik-web/'
-languageCode = 'ca'
-locale = 'ca'
-title = 'Nau Bostik'
+# El baseURL es passa per entorn (CI/workflow GH Pages) o via flag local.
+defaultContentLanguage = 'ca'
 theme = "NauBostik"
+
+[languages]
+  [languages.ca]
+    title = 'Nau Bostik'
+    languageCode = 'ca'
+    languageName = 'Català'
+    weight = 1
+
+    [languages.ca.params]
+      description = "Nau Bostik. Equipament sociocultural de gestió comunitària situat al barri de La Sagrera."
+
+    [[languages.ca.menu.main]]
+      name = "Inici"
+      url = "/"
+      weight = 1
+
+    [[languages.ca.menu.main]]
+      name = "Activitats"
+      url = "/activitats/"
+      weight = 2
+
+    [[languages.ca.menu.main]]
+      name = "Col·lectius"
+      url = "/collectius/"
+      weight = 3
+
+    [[languages.ca.menu.main]]
+      name = "Espais"
+      url = "/espais/"
+      weight = 4
+
+    [[languages.ca.menu.main]]
+      name = "Qui som"
+      url = "/qui-som/"
+      weight = 5
+
+    [[languages.ca.menu.main]]
+      name = "Lloguer"
+      url = "/lloguer/"
+      weight = 6
+
+    [[languages.ca.menu.main]]
+      name = "Notícies"
+      url = "/noticies/"
+      weight = 7
+
+    [[languages.ca.menu.main]]
+      name = "Contacte"
+      url = "/contacte/"
+      weight = 8
+
+    [[languages.ca.menu.main]]
+      name = "Cercar"
+      url = "/cercar/"
+      weight = 9
 
 ignoreLogs = ['warning-goldmark-raw-html']
 
