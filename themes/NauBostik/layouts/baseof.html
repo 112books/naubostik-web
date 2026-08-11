@@ -11,9 +11,16 @@
 </head>
 <body>
   <div class="wrapper">
-    <div class="claim-bar" role="banner" aria-label="Lema de la nau">
+    <div class="ticker-bar" role="banner" aria-label="Lema de la nau">
       <div class="container">
-        <p class="claim-bar-text"><span class="claim-bar-fist" aria-hidden="true">&#9994;</span> La Sagrera necessita més un centre cultural que una estació d'Alta Velocitat.</p>
+        {{ with index .Site.Data "slogans" }}
+        <div class="ticker-track{{ if gt (len .slogans) 1 }} ticker-track-multi{{ end }}">
+          {{ range .slogans }}
+          <span class="ticker-item"><span class="ticker-fist" aria-hidden="true">&#9994;</span>{{ . }}</span>
+          <span class="ticker-item ticker-item-clone" aria-hidden="true"><span class="ticker-fist" aria-hidden="true">&#9994;</span>{{ . }}</span>
+          {{ end }}
+        </div>
+        {{ end }}
       </div>
     </div>
     <header class="site-header">
