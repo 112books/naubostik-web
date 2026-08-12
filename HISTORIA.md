@@ -1035,3 +1035,33 @@ ruting a `glm-5.2` (Z.ai / origen GLM). Sessió serves com a baseline.
     completa del calendari/agenda i §7.3 té la tasca d'importar
     `entitats-residents/` a `/collectius/` — totes dues autocontingudes,
     sense necessitat de preguntar res abans de començar.
+
+### 2026-08-12 (2) — Fix icones SVG del menú a GitHub Pages
+
+- **Model + provider:** `claude-sonnet-5` (Claude Code, Anthropic).
+- **Tasca:** Usuari reporta que les icones SVG del menú no es veuen a GH
+  Pages (`https://112books.github.io/naubostik-web/`).
+- **Diagnosi:** `curl` del HTML compilat en producció mostrava totes les
+  icones com el cercle genèric de fallback, no la icona específica de cada
+  secció. Causa: `themes/NauBostik/layouts/_partials/menu.html` comparava
+  `eq .URL "/activitats/"` etc., però amb `baseURL` amb subcamí
+  (`/naubostik-web/`), Hugo prefixa `.URL` de les entrades de menú amb
+  aquest subcamí (`.URL` esdevé `/naubostik-web/activitats/`), fent fallar
+  totes les comparacions exactes. En local (`baseURL` arrel, sense subcamí)
+  el bug no es reproduïa — per això va passar desapercebut a la sessió
+  anterior malgrat verificar amb `hugo --minify` localment.
+- **Fix:** `eq .URL "..."` → `strings.HasSuffix .URL "..."` per a totes les
+  entrades excepte `/` (Inici, actualment sense entrada de menú, es manté
+  amb `eq` per evitar fals positiu ja que tot URL acaba en `/`).
+- **Verificació:** build local amb `--baseURL https://112books.github.io/naubostik-web/`
+  (mateix baseURL exacte del workflow GH Pages) confirma cada icona correcta
+  abans de pujar.
+- **Fitxers modificats:** `themes/NauBostik/layouts/_partials/menu.html`.
+- **Valoració subjectiva:** 4 — bug real i ben diagnosticat amb evidència
+  (`curl` + build local amb el baseURL exacte de producció), però hauria
+  d'haver-se detectat a la sessió anterior si el build de verificació
+  s'hagués fet amb el baseURL de subcamí en lloc de `localhost:1313/`.
+- **Notes:** lliçó per a properes sessions — **verificar sempre amb el
+  `baseURL` real de l'entorn de destí** (`https://112books.github.io/naubostik-web/`
+  per staging), no només amb `localhost:1313/`, ja que bugs relacionats amb
+  subcamins no es reprodueixen en arrel.
