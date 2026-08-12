@@ -9,9 +9,6 @@ fotografies = [
   "/img/espais/la-perversa-1.jpg",
   "/img/espais/la-perversa-2.jpg",
   "/img/espais/la-perversa-3.jpg",
-  "/img/espais/la-perversa-4.jpg",
-  "/img/espais/la-perversa-5.jpg",
-  "/img/espais/la-perversa-6.jpg",
 ]
 plano = "/img/espais/la-perversa-plano.jpg"
 mail = "info@laperversa.com"
@@ -20,6 +17,7 @@ xarxes = [
   { nom = "Instagram: @la_perversa_fotografia", url = "https://www.instagram.com/la_perversa_fotografia/" },
 ]
 +++
+
 
 **La Perversa** és un espai fotogràfic autogestionat que treballa per a una fotografia social, de barri, artística, participativa i expositiva. Un espai fotogràfic, amb un profund amor per les pràctiques fotogràfiques i les seves reflexions
 

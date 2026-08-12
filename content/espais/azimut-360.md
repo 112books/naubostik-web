@@ -6,10 +6,8 @@ cedible = false
 draft = false
 logo = "/img/espais/azimut-360-logo.jpg"
 fotografies = [
-  "/img/espais/azimut-360-1.jpeg",
-  "/img/espais/azimut-360-2.jpeg",
-  "/img/espais/azimut-360-3.jpg",
-  "/img/espais/azimut-360-4.jpg",
+  "/img/espais/azimut-360-1.jpg",
+  "/img/espais/azimut-360-2.jpg",
 ]
 plano = "/img/espais/azimut-360-plano.jpg"
 mail = "info@azimut360.coop"
@@ -18,6 +16,7 @@ xarxes = [
   { nom = "Instagram: @azimut360coop", url = "https://www.instagram.com/azimut360coop/" },
 ]
 +++
+
 
 **Azimut 360**és una cooperativa especialitzada en **energia solar**. Desenvolupen **projectes d’energies renovables,** tant en l’àmbit local com internacional, per cobrir necessitats energètiques a través d’un model sostenible i respectuós amb el medi ambient. Dissenyen, instal·len i gestionen sistemes d’energia solar per promoure **l’autogestió de l’energia** a través de fonts netes i renovables.
 

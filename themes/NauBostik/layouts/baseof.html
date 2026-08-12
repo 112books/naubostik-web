@@ -31,6 +31,15 @@
     </main>
     {{ partial "footer.html" . }}
   </div>
+  <button class="scroll-top" type="button" aria-label="Tornar a dalt" title="Tornar a dalt">
+    <svg class="scroll-top-progress" viewBox="0 0 48 48" aria-hidden="true">
+      <circle class="scroll-top-track" cx="24" cy="24" r="22"></circle>
+      <circle class="scroll-top-bar" cx="24" cy="24" r="22"></circle>
+    </svg>
+    <svg class="scroll-top-arrow" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 5l7 7h-4v7H9v-7H5z"></path>
+    </svg>
+  </button>
   <script src="{{ "js/main.js" | relURL }}"></script>
 </body>
 </html>

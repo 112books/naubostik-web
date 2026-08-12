@@ -6,10 +6,8 @@ cedible = false
 draft = false
 logo = "/img/espais/fronteres-invisibles-logo.png"
 fotografies = [
-  "/img/espais/fronteres-invisibles-1.jpeg",
-  "/img/espais/fronteres-invisibles-2.jpeg",
-  "/img/espais/fronteres-invisibles-3.jpeg",
-  "/img/espais/fronteres-invisibles-4.jpeg",
+  "/img/espais/fronteres-invisibles-1.jpg",
+  "/img/espais/fronteres-invisibles-2.jpg",
 ]
 plano = "/img/espais/fronteres-invisibles-plano.jpg"
 mail = "fronteresinvisibles@naubostik.com"
@@ -18,6 +16,7 @@ xarxes = [
   { nom = "Instagram: @frinvisibles", url = "https://www.instagram.com/frinvisibles/#" },
 ]
 +++
+
 
 **Fronteres invisibles** és un projecte educatiu que trenca murs mitjançant el diàleg i la comprensió dels problemes reals que ens envolten. Mitjançant el joc treballa les migracions i tot el que es desprèn d’aquestes i lluita per combatre la desinformació, desmuntar tòpics i destruir prejudicis sobre el fenomen migratori.
 

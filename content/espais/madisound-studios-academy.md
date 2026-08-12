@@ -1,4 +1,5 @@
 +++
+plano = "/img/espais/madisound-studios-academy-plano.jpg"
 title = "Madisound Studios Academy"
 date = 2026-08-11
 ubicacio = "Primera planta"
@@ -9,9 +10,6 @@ fotografies = [
   "/img/espais/madisound-studios-academy-1.jpg",
   "/img/espais/madisound-studios-academy-2.jpg",
   "/img/espais/madisound-studios-academy-3.jpg",
-  "/img/espais/madisound-studios-academy-4.jpg",
-  "/img/espais/madisound-studios-academy-5.jpg",
-  "/img/espais/madisound-studios-academy-6.jpg",
 ]
 mail = "madisoundstudios@yahoo.com"
 web = "https://www.madisound-studios-academy.com/"
@@ -19,6 +17,7 @@ xarxes = [
   { nom = "Instagram: @madisoundstudios", url = "https://www.instagram.com/madisoundstudios/" },
 ]
 +++
+
 
 **Madisound Studios** és més que una acadèmia de cant: és una experiència enriquidora i transformadora. Un espai alternatiu on la música, la creativitat i el creixement artístic es viuen de manera pròxima i compartida. Un lloc on es respira el suport mutu, alhora que cada alumne es desenvolupa en el seu propi estil.
 

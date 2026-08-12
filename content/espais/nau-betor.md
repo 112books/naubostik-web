@@ -6,13 +6,15 @@ cedible = true
 draft = false
 fotografies = [
   "/img/espais/nau-betor-1.jpg",
-  "/img/espais/nau-betor-2.jpeg",
+  "/img/espais/nau-betor-2.jpg",
   "/img/espais/nau-betor-3.jpg",
   "/img/espais/nau-betor-4.jpg",
   "/img/espais/nau-betor-5.jpg",
 ]
 plano = "/img/espais/nau-betor-plano.jpg"
+logo = "/img/espais/nau-betor-logo.jpg"
 +++
+
 
 **La Nau Betor** és un espai diàfan, especial per reunions, plenàries, jornades, actes formals, xerrades i debats.
 
@@ -20,7 +22,7 @@ La Nau compta amb connexió amb punts de llum, muntatge de tarimes i d’equip d
 
 [DESCARREGAR DOSSIER NAU BETOR](https://drive.google.com/file/d/10L8HOltH3Zqju3OofFxchhzMkJCX13gn/view?usp=sharing)
 
-#### CARACTERÍSTIQUES
+#### Característiques
 
 * Superfície: 200 m²
 * Aforament:

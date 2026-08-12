@@ -13,7 +13,9 @@ fotografies = [
   "/img/espais/nau-km14-6.png",
 ]
 plano = "/img/espais/nau-km14-plano.jpg"
+logo = "/img/espais/nau-km14-logo.png"
 +++
+
 
 **La Nau Km14** és l’espai idoni per dur a terme concerts, grans espectacles, obres de teatre, xerrades i debats.
 
@@ -23,7 +25,7 @@ També compta amb una gran pantalla per a projeccions i un equip integrat de so.
 
 [DESCARREGAR DOSSIER NAU KM14](https://drive.google.com/file/d/1SPjNdaNFxUWBCEL_CKiOOfAWhKrgAMq8/view?usp=sharing)
 
-#### CARACTERÍSTIQUES
+#### Característiques
 
 * Superfície: 233 m²
 * Aforament:

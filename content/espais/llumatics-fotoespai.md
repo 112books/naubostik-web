@@ -11,7 +11,9 @@ web = "https://llumatics.com/"
 xarxes = [
   { nom = "Instagram: @llumatics", url = "https://www.instagram.com/llumatics/" },
 ]
+fotografies = []
 +++
+
 
 **Llumàtics**, un petit joc de paraules que vindria a significar “*influenciats per la llum*”, és una associació dedicada a la fotografía química, la de tota la vida. En aquest espai amés de treballar com a fotògrafs, impartim tallers i classes sempre relacionades amb la fotografia química, la que ens fa més feliços.
 

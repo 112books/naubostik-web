@@ -23,17 +23,18 @@
 
     {{ with .Params.fotografies }}
     {{ if gt (len .) 0 }}
-    <h2 class="espai-gallery-title">Fotografies</h2>
+    <h2 class="espai-gallery-title">Galeria</h2>
     <div class="espai-gallery">
       {{ range . }}
-      <img src="{{ . | strings.TrimPrefix "/" | relURL }}" alt="Fotografia de {{ $.Title }}" loading="lazy">
+      <a href="{{ . | strings.TrimPrefix "/" | relURL }}" class="espai-gallery-item" data-gallery="{{ $.File.BaseFileName }}">
+        <img src="{{ . | strings.TrimPrefix "/" | relURL }}" alt="Fotografia de {{ $.Title }}" loading="lazy">
+      </a>
       {{ end }}
     </div>
     {{ end }}
     {{ end }}
 
     {{ if .Params.plano }}
-    <h2 class="espai-gallery-title">Plànol</h2>
     <div class="espai-plano">
       <img src="{{ .Params.plano | strings.TrimPrefix "/" | relURL }}" alt="Plànol d'ubicació de {{ .Title }}" loading="lazy">
     </div>
@@ -47,16 +48,16 @@
   <aside class="espai-contact">
     <h2>Contacte</h2>
     {{ with $mail }}
-    <p class="espai-contact-item">Mail: <a href="mailto:{{ . }}">{{ . }}</a></p>
+    <p class="espai-contact-item">Mail: <strong><a href="mailto:{{ . }}">{{ . }}</a></strong></p>
     {{ end }}
     {{ with $web }}
-    <p class="espai-contact-item">Web: <a href="{{ . }}" target="_blank" rel="noopener">{{ . }}</a></p>
+    <p class="espai-contact-item">Web: <strong><a href="{{ . }}" target="_blank" rel="noopener">{{ . | strings.TrimPrefix "https://" | strings.TrimPrefix "http://" | strings.TrimSuffix "/" }}</a></strong></p>
     {{ end }}
     {{ with $xarxes }}
     <p class="espai-contact-item">Xarxes socials:</p>
     <ul class="espai-contact-xarxes">
       {{ range . }}
-      <li><a href="{{ .url }}" target="_blank" rel="noopener">{{ .nom }}</a></li>
+      <li><strong><a href="{{ .url }}" target="_blank" rel="noopener">{{ .nom }}</a></strong></li>
       {{ end }}
     </ul>
     {{ end }}

@@ -7,7 +7,6 @@ draft = false
 logo = "/img/espais/editorial-112-books-logo.jpg"
 fotografies = [
   "/img/espais/editorial-112-books-1.jpg",
-  "/img/espais/editorial-112-books-2.jpg",
 ]
 plano = "/img/espais/editorial-112-books-plano.jpg"
 mail = "hola@112books.eu"
@@ -16,6 +15,7 @@ xarxes = [
   { nom = "Instagram: @112books.eu", url = "https://www.instagram.com/112books.eu/" },
 ]
 +++
+
 
 **112 Books** és una editorial especialitzada en la publicació de llibres relacionats amb la fotografia. A més del nostre catàleg, oferim a professionals acompanyament i assessorament en la publicació dels seus propis llibres.
 

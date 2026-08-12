@@ -11,7 +11,9 @@ web = "https://elglobusvermell.org/"
 xarxes = [
   { nom = "Instagram: @elglobusvermell", url = "https://www.instagram.com/elglobusvermell/" },
 ]
+fotografies = []
 +++
+
 
 **El globus vermell** és un col·lectiu d’arquitectes que des del 2009 treballa amb l’objectiu de difondre el coneixement sobre l’arquitectura i la ciutat i, així, formar una ciutadania crítica i exigent envers l’entorn urbà de manera que pugui tenir un rol principal en la construcció de la ciutat.
 

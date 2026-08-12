@@ -13,7 +13,9 @@ fotografies = [
   "/img/espais/nau-53-6.jpg",
 ]
 plano = "/img/espais/nau-53-plano.jpg"
+logo = "/img/espais/nau-53-logo.jpg"
 +++
+
 
 **La Nau 53** és una sala polivalent molt àmplia i amb llum natural situada a la planta baixa de la Nau Bostik.
 
@@ -21,7 +23,7 @@ Es duen a terme xerrades, tallers, fires, rodatges i gravacions, etc.
 
 [DESCARREGAR DOSSIER NAU 53](https://drive.google.com/file/d/1wTmWk9HSv_PCek53_iYHdPo9-PUe9SwW/view?usp=sharing)
 
-#### CARACTERÍSTIQUES
+#### Característiques
 
 * 262 m²
 * Llargada: 22,8 m

@@ -5,7 +5,7 @@ ubicacio = "Segona planta"
 cedible = false
 logo = "/img/espais/b-murals-logo.jpg"
 fotografies = []
-plano = "/img/espais/planol-2a-planta.jpg"
+plano = "/img/espais/b-murals-plano.jpg"
 mail = "hola@bmurals.com"
 web = "https://www.bmurals.com"
 xarxes = [
@@ -13,5 +13,6 @@ xarxes = [
 ]
 draft = false
 +++
+
 
 **B-Murals** és un centre especialitzat en art urbà. Treballa des d'un enfocament integral que combina el suport a la creació –a través de l'impuls d'intervencions murals, residències i exposicions– amb el treball comunitari, educatiu, de reflexió i difusió d'aquesta disciplina amb voluntat de fer-la créixer i acostar-la al conjunt de la ciutadania.

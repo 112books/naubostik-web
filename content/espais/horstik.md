@@ -9,9 +9,6 @@ fotografies = [
   "/img/espais/horstik-1.jpg",
   "/img/espais/horstik-2.jpg",
   "/img/espais/horstik-3.jpg",
-  "/img/espais/horstik-4.jpg",
-  "/img/espais/horstik-5.jpg",
-  "/img/espais/horstik-6.jpg",
 ]
 plano = "/img/espais/horstik-plano.jpg"
 mail = "horstik@naubostik.com"
@@ -19,6 +16,7 @@ xarxes = [
   { nom = "Instagram: @horstik_naubostik", url = "https://www.instagram.com/horstik_naubostik/" },
 ]
 +++
+
 
 **L’Horstik**és l’hort urbà situat en una de les terrasses de la Nau Bostik, gestionat por una comunitat de voluntaris. Hi creixen tomàquets, pebrots, albergínies, pastanagues, enciams, apis, alls, cebes, escalunyes, carabassons, cogombres, carabasses… que són compartits entre la comunitat de la Bostik i que esporàdicament formen part dels dinars comunitaris que s’organitzen. Forma part de la **xarxa Barcelona+Sostenible.**
 

@@ -10,6 +10,8 @@ mail = "info@davidsunyol.com"
 xarxes = [
   { nom = "Instagram: @bostikoman", url = "https://www.instagram.com/bostikoman/" },
 ]
+fotografies = []
 +++
+
 
 **David Suñol**és editor de vídeo, càmera i fotògraf freelance.

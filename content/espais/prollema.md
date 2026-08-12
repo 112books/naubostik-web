@@ -6,12 +6,9 @@ cedible = false
 draft = false
 logo = "/img/espais/prollema-logo.png"
 fotografies = [
-  "/img/espais/prollema-1.jpeg",
-  "/img/espais/prollema-2.jpeg",
+  "/img/espais/prollema-1.jpg",
+  "/img/espais/prollema-2.jpg",
   "/img/espais/prollema-3.jpg",
-  "/img/espais/prollema-4.jpg",
-  "/img/espais/prollema-5.jpg",
-  "/img/espais/prollema-6.jpg",
 ]
 plano = "/img/espais/prollema-plano.jpg"
 mail = "prollema@prollema.org"
@@ -20,6 +17,7 @@ xarxes = [
   { nom = "INSTAGRAM: @prollema", url = "https://www.instagram.com/prollema/" },
 ]
 +++
+
 
 **Prollema** és un projecte adreçat a jovent migrat sol en situació d’exclusió social severa, que els i les capacita, prèvia formació, com a ensenyants de la seva llengua materna i els ofereix una primera experiència prelaboral. És una alternativa a la situació de desocupació forçosa del jovent participant, el qual és agent actiu i definitiu en el procés i execució de la proposta.
 

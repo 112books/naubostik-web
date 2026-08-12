@@ -12,6 +12,8 @@ fotografies = [
   "/img/espais/espais-exteriors-5.jpg",
 ]
 plano = "/img/espais/espais-exteriors-plano.jpg"
+logo = "/img/espais/espais-exteriors-logo.jpg"
 +++
+
 
 Els espais exteriors de la Nau Bostik són espais plens d’art, de murals enormes que són, en part, el segell estètic del projecte. Hi ha dos passatges principals des dels quals hi ha accés directe a les naus de la planta baixa.

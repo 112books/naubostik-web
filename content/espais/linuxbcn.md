@@ -8,7 +8,9 @@ logo = "/img/espais/linuxbcn-logo.jpg"
 plano = "/img/espais/linuxbcn-plano.jpg"
 mail = "info@linuxbcn.com"
 web = "https://linuxbcn.com/"
+fotografies = []
 +++
+
 
 **LinuxBCN** ens dediquem, des de fa més de vint anys, a oferir una completa tasca d’assessorament tecnològic a empreses de diferents àmbits i mides. Des d’assessories per tenir una presència professional a internet; no només pàgines web, sinó també xarxes socials i webapps.
 

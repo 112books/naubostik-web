@@ -7,7 +7,9 @@ draft = false
 logo = "/img/espais/lanomala-logo.jpg"
 plano = "/img/espais/lanomala-plano.jpg"
 mail = "lanomalacirc@gmail.com"
+fotografies = []
 +++
+
 
 L’Anòmala és una associació cultural sense ànim de lucre dedicada a la promoció, formació i difusió de les arts del circ a Barcelona.
 

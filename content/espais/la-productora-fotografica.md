@@ -11,7 +11,9 @@ web = "https://www.laproductorafotografica.com/"
 xarxes = [
   { nom = "Instagram: @laproductora_fotografica", url = "https://www.instagram.com/laproductora_fotografica/" },
 ]
+fotografies = []
 +++
+
 
 Som una cooperativa d’iniciativa social i sense ànim de lucre. Funcionem com a productora de fotografia documental i social. Ens encarreguem de crear, acompanyar, promoure i fer difusió de projectes fotogràfics d’actualitat social compromesa. Pensem en la fotografia com a eina de sensibilització i transformació social.
 

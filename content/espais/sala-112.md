@@ -9,11 +9,10 @@ fotografies = [
   "/img/espais/sala-112-2.jpg",
   "/img/espais/sala-112-3.jpg",
   "/img/espais/sala-112-4.jpg",
-  "/img/espais/sala-112-5.jpg",
-  "/img/espais/sala-112-6.jpg",
 ]
 plano = "/img/espais/sala-112-plano.jpg"
 +++
+
 
 **La Sala 112** és una sala polivalent diàfana, adaptada per dur a terme tota mena de xerrades, col·loquis, debats, presentacions de llibres, tallers i dinàmiques de petit i mitjà format.
 

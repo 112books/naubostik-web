@@ -11,9 +11,13 @@ fotografies = [
   "/img/espais/sala-gandul-4.jpg",
   "/img/espais/sala-gandul-5.jpg",
   "/img/espais/sala-gandul-6.jpg",
+  "/img/espais/sala-gandul-7.jpg",
+  "/img/espais/sala-gandul-8.jpg",
 ]
 plano = "/img/espais/sala-gandul-plano.jpg"
+logo = "/img/espais/sala-gandul-logo.jpg"
 +++
+
 
 La **Sala Gandul** és un espai molt ampli amb llum natural a la primera planta de la Bostik Central.
 

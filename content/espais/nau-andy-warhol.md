@@ -13,7 +13,9 @@ fotografies = [
   "/img/espais/nau-andy-warhol-6.jpg",
 ]
 plano = "/img/espais/nau-andy-warhol-plano.jpg"
+logo = "/img/espais/nau-andy-warhol-logo.jpg"
 +++
+
 
 **La Nau Andy Warhol** és una nau on conflueixen dos espais dividits per tres columnes centrals.
 
@@ -23,7 +25,7 @@ Compta amb un sistema de llums que li dona molta calidesa a l’espai.
 
 [DESCARREGAR DOSSIER ANDY WARHOL](https://drive.google.com/file/d/1al_3G5QiQm4XsoEzkqeWUtPFwEnjGcqp/view?usp=sharing)
 
-#### CARACTERÍSTIQUES
+#### Característiques
 
 * Superfície útil: 253 m²
 * Llargada: 22,8 m

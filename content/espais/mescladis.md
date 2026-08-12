@@ -9,9 +9,6 @@ fotografies = [
   "/img/espais/mescladis-1.jpg",
   "/img/espais/mescladis-2.jpg",
   "/img/espais/mescladis-3.jpg",
-  "/img/espais/mescladis-4.jpg",
-  "/img/espais/mescladis-5.jpg",
-  "/img/espais/mescladis-6.jpg",
 ]
 plano = "/img/espais/mescladis-plano.jpg"
 mail = "bostik@mescladis.org"
@@ -21,6 +18,7 @@ xarxes = [
 ]
 +++
 
+
 **Mescladís Bostik** és un espai soci gastronòmic no lucratiu, amb una proposta formativa, solidària, inclusiva i comunitària ubicat a la Nau Bostik.
 
 És el resultat de la trobada d’una iniciativa d’economia social i solidària reconeguda, la Fundació Mescladís, amb una entitat sociocultural de gestió comunitària consolidada i amb alt impacte com és la Nau Bostik.
@@ -29,6 +27,6 @@ Es planteja contribuir a erradicar la pobresa treballant per la inserció labora
 
 Així mateix, contribueix a la cohesió treballant la convivència i el coneixement mutu de la diversitat cultural del barri. Aquest treball es veurà reforçat en unir forces amb una iniciativa potent i compromesa socialment com és la Nau Bostik.
 
-**HORARI ESTIU**
+### Horari d'estiu
 
 Tancat per vacances fins el 12 de setembre 2026
