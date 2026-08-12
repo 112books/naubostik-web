@@ -77,12 +77,21 @@
     <h2 class="section-title">Espais</h2>
     <a href="{{ "espais/" | relLangURL }}" class="section-link">Veure tots &rarr;</a>
   </div>
-  <div class="grid-3">
-    {{ range first 3 (where site.RegularPages "Section" "espais") }}
-    <div class="card">
-      <h3><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
-      <p>{{ .Summary }}</p>
-    </div>
+  <div class="planta-grid">
+    {{ range first 3 (shuffle (where site.RegularPages "Section" "espais")) }}
+    <a href="{{ .RelPermalink }}" class="espai-card">
+      <div class="espai-card-image">
+        {{ $foto := "" }}
+        {{ with .Params.fotografies }}{{ $foto = index . 0 }}{{ end }}
+        {{ if not $foto }}{{ with .Params.logo }}{{ $foto = . }}{{ end }}{{ end }}
+        {{ if $foto }}
+        <img src="{{ $foto | strings.TrimPrefix "/" | relURL }}" alt="{{ .Title }}">
+        {{ else }}
+        <div class="espai-card-placeholder"><img src="{{ "img/logo-nb-taronja.jpg" | relURL }}" alt="Nau Bostik"></div>
+        {{ end }}
+      </div>
+      <h3 class="espai-card-title">{{ .Title }}</h3>
+    </a>
     {{ end }}
   </div>
 </section>
