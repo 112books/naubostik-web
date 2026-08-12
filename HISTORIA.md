@@ -1157,3 +1157,37 @@ ruting a `glm-5.2` (Z.ai / origen GLM). Sessió serves com a baseline.
   externs (font + mida, com indica la política de seguretat), disseny
   "backend-friendly" acordat amb l'usuari en lloc de hardcodejar-ho directe
   a la plantilla, verificat als dos baseURL abans de donar per bo.
+
+### 2026-08-12 (5) — Ajustos hero: text botó, contrast, sang, fletxes manuals
+
+- **Model + provider:** `claude-sonnet-5` (Claude Code, Anthropic).
+- **Tasca:** Tres peticions sobre l'slideshow del hero acabat d'afegir: (1)
+  botó "Coneix la nau" → "Coneix la Nau Bostik" (nom real); (2) botó
+  secundari transparent il·legible sobre les fotos; (3) imatge de fons a
+  sang (sense marges esquerra/dreta) amb fletxes de navegació manual al
+  fer mouse over.
+- **Fitxers modificats:**
+  - `i18n/{ca,en}.toml` — `home_btn_qui_som` actualitzat; noves claus
+    `home_hero_prev`/`home_hero_next` per als `aria-label` de les fletxes.
+  - `themes/NauBostik/layouts/home.html` — botons `.hero-arrow-prev`/
+    `.hero-arrow-next` (SVG chevron) dins `.hero-card`, fora de
+    `.hero-slideshow` (perquè no quedin `aria-hidden`).
+  - `themes/NauBostik/static/css/main.css` — `.hero-card.hero-has-photo`
+    amb tècnica de sang completa (`width:100vw` + marges negatius
+    `calc(50% - 50vw)`); `overflow-x:hidden` a `body` (evita scroll
+    horitzontal residual, efecte secundari conegut de la tècnica de sang
+    amb scrollbar vertical); `.btn-secondary` dins `.hero-has-photo` passa
+    a fons blanc sòlid en lloc de transparent; `.hero-arrow` amb opacitat 0
+    per defecte, 1 en `:hover`/`:focus-visible`.
+  - `themes/NauBostik/static/js/main.js` — `initHeroSlideshow()` reescrit:
+    `goTo(index)` compartit entre l'interval automàtic (6s) i els clics de
+    les fletxes; clic manual reinicia el temporitzador (`restart()`).
+- **Error comès i corregit:** primer intent de les fletxes les va deixar
+  totes dues apilades a dalt a l'esquerra. Causa: `.hero-card > *:not(.hero-slideshow) { position: relative; }` (specificitat 0,2,0) guanyava per
+  sobre `.hero-arrow { position: absolute; }` (0,1,0), sobreescrivint-lo.
+  Fix: `:not(.hero-slideshow):not(.hero-arrow)` per excloure-les
+  explícitament d'aquesta regla.
+- **Valoració subjectiva:** 4 — bug de specificitat CSS real detectat i
+  corregit ràpid gràcies al feedback concret de l'usuari ("surten totes
+  dues a dalt a l'esquerra"), verificat al codi font generat abans de
+  confirmar.

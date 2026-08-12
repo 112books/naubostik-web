@@ -10,6 +10,14 @@
       <div class="hero-slide{{ if eq $i 0 }} is-active{{ end }}" style="background-image:url('{{ $img.src | relURL }}')"></div>
       {{ end }}
     </div>
+    {{ if gt (len $heroImages) 1 }}
+    <button type="button" class="hero-arrow hero-arrow-prev" aria-label="{{ i18n "home_hero_prev" }}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button type="button" class="hero-arrow hero-arrow-next" aria-label="{{ i18n "home_hero_next" }}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    {{ end }}
     {{ end }}
     <p class="hero-kicker">{{ i18n "home_hero_kicker" }}</p>
     <h1>{{ i18n "home_hero_title_line1" }}<br>{{ i18n "home_hero_title_line2" }}</h1>

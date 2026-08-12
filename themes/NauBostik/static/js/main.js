@@ -21,15 +21,34 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initHeroSlideshow() {
+  const card = document.querySelector('.hero-card.hero-has-photo');
   const slides = document.querySelectorAll('.hero-slideshow .hero-slide');
-  if (slides.length < 2) return;
+  if (!card || slides.length < 2) return;
 
   let current = 0;
-  setInterval(() => {
+  let timer;
+
+  function goTo(index) {
     slides[current].classList.remove('is-active');
-    current = (current + 1) % slides.length;
+    current = (index + slides.length) % slides.length;
     slides[current].classList.add('is-active');
-  }, 6000);
+  }
+
+  function restart() {
+    clearInterval(timer);
+    timer = setInterval(() => goTo(current + 1), 6000);
+  }
+
+  const prevBtn = card.querySelector('.hero-arrow-prev');
+  const nextBtn = card.querySelector('.hero-arrow-next');
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => { goTo(current - 1); restart(); });
+  }
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => { goTo(current + 1); restart(); });
+  }
+
+  restart();
 }
 
 function initRandomEspais() {
