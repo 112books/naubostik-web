@@ -12,7 +12,7 @@
 <body>
   <div class="wrapper">
     {{ if and .IsHome (default true site.Params.showTicker) }}
-    <div class="ticker-bar" role="banner" aria-label="Lema de la nau">
+    <div class="ticker-bar" role="banner" aria-label="{{ i18n "ticker_aria" }}">
       <div class="container">
         {{ with index .Site.Data "slogans" }}
         <div class="ticker-track{{ if gt (len .slogans) 1 }} ticker-track-multi{{ end }}">
@@ -33,7 +33,7 @@
     </main>
     {{ partial "footer.html" . }}
   </div>
-  <button class="scroll-top" type="button" aria-label="Tornar a dalt" title="Tornar a dalt">
+  <button class="scroll-top" type="button" aria-label="{{ i18n "scroll_top" }}" title="{{ i18n "scroll_top" }}">
     <svg class="scroll-top-progress" viewBox="0 0 48 48" aria-hidden="true">
       <circle class="scroll-top-track" cx="24" cy="24" r="22"></circle>
       <circle class="scroll-top-bar" cx="24" cy="24" r="22"></circle>

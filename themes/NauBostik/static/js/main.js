@@ -16,7 +16,45 @@ document.addEventListener('DOMContentLoaded', function() {
   initGalleryLightbox();
   initScrollTop();
   initHeaderScroll();
+  initRandomEspais();
 });
+
+function initRandomEspais() {
+  const container = document.getElementById('espais-random');
+  const dataEl = document.getElementById('espais-data');
+  if (!container || !dataEl) return;
+
+  let espais;
+  try {
+    espais = JSON.parse(dataEl.textContent);
+  } catch (e) {
+    return;
+  }
+  if (!Array.isArray(espais) || espais.length === 0) return;
+
+  for (let i = espais.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [espais[i], espais[j]] = [espais[j], espais[i]];
+  }
+
+  const escapeHtml = (str) => String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+
+  const picks = espais.slice(0, 4);
+  container.innerHTML = picks.map((espai) => {
+    const img = '<img src="' + escapeHtml(espai.photo) + '" alt="' + escapeHtml(espai.title) + '">';
+    const imageHtml = espai.placeholder
+      ? '<div class="espai-card-placeholder">' + img + '</div>'
+      : img;
+    return '<a href="' + escapeHtml(espai.url) + '" class="espai-card">' +
+      '<div class="espai-card-image">' + imageHtml + '</div>' +
+      '<h3 class="espai-card-title">' + escapeHtml(espai.title) + '</h3>' +
+      '</a>';
+  }).join('');
+}
 
 function initHeaderScroll() {
   const body = document.body;

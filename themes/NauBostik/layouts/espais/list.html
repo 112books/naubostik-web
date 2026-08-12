@@ -1,7 +1,7 @@
 {{ define "main" }}
 <div class="page-header">
-  <h1>Espais</h1>
-  <p class="lead">Tots els espais de la Nau Bostik, edifici a edifici</p>
+  <h1>{{ i18n "espais_title" }}</h1>
+  <p class="lead">{{ i18n "espais_lead" }}</p>
 </div>
 
 {{ $espais := where site.RegularPages "Section" "espais" }}
@@ -9,7 +9,7 @@
 
 {{ if $destacats }}
 <section class="planta-section">
-  <h2 class="planta-title">Espais destacats</h2>
+  <h2 class="planta-title">{{ i18n "espais_destacats_title" }}</h2>
   <div class="planta-grid">
     {{ range $destacats }}
     <a href="{{ .RelPermalink }}" class="espai-card">
@@ -27,6 +27,7 @@
 </section>
 {{ end }}
 
+{{/* TODO→MULTII18N: noms de planta = claus de dades (Params.ubicacio al frontmatter d'espais), no traduir aquí sense also migrar el contingut */}}
 {{ range slice "Planta baixa" "Primera planta" "Segona planta" "Tercera planta" "Altres" }}
   {{ $ubicacio := . }}
   {{ $pages := where $espais "Params.ubicacio" $ubicacio }}

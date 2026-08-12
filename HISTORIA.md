@@ -1065,3 +1065,57 @@ ruting a `glm-5.2` (Z.ai / origen GLM). Sessió serves com a baseline.
   `baseURL` real de l'entorn de destí** (`https://112books.github.io/naubostik-web/`
   per staging), no només amb `localhost:1313/`, ja que bugs relacionats amb
   subcamins no es reprodueixen en arrel.
+
+### 2026-08-12 (3) — i18n de plantilles, espais 4/aleatori-real, hover accent, tooltip
+
+- **Model + provider:** `claude-sonnet-5` (Claude Code, Anthropic).
+- **Tasca:** Continuació de sessió. Quatre peticions de l'usuari: (1) tasca
+  TODO #1 — preparar `i18n/{ca,en}.toml` pensant en ampliació futura sense
+  activar-la encara; (2) color d'accent + tooltip a les icones del menú en
+  hover/secció activa; (3) portada mostri 4 espais en lloc de 3; (4) que la
+  selecció d'espais a portada sigui aleatòria **a cada visita**, no només a
+  cada build.
+- **Fitxers creats:** `i18n/ca.toml`, `i18n/en.toml` (~75 claus cobrint
+  chrome de plantilles: header, footer, home, 404, activitats, espais,
+  col·lectius, notícies, cercar).
+- **Fitxers modificats:**
+  - `themes/NauBostik/layouts/{baseof,404,home}.html`,
+    `_partials/{header,footer}.html`, `activitats/list.html`,
+    `espais/{list,single}.html`, `collectius/list.html`, `noticies/list.html`,
+    `cercar/list.html` — cadenes CA hardcodejades → `{{ i18n "clau" }}`.
+    Verificat: amb un sol idioma actiu (`languages.en` encara no definit a
+    `hugo.toml`), el HTML renderitzat és byte-a-byte idèntic a l'anterior.
+  - Excepcions **conscientment no connectades**, marcades
+    `TODO→MULTII18N` al codi: noms de planta a `espais/list.html` (claus de
+    dades `Params.ubicacio`, no purament UI), alt text amb interpolació a
+    `espais/single.html`, strings del cercador en JS inline.
+  - `themes/NauBostik/static/css/main.css` — `.main-nav a:hover/.is-active/
+    .is-ancestor` de `--color-primary` a `--color-accent`.
+  - `themes/NauBostik/layouts/_partials/menu.html` — `title="{{ .Name }}"`
+    (tooltip natiu) a cada enllaç.
+  - `themes/NauBostik/layouts/home.html` — secció Espais: `first 4` (abans
+    3); afegit `<script type="application/json" id="espais-data">` amb
+    **tots** els espais (title/url/photo/placeholder) via `jsonify | safeJS`,
+    i SSR de 4 aleatoris per build com a fallback no-JS.
+  - `themes/NauBostik/static/js/main.js` — `initRandomEspais()`: llegeix el
+    JSON, Fisher-Yates shuffle client-side, reconstrueix les 4 `.espai-card`
+    a cada càrrega de pàgina (aleatori real per visita, no només per build).
+- **Errades comeses i resoltes:**
+  - Primer intent de `{{ $espaisData | jsonify }}` dins `<script>` va
+    quedar doble-escapat (Go `html/template` tracta `<script>` com a
+    context JS i re-escapa la sortida com a string JS). Detectat comparant
+    l'HTML generat amb `json.loads` en Python (fallava el parse), corregit
+    afegint `| safeJS` per marcar el contingut com a JS ja segur.
+  - Verificat el fix **també amb el `baseURL` de subcamí exacte de GH
+    Pages** (lliçó de la sessió anterior sobre el bug d'icones), no només
+    en local — confirmat que les URLs del JSON resolen bé amb el prefix
+    `/naubostik-web/`.
+- **Valoració subjectiva:** 4 — bona cobertura d'i18n sense trencar res
+  (verificat byte-a-byte), bug de doble-escapat detectat i corregit abans
+  de pujar (no desprès d'un informe de l'usuari), aplicada la lliçó de la
+  sessió anterior de verificar amb el baseURL real abans de donar per bo.
+- **Notes:** L'usuari va confirmar explícitament que volia aleatorietat
+  *per visita*, no només per build, després de preguntar-ho amb
+  `AskUserQuestion` — sense aquesta pregunta hauria donat per bo el
+  comportament per-build ja implementat a la sessió anterior, que no
+  complia realment el que es demanava.

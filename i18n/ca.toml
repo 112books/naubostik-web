@@ -1,0 +1,85 @@
+# Cadenes d'interfície (plantilles), NO contingut de `content/`.
+# Idioma per defecte — ha de coincidir exactament amb el text que hi havia
+# hardcodejat a les plantilles abans d'aquesta extracció.
+
+# Comuns
+nav_aria = "Navegació principal"
+logo_aria = "Nau Bostik — anar a l'inici"
+scroll_top = "Tornar a dalt"
+ticker_aria = "Lema de la nau"
+cta_cessio_espais = "Cessió d'espais"
+read_more = "Detalls"
+
+# Footer
+footer_nav_title = "Navegació"
+footer_social_title = "Xarxes"
+footer_legal_title = "Legal"
+footer_email_label = "Correu electrònic"
+footer_tagline_line1 = "Equipament sociocultural"
+footer_tagline_line2 = "de gestió comunitària"
+footer_tagline_line3 = "de La Sagrera."
+footer_institutions_label = "Amb el suport institucional de"
+footer_license = "Contingut sota llicència CC BY-SA 4.0"
+footer_powered_reveal = "programari lliure i sobirania digital"
+footer_contact = "Contacte"
+footer_legal_notice = "Avís legal"
+footer_privacy = "Privacitat"
+footer_cookies = "Cookies"
+footer_accessibility = "Accessibilitat"
+
+# 404
+error_404_title = "404 - Pàgina no trobada"
+error_404_lead = "La pàgina que cerques no existeix."
+error_404_back = "Torna a l'inici"
+
+# Portada
+home_hero_kicker = "Nau Bostik"
+home_hero_title_line1 = "Espai cultural autogestionat"
+home_hero_title_line2 = "a la Sagrera"
+home_hero_sub = "Equipament sociocultural de gestió comunitària. 30 col·lectius · 4 plantes · fotografia, art urbà i creació."
+home_btn_agenda = "Agenda"
+home_btn_qui_som = "Coneix la nau"
+home_section_setmana = "Aquesta setmana"
+home_link_veure_agenda = "Veure agenda"
+home_section_metric_title = "Nau Bostik en 30 segons"
+home_metric_1 = "30 entitats · 4 plantes"
+home_metric_2 = "Autogestionat · La Sagrera"
+home_metric_3 = "Fotografia + art urbà + creació"
+home_section_noticies = "Notícies"
+home_link_veure_totes = "Veure totes"
+home_section_collectius = "Col·lectius"
+home_link_coneixels = "Coneixe'ls"
+home_section_espais = "Espais"
+home_link_veure_tots = "Veure tots"
+
+# Activitats
+activitats_title = "Activitats"
+activitats_lead = "Tallers, cursos, projeccions i activitats obertes a tothom"
+activitats_propia_title = "Programació pròpia"
+activitats_propia_desc = "Activitats organitzades per Nau Bostik"
+activitats_entitats_title = "Activitats d'entitats"
+activitats_entitats_desc = "Activitats dels col·lectius que fan vida a Nau Bostik"
+
+# Espais
+espais_title = "Espais"
+espais_lead = "Tots els espais de la Nau Bostik, edifici a edifici"
+espais_destacats_title = "Espais destacats"
+espai_cedible_badge = "Espai cedible · demana'n més informació"
+espai_gallery_title = "Galeria"
+espai_contact_mail_label = "Mail:"
+espai_contact_web_label = "Web:"
+espai_contact_xarxes_label = "Xarxes socials:"
+
+# Col·lectius
+collectius_title = "Col·lectius"
+collectius_lead = "Projectes artístics, socials i comunitaris que fan vida a la Nau"
+
+# Notícies
+noticies_title = "Notícies"
+noticies_lead = "Les últimes novetats de la Nau Bostik"
+
+# Cercar
+cercar_title = "Cercador"
+cercar_lead = "Troba el que busques a Nau Bostik"
+cercar_placeholder = "Escriu per cercar..."
+cercar_button = "Cercar"

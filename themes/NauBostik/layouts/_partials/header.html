@@ -1,9 +1,9 @@
 <div class="container header-inner">
-  <a href="{{ site.Home.RelPermalink }}" class="site-logo" aria-label="Nau Bostik — anar a l'inici">
+  <a href="{{ site.Home.RelPermalink }}" class="site-logo" aria-label="{{ i18n "logo_aria" }}">
     <img src="{{ "img/logo-nb-taronja.jpg" | relURL }}" alt="Logo Nau Bostik" width="72" height="68">
   </a>
-  <nav class="main-nav" aria-label="Navegació principal">
+  <nav class="main-nav" aria-label="{{ i18n "nav_aria" }}">
     {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
-    <a href="{{ "cessio-despais/" | absLangURL }}" class="header-cta">Cessió d'espais</a>
+    <a href="{{ "cessio-despais/" | absLangURL }}" class="header-cta">{{ i18n "cta_cessio_espais" }}</a>
   </nav>
 </div>

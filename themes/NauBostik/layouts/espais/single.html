@@ -5,11 +5,11 @@
 </div>
 
 {{ if .Params.cedible }}
-<a href="{{ "cessio-despais/" | relURL }}" class="espai-cesible-badge">Espai cedible
-  · demana'n més informació</a>
+<a href="{{ "cessio-despais/" | relURL }}" class="espai-cesible-badge">{{ i18n "espai_cedible_badge" }}</a>
 {{ end }}
 
 <div class="espai-single">
+  {{/* TODO→MULTII18N: alt text amb interpolació de .Title, pendent de decidir sintaxi i18n amb dades */}}
   {{ if .Params.logo }}
   <div class="espai-single-logo">
     <img src="{{ .Params.logo | strings.TrimPrefix "/" | relURL }}" alt="Logotip de {{ .Title }}">
@@ -23,7 +23,7 @@
 
     {{ with .Params.fotografies }}
     {{ if gt (len .) 0 }}
-    <h2 class="espai-gallery-title">Galeria</h2>
+    <h2 class="espai-gallery-title">{{ i18n "espai_gallery_title" }}</h2>
     <div class="espai-gallery">
       {{ range . }}
       <a href="{{ . | strings.TrimPrefix "/" | relURL }}" class="espai-gallery-item" data-gallery="{{ $.File.BaseFileName }}">
@@ -46,15 +46,15 @@
   {{ $xarxes := .Params.xarxes }}
   {{ if or $mail $web $xarxes }}
   <aside class="espai-contact">
-    <h2>Contacte</h2>
+    <h2>{{ i18n "footer_contact" }}</h2>
     {{ with $mail }}
-    <p class="espai-contact-item">Mail: <strong><a href="mailto:{{ . }}">{{ . }}</a></strong></p>
+    <p class="espai-contact-item">{{ i18n "espai_contact_mail_label" }} <strong><a href="mailto:{{ . }}">{{ . }}</a></strong></p>
     {{ end }}
     {{ with $web }}
-    <p class="espai-contact-item">Web: <strong><a href="{{ . }}" target="_blank" rel="noopener">{{ . | strings.TrimPrefix "https://" | strings.TrimPrefix "http://" | strings.TrimSuffix "/" }}</a></strong></p>
+    <p class="espai-contact-item">{{ i18n "espai_contact_web_label" }} <strong><a href="{{ . }}" target="_blank" rel="noopener">{{ . | strings.TrimPrefix "https://" | strings.TrimPrefix "http://" | strings.TrimSuffix "/" }}</a></strong></p>
     {{ end }}
     {{ with $xarxes }}
-    <p class="espai-contact-item">Xarxes socials:</p>
+    <p class="espai-contact-item">{{ i18n "espai_contact_xarxes_label" }}</p>
     <ul class="espai-contact-xarxes">
       {{ range . }}
       <li><strong><a href="{{ .url }}" target="_blank" rel="noopener">{{ .nom }}</a></strong></li>

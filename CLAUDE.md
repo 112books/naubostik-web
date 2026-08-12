@@ -154,11 +154,23 @@ Tot i que el contingut normal és en **català**, les parts institucionals i
 informatives tindran versió en **anglès** (i possiblement castellà, pendent).
 Hugo s'ha de configurar per a multi-idioma **sense trencar l'existent**:
 
-Plantejament tècnic previst (no implementat encara):
-- Crear `i18n/ca.toml`, `i18n/en.toml` (i `es.toml` si escau) amb les cadenes de
-  les plantilles (`header`, `footer`, dates, literals de seccions).
+**Fet (2026-08-12):** `i18n/ca.toml` i `i18n/en.toml` creats i plantilles
+connectades amb `{{ i18n "clau" }}` (baseof, header, footer, home, 404,
+activitats, espais, col·lectius, notícies, cercar). Amb un sol idioma actiu
+(`[languages.en]` encara no existeix a `hugo.toml`), el HTML renderitzat és
+byte-a-byte idèntic al d'abans — `i18n` només fa fallback a `ca.toml`.
+Pendent conscientment (marcat `TODO→MULTII18N` al codi, no bloqueja res):
+- Noms de planta a `espais/list.html` (són claus de dades, `Params.ubicacio`
+  del frontmatter, no purament UI — traduir-los implica migrar contingut).
+- Alt text amb interpolació (`Logotip de {{ .Title }}` etc.) a
+  `espais/single.html` — necessita sintaxi `i18n` amb dades, no resolta.
+- Strings del cercador JS (`cercar/list.html`, resultats de cerca en temps
+  real) — viuen dins `<script>`, requereixen passar-los com a variable JS.
+
+Pendent de decidir (no bloqueja res, `content/` es queda 100% català
+mentre no es decideixi):
 - Adoptar estructura per directori (`/content/ca/`, `/content/en/`) **o** per
-  suffix (`activitats/concert-primavera.ca.md`, `.en.md`). Decisió pendent.
+  suffix (`activitats/concert-primavera.ca.md`, `.en.md`).
 - `hugo.toml`:
   ```toml
   defaultContentLanguage = "ca"
@@ -301,7 +313,8 @@ Objectius transversals (no-negociables):
       noindex, ja implementat); doc interna es queda a `naubostik-web`
       mentre sigui privat, es mouria a `naubostik-DOCS` (repo ja existent)
       només si `naubostik-web` passa a públic. Veure §2.
-- [ ] Definir i emplenar `i18n/{ca,en}.toml` i marcar cadenes hardcodeades.
+- [x] Definir i emplenar `i18n/{ca,en}.toml` i marcar cadenes hardcodeades.
+      Fet 2026-08-12, veure §5 per detall i excepcions marcades TODO→MULTII18N.
 - [ ] Auditar Decap CMS i decidir substitut (Sveltia / Tina / headless).
       Nota: Decap (`static/admin/`) ja s'ha esborrat al commit `c79ca04`
       ("neteja Decap"), no substituït encara — ara mateix el site NO té CMS.

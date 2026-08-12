@@ -1,0 +1,84 @@
+# English translations, ready for when [languages.en] is added to hugo.toml.
+# Not active yet — defaultContentLanguage stays "ca" until content/en/ exists.
+
+# Common
+nav_aria = "Main navigation"
+logo_aria = "Nau Bostik — go to homepage"
+scroll_top = "Back to top"
+ticker_aria = "Nau Bostik slogan"
+cta_cessio_espais = "Space rental"
+read_more = "Details"
+
+# Footer
+footer_nav_title = "Navigation"
+footer_social_title = "Social media"
+footer_legal_title = "Legal"
+footer_email_label = "Email"
+footer_tagline_line1 = "Community-managed"
+footer_tagline_line2 = "cultural facility"
+footer_tagline_line3 = "in La Sagrera."
+footer_institutions_label = "With institutional support from"
+footer_license = "Content under CC BY-SA 4.0 license"
+footer_powered_reveal = "free software and digital sovereignty"
+footer_contact = "Contact"
+footer_legal_notice = "Legal notice"
+footer_privacy = "Privacy"
+footer_cookies = "Cookies"
+footer_accessibility = "Accessibility"
+
+# 404
+error_404_title = "404 - Page not found"
+error_404_lead = "The page you're looking for doesn't exist."
+error_404_back = "Back to homepage"
+
+# Homepage
+home_hero_kicker = "Nau Bostik"
+home_hero_title_line1 = "Self-managed cultural space"
+home_hero_title_line2 = "in La Sagrera"
+home_hero_sub = "Community-managed cultural facility. 30 collectives · 4 floors · photography, street art and creation."
+home_btn_agenda = "Events"
+home_btn_qui_som = "About the space"
+home_section_setmana = "This week"
+home_link_veure_agenda = "View events"
+home_section_metric_title = "Nau Bostik in 30 seconds"
+home_metric_1 = "30 organisations · 4 floors"
+home_metric_2 = "Self-managed · La Sagrera"
+home_metric_3 = "Photography + street art + creation"
+home_section_noticies = "News"
+home_link_veure_totes = "View all"
+home_section_collectius = "Collectives"
+home_link_coneixels = "Meet them"
+home_section_espais = "Spaces"
+home_link_veure_tots = "View all"
+
+# Events
+activitats_title = "Events"
+activitats_lead = "Workshops, courses, screenings and activities open to everyone"
+activitats_propia_title = "Nau Bostik programme"
+activitats_propia_desc = "Activities organised by Nau Bostik"
+activitats_entitats_title = "Collective-run activities"
+activitats_entitats_desc = "Activities run by the collectives based at Nau Bostik"
+
+# Spaces
+espais_title = "Spaces"
+espais_lead = "All the spaces at Nau Bostik, floor by floor"
+espais_destacats_title = "Featured spaces"
+espai_cedible_badge = "Available for rent · request more info"
+espai_gallery_title = "Gallery"
+espai_contact_mail_label = "Email:"
+espai_contact_web_label = "Website:"
+espai_contact_xarxes_label = "Social media:"
+
+# Collectives
+collectius_title = "Collectives"
+collectius_lead = "Artistic, social and community projects based at the Nau"
+
+# News
+noticies_title = "News"
+noticies_lead = "The latest news from Nau Bostik"
+
+# Search
+cercar_title = "Search"
+cercar_lead = "Find what you're looking for at Nau Bostik"
+cercar_placeholder = "Type to search..."
+cercar_button = "Search"

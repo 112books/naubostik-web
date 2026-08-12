@@ -2,38 +2,38 @@
 
 <section class="hero">
   <div class="hero-card hero-placeholder">
-    <p class="hero-kicker">Nau Bostik</p>
-    <h1>Espai cultural autogestionat<br>a la Sagrera</h1>
-    <p class="hero-sub">Equipament sociocultural de gestió comunitària. 30 col·lectius · 4 plantes · fotografia, art urbà i creació.</p>
+    <p class="hero-kicker">{{ i18n "home_hero_kicker" }}</p>
+    <h1>{{ i18n "home_hero_title_line1" }}<br>{{ i18n "home_hero_title_line2" }}</h1>
+    <p class="hero-sub">{{ i18n "home_hero_sub" }}</p>
     <div class="hero-actions">
-      <a class="btn btn-primary" href="{{ "activitats/" | relLangURL }}">Agenda</a>
-      <a class="btn btn-secondary" href="{{ "qui-som/" | relLangURL }}">Coneix la nau</a>
+      <a class="btn btn-primary" href="{{ "activitats/" | relLangURL }}">{{ i18n "home_btn_agenda" }}</a>
+      <a class="btn btn-secondary" href="{{ "qui-som/" | relLangURL }}">{{ i18n "home_btn_qui_som" }}</a>
     </div>
   </div>
 </section>
 
 <section class="section">
   <div class="section-header">
-    <h2 class="section-title">Aquesta setmana</h2>
-    <a href="{{ "activitats/" | relLangURL }}" class="section-link">Veure agenda &rarr;</a>
+    <h2 class="section-title">{{ i18n "home_section_setmana" }}</h2>
+    <a href="{{ "activitats/" | relLangURL }}" class="section-link">{{ i18n "home_link_veure_agenda" }} &rarr;</a>
   </div>
   <div class="grid-3">
     {{ range first 3 (where site.RegularPages "Section" "activitats") }}
     <div class="card">
       <h3><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
       <p>{{ .Summary }}</p>
-      <a class="card-link" href="{{ .RelPermalink }}">Detalls &rarr;</a>
+      <a class="card-link" href="{{ .RelPermalink }}">{{ i18n "read_more" }} &rarr;</a>
     </div>
     {{ end }}
   </div>
 </section>
 
 <section class="section section-metric">
-  <h2 class="section-title">Nau Bostik en 30 segons</h2>
+  <h2 class="section-title">{{ i18n "home_section_metric_title" }}</h2>
   <ul class="metric-list">
-    <li>30 entitats · 4 plantes</li>
-    <li>Autogestionat · La Sagrera</li>
-    <li>Fotografia + art urbà + creació</li>
+    <li>{{ i18n "home_metric_1" }}</li>
+    <li>{{ i18n "home_metric_2" }}</li>
+    <li>{{ i18n "home_metric_3" }}</li>
   </ul>
 </section>
 
@@ -41,8 +41,8 @@
 {{ if . }}
 <section class="section">
   <div class="section-header">
-    <h2 class="section-title">Notícies</h2>
-    <a href="{{ "noticies/" | relLangURL }}" class="section-link">Veure totes &rarr;</a>
+    <h2 class="section-title">{{ i18n "home_section_noticies" }}</h2>
+    <a href="{{ "noticies/" | relLangURL }}" class="section-link">{{ i18n "home_link_veure_totes" }} &rarr;</a>
   </div>
   <ul class="post-list">
     {{ range first 3 . }}
@@ -59,8 +59,8 @@
 
 <section class="section">
   <div class="section-header">
-    <h2 class="section-title">Col·lectius</h2>
-    <a href="{{ "collectius/" | relLangURL }}" class="section-link">Coneixe'ls &rarr;</a>
+    <h2 class="section-title">{{ i18n "home_section_collectius" }}</h2>
+    <a href="{{ "collectius/" | relLangURL }}" class="section-link">{{ i18n "home_link_coneixels" }} &rarr;</a>
   </div>
   <div class="grid-3">
     {{ range first 3 (where site.RegularPages "Section" "collectius") }}
@@ -74,10 +74,12 @@
 
 <section class="section">
   <div class="section-header">
-    <h2 class="section-title">Espais</h2>
-    <a href="{{ "espais/" | relLangURL }}" class="section-link">Veure tots &rarr;</a>
+    <h2 class="section-title">{{ i18n "home_section_espais" }}</h2>
+    <a href="{{ "espais/" | relLangURL }}" class="section-link">{{ i18n "home_link_veure_tots" }} &rarr;</a>
   </div>
-  <div class="planta-grid">
+  {{/* SSR: 4 aleatoris per build (fallback no-JS). JS: en reescull 4 de tots
+       els espais a cada visita/recàrrega, veure initRandomEspais a main.js */}}
+  <div class="planta-grid" id="espais-random">
     {{ range first 4 (shuffle (where site.RegularPages "Section" "espais")) }}
     <a href="{{ .RelPermalink }}" class="espai-card">
       <div class="espai-card-image">
@@ -94,5 +96,16 @@
     </a>
     {{ end }}
   </div>
+  {{ $nbPlaceholder := "img/logo-nb-taronja.jpg" | relURL }}
+  {{ $espaisData := slice }}
+  {{ range where site.RegularPages "Section" "espais" }}
+    {{ $foto := "" }}
+    {{ with .Params.fotografies }}{{ $foto = index . 0 }}{{ end }}
+    {{ if not $foto }}{{ with .Params.logo }}{{ $foto = . }}{{ end }}{{ end }}
+    {{ $photoURL := $nbPlaceholder }}
+    {{ if $foto }}{{ $photoURL = $foto | strings.TrimPrefix "/" | relURL }}{{ end }}
+    {{ $espaisData = $espaisData | append (dict "title" .Title "url" .RelPermalink "photo" $photoURL "placeholder" (not $foto)) }}
+  {{ end }}
+  <script type="application/json" id="espais-data">{{ $espaisData | jsonify | safeJS }}</script>
 </section>
 {{ end }}

@@ -1,11 +1,11 @@
 {{ define "main" }}
 <div class="page-header">
-  <h1>Activitats</h1>
-  <p class="lead">Tallers, cursos, projeccions i activitats obertes a tothom</p>
+  <h1>{{ i18n "activitats_title" }}</h1>
+  <p class="lead">{{ i18n "activitats_lead" }}</p>
 </div>
 
-<h2 class="agenda-section-title">Programació pròpia</h2>
-<p class="agenda-section-desc">Activitats organitzades per Nau Bostik</p>
+<h2 class="agenda-section-title">{{ i18n "activitats_propia_title" }}</h2>
+<p class="agenda-section-desc">{{ i18n "activitats_propia_desc" }}</p>
 
 <ul class="post-list">
   {{ range where (where site.RegularPages "Section" "activitats") "Params.entitat" nil }}
@@ -19,8 +19,8 @@
   {{ end }}
 </ul>
 
-<h2 class="agenda-section-title">Activitats d'entitats</h2>
-<p class="agenda-section-desc">Activitats dels col·lectius que fan vida a Nau Bostik</p>
+<h2 class="agenda-section-title">{{ i18n "activitats_entitats_title" }}</h2>
+<p class="agenda-section-desc">{{ i18n "activitats_entitats_desc" }}</p>
 
 <ul class="post-list">
   {{ range where (where site.RegularPages "Section" "activitats") "Params.entitat" "!=" nil }}

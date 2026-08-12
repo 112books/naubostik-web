@@ -1,12 +1,12 @@
 {{ define "main" }}
 <div class="page-header">
-  <h1>Cercador</h1>
-  <p class="lead">Troba el que busques a Nau Bostik</p>
+  <h1>{{ i18n "cercar_title" }}</h1>
+  <p class="lead">{{ i18n "cercar_lead" }}</p>
 </div>
 
 <form id="search-form" class="search-form">
-  <input type="text" id="search-input" placeholder="Escriu per cercar..." autocomplete="off">
-  <button type="submit">Cercar</button>
+  <input type="text" id="search-input" placeholder="{{ i18n "cercar_placeholder" }}" autocomplete="off">
+  <button type="submit">{{ i18n "cercar_button" }}</button>
 </form>
 
 <div id="search-results"></div>
@@ -15,6 +15,8 @@
 const searchInput = document.getElementById('search-input');
 const searchResults = document.getElementById('search-results');
 
+// TODO→MULTII18N: cadenes de resultat ("No s'han trobat...", "resultat(s) trobat(s):")
+// hardcodejades en JS més avall, pendents de moure a i18n via una variable JS injectada.
 const pages = [
 {{ range where site.RegularPages "Section" "!=" "" }}
   { title: "{{ .Title | replaceRE "\"" "\\x22" }}", url: "{{ .RelPermalink }}", section: "{{ .Section }}", excerpt: "{{ .Summary | truncate 100 | replaceRE "\"" "\\x22" }}" },

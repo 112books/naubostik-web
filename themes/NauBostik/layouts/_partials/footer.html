@@ -3,11 +3,11 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-section footer-about">
-        <a href="{{ $home }}" class="site-logo footer-logo" aria-label="Nau Bostik — anar a l'inici">
+        <a href="{{ $home }}" class="site-logo footer-logo" aria-label="{{ i18n "logo_aria" }}">
           <img src="{{ "img/logos/logo-nau-bostik.png" | relURL }}" alt="Logo Nau Bostik" width="150" height="142">
         </a>
         <h4 class="footer-title">{{ site.Title }}</h4>
-        <p class="footer-tagline"><em>Equipament sociocultural<br>de gestió comunitària<br>de La Sagrera.</em></p>
+        <p class="footer-tagline"><em>{{ i18n "footer_tagline_line1" }}<br>{{ i18n "footer_tagline_line2" }}<br>{{ i18n "footer_tagline_line3" }}</em></p>
         <address>
           <a href="{{ $home }}contacte/">Carrer Ferran Turné, 1-11<br>
           08027 Barcelona</a><br>
@@ -16,7 +16,7 @@
         </address>
       </div>
       <div class="footer-section">
-        <h4>Navegació</h4>
+        <h4>{{ i18n "footer_nav_title" }}</h4>
         <ul>
           {{ range site.Menus.main }}
           <li><a href="{{ .URL | absLangURL }}">{{ .Name }}</a></li>
@@ -24,28 +24,28 @@
         </ul>
       </div>
       <div class="footer-section">
-        <h4>Xarxes</h4>
+        <h4>{{ i18n "footer_social_title" }}</h4>
         <ul>
           <li><a href="https://www.instagram.com/naubostik" target="_blank" rel="noopener">Instagram</a></li>
           <li><a href="https://www.facebook.com/labostik" target="_blank" rel="noopener">Facebook</a></li>
           <li><a href="https://www.youtube.com/@naubostik" target="_blank" rel="noopener">YouTube</a></li>
           <li><a href="https://t.me/+xDigYtrppCY3MzY0" target="_blank" rel="noopener">Telegram</a></li>
-          <li><a href="mailto:info@naubostik.com">Correu electrònic</a></li>
+          <li><a href="mailto:info@naubostik.com">{{ i18n "footer_email_label" }}</a></li>
         </ul>
       </div>
       <div class="footer-section">
-        <h4>Legal</h4>
+        <h4>{{ i18n "footer_legal_title" }}</h4>
         <ul>
-          <li><a href="{{ $home }}contacte/">Contacte</a></li>
-          <li><a href="{{ $home }}avis-legal/">Avís legal</a></li>
-          <li><a href="{{ $home }}privacitat/">Privacitat</a></li>
-          <li><a href="{{ $home }}cookies/">Cookies</a></li>
-          <li><a href="{{ $home }}accessibilitat/">Accessibilitat</a></li>
+          <li><a href="{{ $home }}contacte/">{{ i18n "footer_contact" }}</a></li>
+          <li><a href="{{ $home }}avis-legal/">{{ i18n "footer_legal_notice" }}</a></li>
+          <li><a href="{{ $home }}privacitat/">{{ i18n "footer_privacy" }}</a></li>
+          <li><a href="{{ $home }}cookies/">{{ i18n "footer_cookies" }}</a></li>
+          <li><a href="{{ $home }}accessibilitat/">{{ i18n "footer_accessibility" }}</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-logos">
-      <span class="footer-logos-label">Amb el suport institucional de</span>
+      <span class="footer-logos-label">{{ i18n "footer_institutions_label" }}</span>
       <div class="footer-logos-list">
         <a href="https://web.gencat.cat/" target="_blank" rel="noopener" title="Generalitat de Catalunya">
           <img src="{{ "img/logos/generalitat-catalunya.jpg" | relURL }}" alt="Generalitat de Catalunya" width="200" height="52" loading="lazy">
@@ -59,10 +59,10 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; {{ now.Year }} {{ site.Title }} · Contingut sota llicència CC BY-SA 4.0</p>
+      <p>&copy; {{ now.Year }} {{ site.Title }} · {{ i18n "footer_license" }}</p>
       <p class="footer-powered">
         <a href="https://www.linuxbcn.com" target="_blank" rel="noopener">Powered by LinuxBCN</a>
-        <span class="footer-powered-reveal">· programari lliure i sobirania digital</span>
+        <span class="footer-powered-reveal">· {{ i18n "footer_powered_reveal" }}</span>
       </p>
     </div>
   </div>
