@@ -85,3 +85,13 @@ cercar_title = "Cercador"
 cercar_lead = "Troba el que busques a Nau Bostik"
 cercar_placeholder = "Escriu per cercar..."
 cercar_button = "Cercar"
+
+# Agenda
+agenda_view_month = "Mes"
+agenda_view_week = "Setmana"
+agenda_filter_all = "Totes"
+agenda_archive_show = "Veure arxiu"
+agenda_archive_hide = "Amagar arxiu"
+
+[agenda_week_of]
+other = "Setmana del {{ .monday }} al {{ .sunday }}"

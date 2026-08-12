@@ -84,3 +84,13 @@ cercar_title = "Search"
 cercar_lead = "Find what you're looking for at Nau Bostik"
 cercar_placeholder = "Type to search..."
 cercar_button = "Search"
+
+# Agenda
+agenda_view_month = "Month"
+agenda_view_week = "Week"
+agenda_filter_all = "All"
+agenda_archive_show = "Show archive"
+agenda_archive_hide = "Hide archive"
+
+[agenda_week_of]
+other = "Week of {{ .monday }} to {{ .sunday }}"
