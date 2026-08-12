@@ -15,7 +15,7 @@
     <a href="{{ .RelPermalink }}" class="espai-card">
       <div class="espai-card-image">
         {{ if .Params.logo }}
-        <img src="{{ .Params.logo }}" alt="{{ .Title }}">
+        <img src="{{ .Params.logo | strings.TrimPrefix "/" | relURL }}" alt="{{ .Title }}">
         {{ else }}
         <div class="espai-card-placeholder"><span>{{ substr .Title 0 1 }}</span></div>
         {{ end }}
@@ -38,7 +38,7 @@
       <a href="{{ .RelPermalink }}" class="espai-card">
         <div class="espai-card-image">
           {{ if .Params.logo }}
-          <img src="{{ .Params.logo }}" alt="{{ .Title }}">
+          <img src="{{ .Params.logo | strings.TrimPrefix "/" | relURL }}" alt="{{ .Title }}">
           {{ else }}
           <div class="espai-card-placeholder"><span>{{ substr .Title 0 1 }}</span></div>
           {{ end }}

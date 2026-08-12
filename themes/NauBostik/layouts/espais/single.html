@@ -5,14 +5,14 @@
 </div>
 
 {{ if .Params.cedible }}
-<a href="/cessio-despais/" class="espai-cesible-badge">Espai cedible
+<a href="{{ "cessio-despais/" | relURL }}" class="espai-cesible-badge">Espai cedible
   · demana'n més informació</a>
 {{ end }}
 
 <div class="espai-single">
   {{ if .Params.logo }}
   <div class="espai-single-logo">
-    <img src="{{ .Params.logo }}" alt="Logotip de {{ .Title }}">
+    <img src="{{ .Params.logo | strings.TrimPrefix "/" | relURL }}" alt="Logotip de {{ .Title }}">
   </div>
   {{ end }}
 
@@ -26,7 +26,7 @@
     <h2 class="espai-gallery-title">Fotografies</h2>
     <div class="espai-gallery">
       {{ range . }}
-      <img src="{{ . }}" alt="Fotografia de {{ $.Title }}" loading="lazy">
+      <img src="{{ . | strings.TrimPrefix "/" | relURL }}" alt="Fotografia de {{ $.Title }}" loading="lazy">
       {{ end }}
     </div>
     {{ end }}
@@ -35,7 +35,7 @@
     {{ if .Params.plano }}
     <h2 class="espai-gallery-title">Plànol</h2>
     <div class="espai-plano">
-      <img src="{{ .Params.plano }}" alt="Plànol d'ubicació de {{ .Title }}" loading="lazy">
+      <img src="{{ .Params.plano | strings.TrimPrefix "/" | relURL }}" alt="Plànol d'ubicació de {{ .Title }}" loading="lazy">
     </div>
     {{ end }}
   </div>
