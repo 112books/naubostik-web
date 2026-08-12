@@ -2,6 +2,8 @@
 title = "Fira d'intercanvi"
 date = 2026-04-20
 draft = false
+hora = "10:00"
+planta = "Nau Bostik"
 +++
 
 Vine a intercanviar objectes, llibres i roba amb altres veïns!

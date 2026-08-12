@@ -2,6 +2,8 @@
 title = "Nou curs de guitarra"
 date = 2026-04-10
 draft = false
+hora = "18:00"
+planta = "Nau Bostik"
 +++
 
 Inicia't en el món de la guitarra amb el nostre nou curs!

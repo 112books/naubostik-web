@@ -3,6 +3,8 @@ title = "Artivisme今夜"
 date = 2026-04-22
 entitat = "Colectiu Artivista"
 draft = false
+hora = "19:00"
+planta = "Nau Bostik"
 +++
 
 Nit d'art i activisme amb el Colectiu Artivista.

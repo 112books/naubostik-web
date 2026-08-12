@@ -3,6 +3,8 @@ title = "Trobada de fotografia"
 date = 2026-04-15
 entitat = "Grup de Fotografia"
 draft = false
+hora = "19:00"
+planta = "Nau Bostik"
 +++
 
 Trobada setmanal del Grup de Fotografia de Nau Bostik.

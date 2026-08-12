@@ -2,6 +2,8 @@
 title = "Cicle de cinema independent"
 date = 2026-04-11
 draft = false
+hora = "20:00"
+planta = "Nau Bostik"
 +++
 
 Projecció setmanal de pel·lícules independents i documentals.

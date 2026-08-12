@@ -3,6 +3,8 @@ title = "Sardanes a la Nau"
 date = 2026-04-12
 entitat = "Colla Sardanista del Poble-sec"
 draft = false
+hora = "11:00"
+planta = "Nau Bostik"
 +++
 
 Trobada setmanal per ballar sardanes a l'espai exterior de Nau Bostik.

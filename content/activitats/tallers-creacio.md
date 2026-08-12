@@ -2,6 +2,8 @@
 title = "Tallers de creació"
 date = 2026-04-07
 draft = false
+hora = "18:00"
+planta = "Nau Bostik"
 +++
 
 Taller setmanal de creació artística ober a tothom qui vulgui explorar la seva creativitat.
