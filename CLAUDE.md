@@ -42,10 +42,18 @@ canviar per entorn sense tocar el contingut.
 | **Producció** | `naubostik.com` (en pausa)          | `https://naubostik.com/`                           | públic quan estigui llest |
 
 \* Si s'usa subpath a GH Pages cal baseURL amb `/naubostik-web/` i assegurar que
-tots els `relURL` / `relLangURL` funcionin. Decisió pendent: branca `gh-pages`
-dins el mateix repo privat, o repo separat de docs públiques. La **documentació
-interna (CLAUDE.md, HISTORIA.md, auditoria, consultoria) NO ha de ser pública**;
-freqüentment és millor un repo privat independent per a la docs.
+tots els `relURL` / `relLangURL` funcionin.
+
+**Decidit (2026-08-12):** GH Pages queda tal com està, **sense auth**. La
+protecció és `robots.txt` + meta `noindex` (§8.1, ja implementat) + repo
+privat + no compartir la URL. La **documentació interna** (`CLAUDE.md`,
+`HISTORIA.md`, auditories, consultories) es queda en aquest mateix repo
+mentre sigui privat; si mai cal fer-la privada de debò (p. ex. quan
+`naubostik-web` passi a públic en producció), es mou a
+`git@github.com:112books/naubostik-DOCS.git`, que ja existeix i ja centralitza
+la resta de documents privats del projecte. GitHub no permet visibilitat
+mixta dins un sol repo (ni per carpeta ni per branca), per això dos repos
+separats és l'estratègia adoptada — no un submòdul ni cap altra dreçera.
 
 Configuració recomanada per multi-entorn a `hugo.toml` (pendent d'implementar):
 
@@ -190,7 +198,66 @@ Marcat com a prioritari per l'equip (ordre = prioritat proposada):
    en totes les categories, no depèn de JS per pintar contingut crític (cercador
    i slideshow han de tenir fallback no-JS).
 
-Objectius因此 transversals (no-negociables):
+### 6.1 Especificació: Calendari / agenda d'activitats (punt 3)
+
+Autocontinguda perquè qualsevol IA la pugui executar sense preguntar més.
+
+**Estat actual (punt de partida):**
+- `content/activitats/*.md` — 8 fitxers, frontmatter TOML amb `title`, `date`,
+  `draft`, i opcionalment `entitat = "Nom"` (si no hi és, és programació
+  pròpia de Nau Bostik). No hi ha camp `hora` ni `planta`/`espai`: l'horari
+  viu dins el cos en prosa lliure ("**Data:** 22 d'abril, 19h - 23h"), cosa
+  que fa impossible ordenar/filtrar per hora.
+- `themes/NauBostik/layouts/activitats/list.html` — llista plana en dues
+  seccions (`where ... "Params.entitat" nil` / `"!=" nil`), sense vista
+  calendari, sense filtres, sense agrupació per data.
+- `content/espais/*.md` usa `planta = "Planta Baixa"|"Primera Planta"|
+  "Segona Planta"|"Tercera Planta"` — reutilitzar exactament aquests 4 valors
+  si s'afegeix `planta` a activitats (evita micro-taxonomies duplicades).
+- Patró JS existent a `themes/NauBostik/static/js/main.js` (vanilla, sense
+  framework, `DOMContentLoaded` + funcions `initX()`) i cercador amb JS
+  inline a `content/cercar/` — seguir el mateix estil, no introduir cap
+  llibreria ni build step.
+
+**Feina a fer (en ordre):**
+1. **Frontmatter:** afegir a `content/activitats/*.md` (als 8 fitxers
+   existents i a l'arquetip corresponent si n'hi ha a `archetypes/`):
+   - `hora = "19:00"` (string `HH:MM`, 24h) — extreure-la del text lliure
+     actual de cada fitxer, no inventar-la.
+   - `planta = "..."` (opcional, un dels 4 valors de dalt) només si
+     l'activitat té espai físic conegut; deixar-lo buit si no es pot
+     determinar amb la informació actual — **no inventar dades**.
+2. **Agrupació per data:** al template, substituir el `range` pla per
+   `.Pages.GroupByDate "2006-01-02"` (vista setmanal) o `"2006-01"` (vista
+   mensual) sobre `where site.RegularPages "Section" "activitats"`. Decisió:
+   fer les dues vistes amb un toggle simple (botons "Setmana"/"Mes"), estat
+   només visual via JS (classe al `<body>` o al contenidor), sense JS
+   trencar el contingut si està desactivat — mostrar per defecte la vista
+   mensual en `<noscript>`/render inicial i el toggle és millora progressiva.
+3. **Filtres (entitat + planta):** UI amb `<select>` o botons, JS vanilla
+   que amaga/mostra `.post-card` per `data-entitat`/`data-planta` als
+   `<li>` (afegir aquests `data-*` al template, com ja es fa a
+   `.espai-card` — comprovar patró a `themes/NauBostik/layouts/espais/
+   list.html` abans d'escriure). Sense JS: totes les targetes visibles
+   (fallback no-JS obligatori, veure objectiu transversal §6 punt 6).
+4. **CSS:** reutilitzar variables existents (`--color-*`, `--radius-sharp`,
+   `--spacing`) i classes en el mateix estil que `.post-card`/`.espai-card`
+   (BEM-lleuger, `.agenda-*`). No Tailwind, no preprocessador — vanilla CSS
+   a `themes/NauBostik/static/css/main.css`.
+5. **No tocar:** `data/activitats.yaml` — es descarta aquesta opció (viscuda
+   al roadmap com "a considerar"); la font de veritat és el frontmatter de
+   `content/activitats/*.md`, no dupliquem dades a `data/`.
+
+**Criteris d'acceptació:**
+- `hugo --minify` sense errors ni warnings nous.
+- Vista calendari funciona amb JS desactivat (mostra totes les activitats
+  agrupades per data, sense trencar-se).
+- Filtres entitat/planta funcionen amb JS activat, sense recarregar pàgina.
+- Provat a 360px, 768px, >=1100px (§7.5).
+- `HISTORIA.md` actualitzat amb l'entrada de sessió (secció 9 d'aquest
+  fitxer defineix el format).
+
+Objectius transversals (no-negociables):
 - Cap secret ni credencials al repo (només `config.yml` de Decap sense tokens;
   la resta via variables d'entorn / Netlify Identity).
 - Tots els commits a `main` passen pel workflow de GitHub Pages per defecte.
@@ -221,20 +288,38 @@ Objectius因此 transversals (no-negociables):
 - **No pujar a producció** (`naubostik.com`) sota cap concepte fins avís explícit.
 
 ### 7.3 Llistat de tasques tècniques actuals (TODO)
-- [ ] Corregir adreça/arreu → Sagrera, Ferran Turné 1-11, 08027 (Bordeta i
-      Seu d'Urgell són erronis). Repassar: `content/_index.md`,
-      `content/qui-som/_index.md`, `content/contacte/_index.md` i el mapa OSM.
-- [ ] Preparar `hugo.toml` per multi-entorn (treure `baseURL` hardcoded).
-- [ ] Decidir estratègia de branca / repo pel staging privat i la doc interna.
+- [x] Corregir adreça/arreu → Sagrera, Ferran Turné 1-11, 08027 (Bordeta i
+      Seu d'Urgell eren erronis). Verificat 2026-08-12: `content/_index.md`,
+      `content/qui-som/_index.md`, `content/contacte/_index.md` ja diuen
+      Ferran Turné 1-11/Sagrera. Coordenades del mapa OSM (41.424277,
+      2.192917) contrastades amb Wikidata (Q27907418: 41.4245, 2.1930) — OK.
+- [x] Preparar `hugo.toml` per multi-entorn (treure `baseURL` hardcoded).
+      Ja fet al commit `c79ca04`: cap `baseURL` a `hugo.toml`, es passa via
+      flag/CI (`.github/workflows/hugo.yml` ja l'especifica).
+- [x] Decidir estratègia de branca / repo pel staging privat i la doc interna.
+      Decidit 2026-08-12: GH Pages sense auth (protecció = robots.txt +
+      noindex, ja implementat); doc interna es queda a `naubostik-web`
+      mentre sigui privat, es mouria a `naubostik-DOCS` (repo ja existent)
+      només si `naubostik-web` passa a públic. Veure §2.
 - [ ] Definir i emplenar `i18n/{ca,en}.toml` i marcar cadenes hardcodeades.
 - [ ] Auditar Decap CMS i decidir substitut (Sveltia / Tina / headless).
-- [x] Implementar autenticació d'accés al staging (Netlify Edge Function amb
-      Basic Auth + env vars `SITE_USER`/`SITE_PASS`). Pendent: configurar les
-      env vars al tauler de Netlify i decidir què fer amb el workflow GH Pages.
+      Nota: Decap (`static/admin/`) ja s'ha esborrat al commit `c79ca04`
+      ("neteja Decap"), no substituït encara — ara mateix el site NO té CMS.
+- [x] Auth de staging: decidit 2026-08-12 **no restaurar-la**. GH Pages es
+      queda sense usuari/contrasenya; protecció = no-indexació (§8.1, ja
+      implementat: `robots.txt` bloqueja `*` i bots d'IA coneguts, meta
+      `noindex/nofollow/noarchive` a `baseof.html`) + repo privat + no
+      compartir la URL. La Netlify Edge Function amb Basic Auth (esborrada
+      a `c79ca04`) queda descartada mentre no es torni a Netlify.
 - [ ] Decidir estratègia de `sitemap.xml` mentre el site és privat (no exposar).
 - [ ] Auditoria accessibilitat + Lighthouse de Referència (baseline).
 - [ ] Crear `README.md` (resum públic del projecte) quan pugem a producció.
 - [ ] Mantenir `HISTORIA.md` actualitzada cada sessió amb un model d'IA.
+- [ ] Implementar calendari/agenda d'activitats — espec completa a §6.1.
+- [ ] Importar contingut d'`https://naubostik.com/entitats-residents/` (site
+      antic en producció) a `/collectius/` (site nou). Comprovar quines
+      entitats hi falten respecte al contingut actual de `content/collectius/`
+      i crear les fitxes que faltin amb dades reals (no placeholder).
 
 ### 7.4 Comandes habituals
 ```bash
@@ -289,20 +374,23 @@ d'entrenament d'IA, i **l'accés al staging ha de requerir autenticació**.
 > `robots.txt` no el referencia. Quan es faci producció pública, caldrà: (a)
   treure el `Disallow: /`, (b) permetre bots, (c) exposar sitemap.
 
-### 8.2 Accés amb usuari (pendent d'implementar)
+### 8.2 Accés amb usuari (descartat, 2026-08-12)
 
 Un site 100% estàtic no pot fer `auth` al client. Cal fer-ho a la **capa
-d'allotjament**. GitHub Pages **no suporta autenticació**; per tant, mentre
-vulguem "calgui usuari", el **staging no pot ser GH Pages públic**.
+d'allotjament**. GitHub Pages **no suporta autenticació**.
 
-Solució adoptada (implementada):
+**Decidit:** no implementar auth mentre el staging sigui GH Pages. La
+protecció és no-indexació (§8.1) + repo privat + no compartir la URL. Si en
+el futur cal auth real, cal tornar a Netlify — referència de la solució que
+hi havia abans (esborrada al commit `c79ca04`, "neteja Netlify/Decap"):
 
 - **Netlify Edge Function amb HTTP Basic Auth** — `netlify/edge-functions/basic-auth.js`
-  llegeix les variables d'entorn `SITE_USER` i `SITE_PASS` del tauler de Netlify
-  i tanca tot el site (`path = "/*"` a `netlify.toml`) darrere un popup d'autenticació
-  bàsica. És l'equivalent funcional d'un `.htaccess`/`.htpasswd` d'Apache sobre
-  un allotjament estàtic. Compatible amb Decap CMS. Zero cost al plan gratuït
-  de Netlify; reversible esborrant un fitxer.
+  llegia les variables d'entorn `SITE_USER` i `SITE_PASS` del tauler de Netlify
+  i tancava tot el site (`path = "/*"` a `netlify.toml`) darrere un popup d'autenticació
+  bàsica. Equivalent funcional d'un `.htaccess`/`.htpasswd` d'Apache sobre
+  un allotjament estàtic. Zero cost al plan gratuït de Netlify. Si es vol
+  recuperar, cal recrear tots dos fitxers (veure historial git de `c79ca04`
+  per referència del contingut anterior).
 
 Alternatives considerades i descartades:
 - **Netlify Password Protection** (feature nativa, requereix plan Pro+): descartada

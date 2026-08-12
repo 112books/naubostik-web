@@ -1,7 +1,7 @@
 +++
 title = "Benvinguts a Nau Bostik"
 date = 2026-04-01
-description = 'Un espai cultural autogestionat al barri de la Sagrera, Barcelona'
+description = 'Espai cultural autogestionat al barri de la Sagrera, Barcelona'
 +++
 
 ## Nau Bostik

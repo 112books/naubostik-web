@@ -13,11 +13,6 @@ theme = "NauBostik"
       description = "Nau Bostik. Equipament sociocultural de gestió comunitària situat al barri de La Sagrera."
 
     [[languages.ca.menu.main]]
-      name = "Inici"
-      url = "/"
-      weight = 1
-
-    [[languages.ca.menu.main]]
       name = "Activitats"
       url = "/activitats/"
       weight = 2
@@ -36,11 +31,6 @@ theme = "NauBostik"
       name = "Qui som"
       url = "/qui-som/"
       weight = 5
-
-    [[languages.ca.menu.main]]
-      name = "Cessió d'espais"
-      url = "/cessio-despais/"
-      weight = 6
 
     [[languages.ca.menu.main]]
       name = "Notícies"
@@ -76,11 +66,6 @@ ignoreLogs = ['warning-goldmark-raw-html']
   showTicker = true
 
 [[menu.main]]
-  name = "Inici"
-  url = "/"
-  weight = 1
-
-[[menu.main]]
   name = "Activitats"
   url = "/activitats/"
   weight = 2
@@ -99,11 +84,6 @@ ignoreLogs = ['warning-goldmark-raw-html']
   name = "Qui som"
   url = "/qui-som/"
   weight = 5
-
-[[menu.main]]
-  name = "Cessió d'espais"
-  url = "/cessio-despais/"
-  weight = 6
 
 [[menu.main]]
   name = "Notícies"

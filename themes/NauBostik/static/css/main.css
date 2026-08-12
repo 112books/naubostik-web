@@ -254,8 +254,8 @@ body.is-scrolled .site-logo img {
 
 .menu-icon {
   display: none;
-  width: 22px;
-  height: 22px;
+  width: 19px;
+  height: 19px;
   flex-shrink: 0;
 }
 
@@ -269,6 +269,16 @@ body.is-scrolled .main-nav .menu-icon {
 
 body.is-scrolled .main-nav a {
   gap: 0;
+  padding: 0.4rem;
+  border-radius: var(--radius-sharp);
+}
+
+body.is-scrolled .main-nav a:hover {
+  background: var(--color-surface);
+}
+
+body.is-scrolled .main-nav ul {
+  gap: 0.15rem;
 }
 
 .header-cta {

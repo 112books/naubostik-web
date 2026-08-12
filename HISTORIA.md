@@ -956,3 +956,82 @@ ruting a `glm-5.2` (Z.ai / origen GLM). Sessió serves com a baseline.
   ja s'han separat i pujat. Aquest repositori ara viu a
   `~/Documents/Obsidian/naubostik.com` (repo `112books/naubostik-web`), amb
   backup de la còpia antiga a `~/Documents/Obsidian/naubostik.com-BACKUP-JUL2026`.
+
+---
+
+## Claude Sonnet 5 (Claude Code / Anthropic)
+
+### 2026-08-12 — Icones sticky header, neteja menú, correcció textual, auditoria TODO i decisions d'infraestructura
+
+- **Model + provider:** `claude-sonnet-5` (Claude Code, Anthropic).
+- **Tasca:** Continuació de sessió d'opencode (canvi orfe a `menu.html` sense
+  documentar ni funcional). Polir sticky header amb icones SVG ja existent,
+  netejar menú de navegació, ajust textual d'H1/meta description, i revisar
+  l'estat real de les tasques TODO de `CLAUDE.md` §7.3 abans de passar la mà
+  a una altra IA per continuar amb l'agenda d'activitats i els col·lectius.
+- **Abast:** Codi (templates, CSS, `hugo.toml`) + documentació (`CLAUDE.md`).
+  Sense tocar producció.
+- **Fitxers modificats:**
+  - `themes/NauBostik/layouts/_partials/menu.html` — eliminats `data-url`/
+    `data-name` orfes (afegits per una sessió d'opencode anterior sense cap
+    consumidor JS ni CSS); `stroke-width` SVG 2→1.5.
+  - `themes/NauBostik/static/css/main.css` — `.menu-icon` 22px→19px, padding
+    + hover suau a mode `is-scrolled` (abans `gap:0` sense respir visual).
+  - `hugo.toml` — eliminada entrada de menú "Cessió d'espais" (duplicada amb
+    el botó `header-cta` ja destacat a la dreta) i "Inici" (redundant amb el
+    logo, que ja enllaça a `/`) dels dos blocs (`languages.ca.menu.main` i
+    `menu.main` fallback).
+  - `themes/NauBostik/layouts/home.html` — H1 "Un espai cultural
+    autogestionat" → "Espai cultural autogestionat" (més directe, sense
+    article, coherent amb el to de la meta description).
+  - `content/_index.md` — mateix canvi a `description` del frontmatter.
+  - `CLAUDE.md` — auditoria completa de §7.3 (TODO): 3 tasques marcades
+    `[x]` que ja estaven fetes però no documentades (adreça/coordenades OSM
+    verificades contra Wikidata, `hugo.toml` multi-entorn, estratègia
+    branca/repo); espec completa nova §6.1 per al calendari/agenda
+    d'activitats (per a la propera IA); tasca nova d'importar
+    `entitats-residents/` del site antic a `/collectius/`.
+- **Errades detectades (no pròpies d'aquesta sessió, trobades en revisar):**
+  - Regressió real: el commit `c79ca04` ("neteja Netlify/Decap") va esborrar
+    `netlify.toml` i `netlify/edge-functions/basic-auth.js`, però `CLAUDE.md`
+    encara documentava l'auth de staging com a `[x]` implementada. Resolt
+    per decisió explícita de l'usuari: no restaurar auth, GH Pages es queda
+    protegit només per no-indexació (`robots.txt` + meta `noindex`, que ja
+    hi eren i funcionaven) + repo privat + URL no compartida.
+  - Glitch de caràcters espuris (`今夜`, `因此`) trobat al títol
+    `content/activitats/artivisme.md` i, transcrit sense voler, al propi
+    `CLAUDE.md` en editar-lo — corregit al segon cas; el primer (contingut)
+    queda pendent de repàs global (no forma part de cap tasca del TODO
+    encara, val la pena un `grep` ampli en algun moment).
+  - Canvi orfe d'opencode a `menu.html` (`data-url`/`data-name` sense
+    consumidor) — no estava documentat a `HISTORIA.md` ni commitejat;
+    eliminat en aquesta sessió després de confirmar que el sticky
+    header+icones ja funcionava sense ell (funcionalitat ja implementada al
+    commit `b9752b1`, l'usuari havia confós "no funciona" amb "les icones
+    són lletges").
+- **Decisions d'infraestructura preses amb l'usuari (documentades a
+  `CLAUDE.md` §2/§7.3/§8.2):**
+  - Dos repos separats (`naubostik-web` codi, `naubostik-DOCS` privat) es
+    queden com estan; no submòdul. Doc interna es mouria a `naubostik-DOCS`
+    només si `naubostik-web` passa a públic.
+  - Staging GH Pages sense auth (decisió conscient, no oblit): protecció
+    via no-indexació ja implementada, no calia restaurar Netlify Basic Auth.
+- **Iteracions fins al resultat:** 1 per tasca, sense rework.
+- **Temps aprox.:** sessió llarga, múltiples micro-tasques encadenades
+  (~45-60 min estimats).
+- **Valoració subjectiva:** 5 — cap regressió introduïda, verificació activa
+  (WebSearch per confirmar coordenades GPS reals abans d'assumir-les
+  correctes o incorrectes), decisions d'infraestructura consultades amb
+  `AskUserQuestion` en lloc de decidir unilateralment, documentació
+  actualitzada per eliminar contradiccions doc/realitat en comptes de
+  limitar-se a la tasca demanada.
+- **Notes / observacions per a la comparativa:**
+  - Diferència notable amb sessions d'opencode: aquí es va detectar una
+    regressió de seguretat (auth de staging esborrada sense actualitzar
+    `CLAUDE.md`) que no formava part de la tasca demanada, simplement
+    apareguda en revisar context abans d'actuar. Val la pena que la
+    comparativa entre models inclogui aquest tipus de detecció incidental.
+  - Handoff explícit per a la propera IA: `CLAUDE.md` §6.1 té l'espec
+    completa del calendari/agenda i §7.3 té la tasca d'importar
+    `entitats-residents/` a `/collectius/` — totes dues autocontingudes,
+    sense necessitat de preguntar res abans de començar.
