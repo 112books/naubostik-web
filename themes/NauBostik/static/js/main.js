@@ -17,7 +17,20 @@ document.addEventListener('DOMContentLoaded', function() {
   initScrollTop();
   initHeaderScroll();
   initRandomEspais();
+  initHeroSlideshow();
 });
+
+function initHeroSlideshow() {
+  const slides = document.querySelectorAll('.hero-slideshow .hero-slide');
+  if (slides.length < 2) return;
+
+  let current = 0;
+  setInterval(() => {
+    slides[current].classList.remove('is-active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('is-active');
+  }, 6000);
+}
 
 function initRandomEspais() {
   const container = document.getElementById('espais-random');

@@ -1119,3 +1119,41 @@ ruting a `glm-5.2` (Z.ai / origen GLM). Sessió serves com a baseline.
   `AskUserQuestion` — sense aquesta pregunta hauria donat per bo el
   comportament per-build ja implementat a la sessió anterior, que no
   complia realment el que es demanava.
+
+### 2026-08-12 (4) — Slideshow de fons al hero amb fotos reals de producció
+
+- **Model + provider:** `claude-sonnet-5` (Claude Code, Anthropic).
+- **Tasca:** Usuari demana que el hero de portada tingui un slideshow de
+  fons amb les imatges reals que ja hi ha a `naubostik.com` (producció),
+  funcionament similar; i que la llista d'imatges es pugui editar fàcilment
+  "des del backend".
+- **Origen de les imatges:** `naubostik.com` usa el plugin WordPress "Cryout
+  Serious Slider" amb 6 fotos (`item-image`, classes `slide-1`..`slide-6`).
+  Confirmat amb l'usuari abans de baixar-les (font, mida ~1.3MB total, 6
+  arxius JPG 152-328KB cada un) — són fotos pròpies de la Nau, no Unsplash,
+  compleix la política del projecte (§6 CLAUDE.md).
+- **"Backend" real:** el site no té CMS (Decap esborrat a `c79ca04`).
+  Solució acordada amb l'usuari: `data/hero-slideshow.yaml`, mateix patró
+  que `data/slogans.yaml` (ja existent, usat pel ticker) — editable a mà o
+  per qualsevol futur CMS que llegeixi `data/`.
+- **Fitxers creats:**
+  - `static/img/hero/hero-{1..6}.jpg` — baixades de `naubostik.com`.
+  - `data/hero-slideshow.yaml` — llista `images: [{src, alt}, ...]`.
+- **Fitxers modificats:**
+  - `themes/NauBostik/layouts/home.html` — llegeix
+    `index site.Data "hero-slideshow"`, renderitza un `.hero-slide` per
+    imatge dins `.hero-slideshow`; classe `hero-has-photo` condicional al
+    `.hero-card` (evita dependre de `:has()` per compatibilitat).
+  - `themes/NauBostik/static/css/main.css` — crossfade (`opacity` +
+    `transition`), overlay fosc (`linear-gradient`) per llegibilitat del
+    text blanc, primer slide `is-active` renderitzat al servidor (fallback
+    no-JS: es veu la primera foto fixa).
+  - `themes/NauBostik/static/js/main.js` — `initHeroSlideshow()`: interval
+    de 6s, alterna `is-active` entre `.hero-slide`.
+- **Verificació:** build local i amb `baseURL` de subcamí de GH Pages —
+  totes 6 imatges resolen bé als dos casos (168 static files, +6 respecte
+  build anterior).
+- **Valoració subjectiva:** 5 — permisos demanats abans de baixar arxius
+  externs (font + mida, com indica la política de seguretat), disseny
+  "backend-friendly" acordat amb l'usuari en lloc de hardcodejar-ho directe
+  a la plantilla, verificat als dos baseURL abans de donar per bo.
