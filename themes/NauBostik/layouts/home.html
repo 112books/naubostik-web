@@ -78,7 +78,7 @@
     <a href="{{ "espais/" | relLangURL }}" class="section-link">Veure tots &rarr;</a>
   </div>
   <div class="planta-grid">
-    {{ range first 3 (shuffle (where site.RegularPages "Section" "espais")) }}
+    {{ range first 4 (shuffle (where site.RegularPages "Section" "espais")) }}
     <a href="{{ .RelPermalink }}" class="espai-card">
       <div class="espai-card-image">
         {{ $foto := "" }}
