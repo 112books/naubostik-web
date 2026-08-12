@@ -11,6 +11,7 @@
 </head>
 <body>
   <div class="wrapper">
+    {{ if and .IsHome (default true site.Params.showTicker) }}
     <div class="ticker-bar" role="banner" aria-label="Lema de la nau">
       <div class="container">
         {{ with index .Site.Data "slogans" }}
@@ -23,6 +24,7 @@
         {{ end }}
       </div>
     </div>
+    {{ end }}
     <header class="site-header">
       {{ partial "header.html" . }}
     </header>

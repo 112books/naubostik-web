@@ -15,7 +15,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
   initGalleryLightbox();
   initScrollTop();
+  initHeaderScroll();
 });
+
+function initHeaderScroll() {
+  const body = document.body;
+  const THRESHOLD = 70;
+
+  function update() {
+    const sc = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+    body.classList.toggle('is-scrolled', sc > THRESHOLD);
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
+}
 
 function initGalleryLightbox() {
   const groups = {};

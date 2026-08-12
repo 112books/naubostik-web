@@ -4,9 +4,9 @@
     <div class="footer-grid">
       <div class="footer-section footer-about">
         <a href="{{ $home }}" class="site-logo footer-logo" aria-label="Nau Bostik — anar a l'inici">
-          <img src="{{ "img/logo-nb-taronja.jpg" | relURL }}" alt="Logo Nau Bostik" width="48" height="45">
+          <img src="{{ "img/logos/logo-nau-bostik.png" | relURL }}" alt="Logo Nau Bostik" width="150" height="142">
         </a>
-        <h4>{{ site.Title }}</h4>
+        <h4 class="footer-title">{{ site.Title }}</h4>
         <p class="footer-tagline"><em>Equipament sociocultural<br>de gestió comunitària<br>de La Sagrera.</em></p>
         <address>
           <a href="{{ $home }}contacte/">Carrer Ferran Turné, 1-11<br>
@@ -19,7 +19,7 @@
         <h4>Navegació</h4>
         <ul>
           {{ range site.Menus.main }}
-          <li><a href="{{ .URL | relLangURL }}">{{ .Name }}</a></li>
+          <li><a href="{{ .URL | absLangURL }}">{{ .Name }}</a></li>
           {{ end }}
         </ul>
       </div>
@@ -29,6 +29,7 @@
           <li><a href="https://www.instagram.com/naubostik" target="_blank" rel="noopener">Instagram</a></li>
           <li><a href="https://www.facebook.com/labostik" target="_blank" rel="noopener">Facebook</a></li>
           <li><a href="https://www.youtube.com/@naubostik" target="_blank" rel="noopener">YouTube</a></li>
+          <li><a href="https://t.me/+xDigYtrppCY3MzY0" target="_blank" rel="noopener">Telegram</a></li>
           <li><a href="mailto:info@naubostik.com">Correu electrònic</a></li>
         </ul>
       </div>
@@ -41,6 +42,20 @@
           <li><a href="{{ $home }}cookies/">Cookies</a></li>
           <li><a href="{{ $home }}accessibilitat/">Accessibilitat</a></li>
         </ul>
+      </div>
+    </div>
+    <div class="footer-logos">
+      <span class="footer-logos-label">Amb el suport institucional de</span>
+      <div class="footer-logos-list">
+        <a href="https://web.gencat.cat/" target="_blank" rel="noopener" title="Generalitat de Catalunya">
+          <img src="{{ "img/logos/generalitat-catalunya.jpg" | relURL }}" alt="Generalitat de Catalunya" width="200" height="52" loading="lazy">
+        </a>
+        <a href="https://www.diba.cat/" target="_blank" rel="noopener" title="Diputació de Barcelona">
+          <img src="{{ "img/logos/diputacio-barcelona.png" | relURL }}" alt="Diputació de Barcelona" width="180" height="60" loading="lazy">
+        </a>
+        <a href="https://www.barcelona.cat/" target="_blank" rel="noopener" title="Ajuntament de Barcelona">
+          <img src="{{ "img/logos/ajuntament-barcelona.png" | relURL }}" alt="Ajuntament de Barcelona" width="180" height="46" loading="lazy">
+        </a>
       </div>
     </div>
     <div class="footer-bottom">

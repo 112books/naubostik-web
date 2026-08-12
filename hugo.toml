@@ -72,6 +72,8 @@ ignoreLogs = ['warning-goldmark-raw-html']
 
 [params]
   description = "Nau Bostik. Equipament sociocultural de gestió comunitària situat al barri de La Sagrera."
+  # Tira reivindicativa de lemes: mostra-la només a la portada. Desactiva a false.
+  showTicker = true
 
 [[menu.main]]
   name = "Inici"
