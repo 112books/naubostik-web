@@ -2,6 +2,12 @@
 defaultContentLanguage = 'ca'
 theme = "NauBostik"
 
+# Web de desenvolupament, no indexable enlloc (§8 CLAUDE.md). sitemap.xml
+# i RSS (index.xml) eren superfície innecessària: encara que no s'enllacin,
+# existien com a fitxers accessibles per URL directa. Es desactiva la seva
+# generació del tot en lloc de confiar només en robots.txt/noindex.
+disableKinds = ["sitemap", "RSS"]
+
 [languages]
   [languages.ca]
     title = 'Nau Bostik'

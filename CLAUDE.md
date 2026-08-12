@@ -351,7 +351,10 @@ Objectius transversals (no-negociables):
       `noindex/nofollow/noarchive` a `baseof.html`) + repo privat + no
       compartir la URL. La Netlify Edge Function amb Basic Auth (esborrada
       a `c79ca04`) queda descartada mentre no es torni a Netlify.
-- [ ] Decidir estratègia de `sitemap.xml` mentre el site és privat (no exposar).
+- [x] Decidir estratègia de `sitemap.xml` mentre el site és privat. Fet
+      2026-08-12: `disableKinds = ["sitemap", "RSS"]` a `hugo.toml` (ni es
+      genera), reforç addicional `noai`/`noimageai` a meta robots i
+      `static/_headers` restaurat (ara efectiu, site a Netlify). Veure §8.1.
 - [ ] Auditoria accessibilitat + Lighthouse de Referència (baseline).
 - [ ] Crear `README.md` (resum públic del projecte) quan pugem a producció.
 - [ ] Mantenir `HISTORIA.md` actualitzada cada sessió amb un model d'IA.
@@ -399,20 +402,25 @@ d'entrenament d'IA, i **l'accés al staging ha de requerir autenticació**.
   Perplexity-User, CCBot, FacebookBot, Meta-ExternalAgent, Meta-ExternalFetcher,
   Amazonbot, Bytespider, Applebot-Extended, Diffbot, ImagesiftBot, OMIGiliBot,
   Omgilibot, SemanticScholarBot, cohere-ai).
-- Meta `robots` al `<head>` (`themes/thema/layouts/baseof.html`):
-  `noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate` +
-  `googlebot` explícit + `X-Robots-Tag` equivalent al `<head>`.
-- Header HTTP `X-Robots-Tag: noindex, nofollow, noarchive, nosnippet,
-  noimageindex` via `static/_headers` (Netlify / Cloudflare Pages ho serveixen;
-  GitHub Pages ignora `_headers` però no fa nosa).
-- **No generar `sitemap.xml` pública** mentre el site sigui privat. Si cal per
-  ús intern, protegir-la darrere l'autenticació (vegeu §8.2) i **no** llistar-la
-  al `robots.txt`.
-
-> ⚠️ Actualment Hugo encara genera `sitemap.xml` i `index.xml` per defecte. Es
-> manté així per no trencar res, però **no enllacem el sitemap enlloc** i el
-> `robots.txt` no el referencia. Quan es faci producció pública, caldrà: (a)
-  treure el `Disallow: /`, (b) permetre bots, (c) exposar sitemap.
+- Meta `robots` al `<head>` (`themes/NauBostik/layouts/baseof.html`):
+  `noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate, noai,
+  noimageai` + `googlebot`/`bingbot` explícits + `X-Robots-Tag` equivalent
+  al `<head>`. `noai`/`noimageai` no són estàndard IETF però alguns motors
+  els reconeixen com a senyal addicional específic anti-entrenament d'IA.
+- **Header HTTP real `X-Robots-Tag`** via `static/_headers` (2026-08-12,
+  restaurat — esborrat a `c79ca04` quan no hi havia Netlify per servir-lo;
+  ara que el site SÍ està desplegat a Netlify (§3), aquest fitxer és
+  efectiu de debò: aplica el header a *totes* les respostes del domini,
+  no només HTML, sense dependre de cap meta tag. GitHub Pages segueix
+  ignorant-lo, però no fa nosa.
+- **Sitemap/RSS desactivats del tot (2026-08-12):** `hugo.toml` té
+  `disableKinds = ["sitemap", "RSS"]` — ni `sitemap.xml` ni `index.xml` es
+  generen. Decisió: no confiar només en "no enllaçar-lo"; mentre és un web
+  de desenvolupament que no ha d'aparèixer enlloc, més val que el fitxer
+  no existeixi que confiar que ningú el trobi per URL directa. Quan es
+  faci producció pública caldrà: (a) treure `disableKinds`, (b) treure el
+  `Disallow: /` de `robots.txt`, (c) permetre bots, (d) referenciar el
+  sitemap al `robots.txt`.
 
 ### 8.2 Accés amb usuari (descartat, 2026-08-12)
 

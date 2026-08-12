@@ -1262,3 +1262,30 @@ ruting a `glm-5.2` (Z.ai / origen GLM). Sessió serves com a baseline.
   de pujar `netlify.toml`; guiat l'usuari (novell total a Netlify) pas a
   pas sense assumir que sabia on eren els menús, ajustant el ritme quan
   ho va demanar ("massa ràpid").
+
+### 2026-08-12 (8) — Elimina sitemap/RSS del tot + reforç anti-IA a robots
+
+- **Model + provider:** `claude-sonnet-5` (Claude Code, Anthropic).
+- **Tasca:** punt 2 del TODO (§7.3) — usuari vol que el site "NO aparegui a
+  cap sistema de cerca, és un web de desenvolupament", i explícitament que
+  quedi clar que tampoc s'ha d'indexar per IA.
+- **Fitxers modificats:**
+  - `hugo.toml` — `disableKinds = ["sitemap", "RSS"]`. Abans Hugo generava
+    `sitemap.xml`/`index.xml` igualment (només no s'enllaçaven enlloc);
+    ara no existeixen com a fitxers, cap superfície per URL directa.
+  - `themes/NauBostik/layouts/baseof.html` — meta `robots` amb `noai,
+    noimageai` afegits (senyal no-estàndard però reconegut per alguns
+    motors com a bloqueig específic d'entrenament IA); `bingbot` explícit
+    afegit igual que `googlebot`.
+  - `static/_headers` — restaurat (esborrat a `c79ca04` quan no hi havia
+    Netlify per servir-lo). Ara que el site SÍ està a Netlify (sessió
+    anterior), aquest fitxer és efectiu de debò: `X-Robots-Tag` real a
+    totes les respostes del domini, no només HTML.
+  - `CLAUDE.md` §8.1 — documentat tot plegat, marcat punt TODO fet.
+- **Verificació:** `hugo --minify` net, `public/sitemap.xml` i
+  `public/index.xml` no existeixen, `public/_headers` present,
+  `public/index.html` conté els meta tags nous.
+- **Valoració subjectiva:** 5 — quan l'usuari va demanar reforçar durant la
+  mateixa tasca ("jo faria més..."), es va ampliar la protecció amb capes
+  reals (fitxers eliminats del build, header HTTP efectiu) en lloc de
+  només retocar text/wording.
