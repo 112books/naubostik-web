@@ -1191,3 +1191,46 @@ ruting a `glm-5.2` (Z.ai / origen GLM). Sessió serves com a baseline.
   corregit ràpid gràcies al feedback concret de l'usuari ("surten totes
   dues a dalt a l'esquerra"), verificat al codi font generat abans de
   confirmar.
+
+### 2026-08-12 (6) — Restaurar Decap CMS amb Netlify Identity (usuaris sense GitHub)
+
+- **Model + provider:** `claude-sonnet-5` (Claude Code, Anthropic).
+- **Tasca:** requisit de l'usuari — els editors de contingut no tenen
+  GitHub ni en saben; calia poder crear-los accés amb mail normal. Es
+  discuteixen 3 opcions (Netlify Identity+git-gateway / TinaCMS / Sveltia)
+  i es decideix restaurar la 1a: és la que ja hi havia abans d'esborrar-se
+  a `c79ca04`, gratuïta, i Identity permet invitar per correu sense que
+  l'editor toqui Git en cap moment.
+- **Fitxers creats:**
+  - `static/admin/index.html`, `static/admin/config.yml` — Decap CMS v3,
+    backend `git-gateway`. Collections (`noticies`, `activitats`, `espais`,
+    `collectius`, pàgines institucionals) amb `format: toml-frontmatter`
+    (el repo usa `+++`, no YAML) i camps ajustats al frontmatter real
+    trobat a `content/` (p. ex. `espais` amb `ubicacio`, `fotografies`
+    (llista d'imatges), `xarxes` (llista nom+url)) — no els camps genèrics
+    que hi havia abans de l'esborrat.
+  - `netlify.toml` — build `hugo --minify`, publish `public`. Sense la
+    Netlify Edge Function de basic-auth que hi havia abans (§8.2 CLAUDE.md
+    ja va decidir explícitament no restaurar-la; és un tema diferent, auth
+    de visibilitat del site, no auth d'editors del CMS).
+- **Fitxers modificats:**
+  - `themes/NauBostik/layouts/baseof.html` — script
+    `netlify-identity-widget.js` al `<head>` global (no només a
+    `/admin/`) + handler que redirigeix a `/admin/` després de login,
+    perquè els enllaços d'invitació per correu aterren a l'arrel del site.
+  - `CLAUDE.md` §3 i §7.3 — decisió documentada, estat "pendent" del pas
+    manual (desplegar a Netlify + activar Identity/Git Gateway al tauler +
+    convidar usuaris) deixat explícit perquè no es doni per fet que ja
+    funciona.
+- **Verificació:** `hugo --minify` sense errors nous (només warnings
+  preexistents de deprecació de config, no relacionats). `public/admin/`
+  genera `index.html`+`config.yml` correctament.
+- **Pendent (no fet, fora d'abast d'aquesta sessió):** el pas al tauler de
+  Netlify (activar Identity, Git Gateway, convidar usuaris per correu) és
+  manual i no es pot fer des del repo — `/admin/` no serà funcional fins
+  que es faci.
+- **Valoració subjectiva:** 4 — decisió arquitectònica discutida amb
+  l'usuari abans d'implementar (tradeoffs de les 3 opcions), camps del CMS
+  ajustats al frontmatter real en lloc de reusar l'esquelet genèric
+  d'abans, i el límit real (pas manual a Netlify) queda explícit en lloc
+  d'insinuar que el CMS ja és operatiu.

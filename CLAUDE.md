@@ -84,14 +84,29 @@ hugo server --bind 0.0.0.0 --baseURL http://localhost:1313/
   - `--color-surface: #f8f8f8`
   - Tipografia: **DM Sans** via Google Fonts.
 - **JS:** vanilla a `themes/thema/static/js/main.js`. Sense framework.
-- **CMS:** Decap CMS v3 a `/admin/` via git-gateway + Netlify Identity.
-  **Estat:** reavaluar / substituir. Candidats a estudiar:
-  - [Sveltia CMS](https://github.com/sveltia/sveltia-cms) (drop-in replacement de Decap)
-  - [TinaCMS](https://tina.io/) (visual editing, Git-backed)
-  - Headless + API pròpia contra contingut a `content/`
-  Decisió pendent; mentre tant, **no ampliar Decap** ni trencar el `config.yml`.
-- **Allotjament staging:** GitHub Pages privat + workflow `.github/workflows/hugo.yml`.
-- **Allotjament producció (futur):** Netlify (`netlify.toml` ja existeix) reservat.
+- **CMS:** Decap CMS v3 a `/admin/` via **git-gateway + Netlify Identity**.
+  **Decidit (2026-08-12):** restaurat (esborrat a `c79ca04`, "neteja Decap").
+  Motiu: els usuaris que han d'editar contingut **no tenen GitHub** ni saben
+  què és — Netlify Identity permet invitar-los per correu normal (mail +
+  contrasenya), i git-gateway amaga tot el flux Git per darrere. Alternatives
+  descartades: Sveltia CMS (auth majoritàriament OAuth GitHub-style, no
+  resol "mail normal" sense feina extra) i TinaCMS (Tina Cloud és un altre
+  servei extern a gestionar). Fitxers: `static/admin/index.html`,
+  `static/admin/config.yml` (camps ajustats al frontmatter real de
+  `noticies`/`activitats`/`espais`/`collectius`/pàgines institucionals, no
+  els genèrics d'abans). El widget d'Identity (`netlify-identity-widget.js`)
+  es carrega a `themes/NauBostik/layouts/baseof.html` (no només a `/admin/`),
+  perquè els enllaços d'invitació per correu aterren a l'arrel del site i
+  necessiten el widget per capturar el token.
+  **Pendent (fora del repo, tauler de Netlify):** desplegar aquest repo com a
+  site Netlify, activar Identity + Git Gateway, i des d'allà invitar els
+  usuaris editors per correu (Identity → Invite users). Sense aquest pas
+  manual, `/admin/` no funciona (git-gateway necessita un site Netlify real
+  al darrere).
+- **Allotjament staging:** GitHub Pages privat + workflow `.github/workflows/hugo.yml`
+  (contingut públic del site; `/admin/` NO funcionarà aquí, veure nota CMS).
+- **Allotjament producció (futur):** Netlify (`netlify.toml` ja existeix,
+  restaurat 2026-08-12) — necessari també perquè el CMS funcioni de debò.
 - **Repositori:** `github.com/112books/naubostik-web` (privat). Branca per defecte
   `main`. No publicar el repo sense acord.
 
@@ -315,9 +330,12 @@ Objectius transversals (no-negociables):
       només si `naubostik-web` passa a públic. Veure §2.
 - [x] Definir i emplenar `i18n/{ca,en}.toml` i marcar cadenes hardcodeades.
       Fet 2026-08-12, veure §5 per detall i excepcions marcades TODO→MULTII18N.
-- [ ] Auditar Decap CMS i decidir substitut (Sveltia / Tina / headless).
-      Nota: Decap (`static/admin/`) ja s'ha esborrat al commit `c79ca04`
-      ("neteja Decap"), no substituït encara — ara mateix el site NO té CMS.
+- [x] Decidir CMS: mantenir Decap CMS restaurat, via git-gateway + Netlify
+      Identity (2026-08-12). Motiu: editors sense compte GitHub, necessiten
+      alta per correu normal. Veure §3 per detall i fitxers.
+- [ ] Desplegar a Netlify + activar Identity/Git Gateway al tauler (pas
+      manual, fora del repo) i convidar els primers usuaris editors per
+      correu. Sense això `/admin/` no és funcional encara.
 - [x] Auth de staging: decidit 2026-08-12 **no restaurar-la**. GH Pages es
       queda sense usuari/contrasenya; protecció = no-indexació (§8.1, ja
       implementat: `robots.txt` bloqueja `*` i bots d'IA coneguts, meta
