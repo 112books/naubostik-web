@@ -240,7 +240,7 @@ body.is-scrolled .site-logo img {
 .main-nav a:hover,
 .main-nav a.is-active,
 .main-nav a.is-ancestor {
-  color: var(--color-primary);
+  color: var(--color-accent);
 }
 
 .main-nav a.is-active .menu-label {
