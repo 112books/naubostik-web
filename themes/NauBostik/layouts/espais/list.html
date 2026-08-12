@@ -17,7 +17,7 @@
         {{ if .Params.logo }}
         <img src="{{ .Params.logo | strings.TrimPrefix "/" | relURL }}" alt="{{ .Title }}">
         {{ else }}
-        <div class="espai-card-placeholder"><span>{{ substr .Title 0 1 }}</span></div>
+          <div class="espai-card-placeholder"><img src="{{ "img/logo-nb-taronja.jpg" | relURL }}" alt="Nau Bostik"></div>
         {{ end }}
       </div>
       <h3 class="espai-card-title">{{ .Title }}</h3>
@@ -40,7 +40,7 @@
           {{ if .Params.logo }}
           <img src="{{ .Params.logo | strings.TrimPrefix "/" | relURL }}" alt="{{ .Title }}">
           {{ else }}
-          <div class="espai-card-placeholder"><span>{{ substr .Title 0 1 }}</span></div>
+        <div class="espai-card-placeholder"><img src="{{ "img/logo-nb-taronja.jpg" | relURL }}" alt="Nau Bostik"></div>
           {{ end }}
         </div>
         <h3 class="espai-card-title">{{ .Title }}</h3>

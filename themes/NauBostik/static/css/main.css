@@ -788,11 +788,10 @@ main.container {
   background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
 }
 
-.espai-card-placeholder span {
-  font-size: 3rem;
-  font-weight: 700;
-  color: white;
-  opacity: 0.8;
+.espai-card-placeholder img {
+  width: 40%;
+  height: auto;
+  opacity: 0.9;
 }
 
 .espai-card-title {

@@ -19,7 +19,7 @@
       {{ with .Params.plano }}
       <img src="{{ . | strings.TrimPrefix "/" | relURL }}" alt="{{ $.Title }}" loading="lazy">
       {{ else }}
-      <div class="espai-card-placeholder"><span>{{ substr $.Title 0 1 }}</span></div>
+      <div class="espai-card-placeholder"><img src="{{ "img/logo-nb-taronja.jpg" | relURL }}" alt="Nau Bostik"></div>
       {{ end }}
     {{ end }}
     <span class="cessio-card-title">{{ .Title }}</span>
