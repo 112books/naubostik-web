@@ -1234,3 +1234,31 @@ ruting a `glm-5.2` (Z.ai / origen GLM). Sessió serves com a baseline.
   ajustats al frontmatter real en lloc de reusar l'esquelet genèric
   d'abans, i el límit real (pas manual a Netlify) queda explícit en lloc
   d'insinuar que el CMS ja és operatiu.
+
+### 2026-08-12 (7) — Desplegament real a Netlify: Identity + Git Gateway actius
+
+- **Model + provider:** `claude-sonnet-5` (Claude Code, Anthropic).
+- **Tasca:** completar el pas manual pendent de la sessió anterior —
+  desplegar el repo a Netlify i activar Identity/Git Gateway (sense
+  convidar editors encara, deliberadament). L'usuari no coneixia gens el
+  tauler de Netlify; guiat pas a pas (un sol pas cada vegada després que
+  el primer intent anés massa ràpid).
+- **Descobert:** ja existia un site Netlify "naubostik" (`naubostik.netlify.app`)
+  connectat via GitHub, amb 4 deploys de producció fallats (`28d82a6` fins
+  `5120e1c`) — "Build script returned non-zero exit code: 2". Causa:
+  aquests commits no tenien `netlify.toml`, Netlify usava la seva versió
+  de Hugo per defecte (massa antiga per `hugo.toml` actual).
+- **Fitxers commitejats i pujats** (`fe923e2`, amb permís explícit de
+  l'usuari — "faré el que diguis"): `netlify.toml`, `static/admin/`,
+  `themes/NauBostik/layouts/baseof.html`, `CLAUDE.md`, `HISTORIA.md`
+  (els mateixos de la sessió anterior, que encara no s'havien pujat).
+- **Resultat:** `main@fe923e2` → "Published" a Netlify. Al tauler:
+  Identity activat, Registration = "Invite only", Git Gateway activat i
+  connectat al repo (`https://github.com/112books/naubostik-web`).
+  `/admin/` és tècnicament operatiu a `naubostik.netlify.app/admin/`, però
+  ningú hi pot entrar fins convidar usuaris (pas que queda per després).
+- **Valoració subjectiva:** 4 — diagnòstic correcte del build fallat (Hugo
+  per defecte massa antic) confirmat empíricament pel deploy verd després
+  de pujar `netlify.toml`; guiat l'usuari (novell total a Netlify) pas a
+  pas sense assumir que sabia on eren els menús, ajustant el ritme quan
+  ho va demanar ("massa ràpid").

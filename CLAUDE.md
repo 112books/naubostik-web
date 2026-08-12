@@ -98,15 +98,18 @@ hugo server --bind 0.0.0.0 --baseURL http://localhost:1313/
   es carrega a `themes/NauBostik/layouts/baseof.html` (no només a `/admin/`),
   perquè els enllaços d'invitació per correu aterren a l'arrel del site i
   necessiten el widget per capturar el token.
-  **Pendent (fora del repo, tauler de Netlify):** desplegar aquest repo com a
-  site Netlify, activar Identity + Git Gateway, i des d'allà invitar els
-  usuaris editors per correu (Identity → Invite users). Sense aquest pas
-  manual, `/admin/` no funciona (git-gateway necessita un site Netlify real
-  al darrere).
+  **Desplegat (2026-08-12):** site Netlify `naubostik.netlify.app`
+  connectat a `github.com/112books/naubostik-web`, Identity activat
+  (Registration = "Invite only"), Git Gateway activat i connectat al repo.
+  `/admin/` és tècnicament funcional des d'aquí. **Pendent deliberadament:**
+  convidar usuaris editors per correu (Identity → Invite users) — fase molt
+  primerenca del projecte, es farà en uns dies quan l'usuari ho digui.
 - **Allotjament staging:** GitHub Pages privat + workflow `.github/workflows/hugo.yml`
-  (contingut públic del site; `/admin/` NO funcionarà aquí, veure nota CMS).
+  (contingut públic del site; `/admin/` hi és present però sense backend
+  Netlify darrere no funciona — el CMS només és operatiu a `naubostik.netlify.app`).
 - **Allotjament producció (futur):** Netlify (`netlify.toml` ja existeix,
-  restaurat 2026-08-12) — necessari també perquè el CMS funcioni de debò.
+  restaurat 2026-08-12, site ja desplegat sota subdomini Netlify — falta
+  connectar el domini `naubostik.com` quan es passi a producció).
 - **Repositori:** `github.com/112books/naubostik-web` (privat). Branca per defecte
   `main`. No publicar el repo sense acord.
 
@@ -333,9 +336,15 @@ Objectius transversals (no-negociables):
 - [x] Decidir CMS: mantenir Decap CMS restaurat, via git-gateway + Netlify
       Identity (2026-08-12). Motiu: editors sense compte GitHub, necessiten
       alta per correu normal. Veure §3 per detall i fitxers.
-- [ ] Desplegar a Netlify + activar Identity/Git Gateway al tauler (pas
-      manual, fora del repo) i convidar els primers usuaris editors per
-      correu. Sense això `/admin/` no és funcional encara.
+- [x] Desplegar a Netlify + activar Identity/Git Gateway al tauler. Fet
+      2026-08-12: site `naubostik.netlify.app` connectat a
+      `github.com/112books/naubostik-web`, build verd amb `netlify.toml`
+      (Hugo 0.147.0 pinnejat — sense això el Hugo per defecte de Netlify
+      fallava el build). Identity activat, Registration = "Invite only",
+      Git Gateway activat i connectat al repo.
+- [ ] Convidar els primers usuaris editors per correu (Identity → Invite
+      users). Deliberadament NO fet encara — fase molt primerenca del
+      projecte, l'usuari ho farà en uns dies.
 - [x] Auth de staging: decidit 2026-08-12 **no restaurar-la**. GH Pages es
       queda sense usuari/contrasenya; protecció = no-indexació (§8.1, ja
       implementat: `robots.txt` bloqueja `*` i bots d'IA coneguts, meta
