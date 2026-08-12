@@ -38,8 +38,8 @@ theme = "NauBostik"
       weight = 5
 
     [[languages.ca.menu.main]]
-      name = "Lloguer"
-      url = "/lloguer/"
+      name = "Cessió d'espais"
+      url = "/cessio-despais/"
       weight = 6
 
     [[languages.ca.menu.main]]
@@ -99,8 +99,8 @@ ignoreLogs = ['warning-goldmark-raw-html']
   weight = 5
 
 [[menu.main]]
-  name = "Lloguer"
-  url = "/lloguer/"
+  name = "Cessió d'espais"
+  url = "/cessio-despais/"
   weight = 6
 
 [[menu.main]]

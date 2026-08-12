@@ -814,3 +814,136 @@ main.container {
     padding: 0.75rem;
   }
 }
+
+.espai-cesible-badge {
+  display: inline-block;
+  margin-bottom: 2rem;
+  padding: 0.5rem 1rem;
+  background: var(--color-accent);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--radius-sharp);
+}
+
+.espai-single {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  grid-template-areas: "logo main" "contact main";
+  gap: 2rem;
+}
+
+.espai-single-logo {
+  grid-area: logo;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.espai-single-logo img {
+  max-width: 100%;
+  max-height: 160px;
+  object-fit: contain;
+}
+
+.espai-single-main {
+  grid-area: main;
+}
+
+.espai-contact {
+  grid-area: contact;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: 1.25rem;
+}
+
+.espai-contact h2 {
+  font-size: var(--fs-h3);
+  margin-top: 0;
+}
+
+.espai-contact-item {
+  font-size: 0.9rem;
+  word-break: break-word;
+}
+
+.espai-contact-xarxes {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.espai-contact-xarxes a {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  background: var(--color-border);
+  text-decoration: none;
+  font-size: 0.85rem;
+  border-radius: var(--radius-sharp);
+}
+
+.espai-gallery-title {
+  font-size: var(--fs-h2);
+  margin: 3rem 0 1rem;
+}
+
+.espai-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.espai-gallery img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: var(--radius-sharp);
+}
+
+.espai-plano img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-sharp);
+}
+
+@media (max-width: 760px) {
+  .espai-single {
+    grid-template-columns: 1fr;
+    grid-template-areas: "logo" "main" "contact";
+  }
+}
+
+.cessio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.cessio-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sharp);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+
+.cessio-card img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}
+
+.cessio-card-title {
+  padding: 0 1rem 1rem;
+  text-align: center;
+  font-weight: 600;
+}

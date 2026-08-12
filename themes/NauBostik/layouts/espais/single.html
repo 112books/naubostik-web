@@ -1,9 +1,66 @@
 {{ define "main" }}
 <div class="page-header">
   <h1>{{ .Title }}</h1>
+  {{ with .Params.ubicacio }}<p class="lead">{{ . }}</p>{{ end }}
 </div>
 
-<div class="content">
-  {{ .Content }}
+{{ if .Params.cedible }}
+<a href="/cessio-despais/" class="espai-cesible-badge">Espai cedible
+  · demana'n més informació</a>
+{{ end }}
+
+<div class="espai-single">
+  {{ if .Params.logo }}
+  <div class="espai-single-logo">
+    <img src="{{ .Params.logo }}" alt="Logotip de {{ .Title }}">
+  </div>
+  {{ end }}
+
+  <div class="espai-single-main">
+    <div class="content">
+      {{ .Content }}
+    </div>
+
+    {{ with .Params.fotografies }}
+    {{ if gt (len .) 0 }}
+    <h2 class="espai-gallery-title">Fotografies</h2>
+    <div class="espai-gallery">
+      {{ range . }}
+      <img src="{{ . }}" alt="Fotografia de {{ $.Title }}" loading="lazy">
+      {{ end }}
+    </div>
+    {{ end }}
+    {{ end }}
+
+    {{ if .Params.plano }}
+    <h2 class="espai-gallery-title">Plànol</h2>
+    <div class="espai-plano">
+      <img src="{{ .Params.plano }}" alt="Plànol d'ubicació de {{ .Title }}" loading="lazy">
+    </div>
+    {{ end }}
+  </div>
+
+  {{ $mail := .Params.mail }}
+  {{ $web := .Params.web }}
+  {{ $xarxes := .Params.xarxes }}
+  {{ if or $mail $web $xarxes }}
+  <aside class="espai-contact">
+    <h2>Contacte</h2>
+    {{ with $mail }}
+    <p class="espai-contact-item">Mail: <a href="mailto:{{ . }}">{{ . }}</a></p>
+    {{ end }}
+    {{ with $web }}
+    <p class="espai-contact-item">Web: <a href="{{ . }}" target="_blank" rel="noopener">{{ . }}</a></p>
+    {{ end }}
+    {{ with $xarxes }}
+    <p class="espai-contact-item">Xarxes socials:</p>
+    <ul class="espai-contact-xarxes">
+      {{ range . }}
+      <li><a href="{{ .url }}" target="_blank" rel="noopener">{{ .nom }}</a></li>
+      {{ end }}
+    </ul>
+    {{ end }}
+  </aside>
+  {{ end }}
 </div>
 {{ end }}

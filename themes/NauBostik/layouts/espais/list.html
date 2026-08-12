@@ -1,25 +1,46 @@
 {{ define "main" }}
 <div class="page-header">
   <h1>Espais</h1>
-  <p class="lead">Espais disponibles per a activitats culturals</p>
+  <p class="lead">Tots els espais de la Nau Bostik, edifici a edifici</p>
 </div>
 
-{{ range slice "Planta Baixa" "Primera Planta" "Segona Planta" "Tercera Planta" }}
-  {{ $planta := . }}
-  {{ $pages := where (where site.RegularPages "Section" "espais") "Params.planta" $planta }}
+{{ $espais := where site.RegularPages "Section" "espais" }}
+{{ $destacats := where $espais "Params.destacat" true }}
+
+{{ if $destacats }}
+<section class="planta-section">
+  <h2 class="planta-title">Espais destacats</h2>
+  <div class="planta-grid">
+    {{ range $destacats }}
+    <a href="{{ .RelPermalink }}" class="espai-card">
+      <div class="espai-card-image">
+        {{ if .Params.logo }}
+        <img src="{{ .Params.logo }}" alt="{{ .Title }}">
+        {{ else }}
+        <div class="espai-card-placeholder"><span>{{ substr .Title 0 1 }}</span></div>
+        {{ end }}
+      </div>
+      <h3 class="espai-card-title">{{ .Title }}</h3>
+    </a>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
+
+{{ range slice "Planta baixa" "Primera planta" "Segona planta" "Tercera planta" "Altres" }}
+  {{ $ubicacio := . }}
+  {{ $pages := where $espais "Params.ubicacio" $ubicacio }}
   {{ if $pages }}
   <section class="planta-section">
-    <h2 class="planta-title">{{ $planta }}</h2>
+    <h2 class="planta-title">{{ $ubicacio }}</h2>
     <div class="planta-grid">
       {{ range $pages }}
       <a href="{{ .RelPermalink }}" class="espai-card">
         <div class="espai-card-image">
-          {{ if .Params.imatge }}
-          <img src="{{ .Params.imatge }}" alt="{{ .Title }}">
+          {{ if .Params.logo }}
+          <img src="{{ .Params.logo }}" alt="{{ .Title }}">
           {{ else }}
-          <div class="espai-card-placeholder">
-            <span>{{ substr .Title 0 1 }}</span>
-          </div>
+          <div class="espai-card-placeholder"><span>{{ substr .Title 0 1 }}</span></div>
           {{ end }}
         </div>
         <h3 class="espai-card-title">{{ .Title }}</h3>
