@@ -1,6 +1,8 @@
 {{ define "main" }}
 {{ $now := now }}
 {{ $allActivitats := where site.RegularPages "Section" "activitats" }}
+{{ $futures := where $allActivitats "Date" ">=" $now }}
+{{ $withImg := where $futures ".Params.imatge" "!=" nil }}
 
 {{ $entitats := slice }}
 {{ $plantes := slice }}
@@ -16,6 +18,24 @@
   <h1>{{ i18n "activitats_title" }}</h1>
   <p class="lead">{{ i18n "activitats_lead" }}</p>
 </div>
+
+{{ if $withImg }}
+<section class="activitat-cards">
+  {{ range ($withImg.ByDate) }}
+  <a class="activitat-card" href="{{ .RelPermalink }}">
+    <div class="activitat-card__image">
+      <img src="{{ .Params.imatge }}" alt="{{ .Title }}" loading="lazy">
+    </div>
+    <div class="activitat-card__body">
+      {{ with .Params.preu }}<span class="activitat-card__preu">{{ . }}</span>{{ end }}
+      <h3 class="activitat-card__title">{{ .LinkTitle }}</h3>
+      <p class="activitat-card__date">{{ .Date | time.Format "02/01/2006" }}{{ with .Params.hora }} · {{ . }}{{ end }}</p>
+      {{ with .Params.descripcio }}<p class="activitat-card__desc">{{ . }}</p>{{ end }}
+    </div>
+  </a>
+  {{ end }}
+</section>
+{{ end }}
 
 <div class="agenda-controls">
   <div class="agenda-toggle" role="group">
@@ -48,9 +68,9 @@
 
 <section class="agenda-view" id="agenda-mensual">
   {{ range ($allActivitats.GroupByDate "2006-01" "asc") }}
-  {{ $parts := split .Key "-" }}
-  {{ $year := index $parts 0 }}
-  {{ $monthNum := index $parts 1 | int }}
+  {{ $keyDate := printf "%s-01" .Key | time.AsTime }}
+  {{ $year := $keyDate | time.Format "2006" }}
+  {{ $monthNum := $keyDate | time.Format "1" | int }}
   {{ $monthNames := slice "" "Gener" "Febrer" "Març" "Abril" "Maig" "Juny" "Juliol" "Agost" "Setembre" "Octubre" "Novembre" "Desembre" }}
   <div class="agenda-month">
     <h2 class="agenda-month-title">{{ index $monthNames $monthNum }} {{ $year }}</h2>
