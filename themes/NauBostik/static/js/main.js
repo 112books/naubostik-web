@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initRandomEspais();
   initHeroSlideshow();
   initAgenda();
+  initEventCalendar();
 });
 
 function initHeroSlideshow() {
@@ -280,4 +281,44 @@ function initAgenda() {
       archiveBtn.textContent = showing ? textHide : textShow;
     });
   }
+}
+function initEventCalendar() {
+  var cal = document.querySelector('.event-calendar');
+  if (!cal) return;
+
+  var title    = cal.dataset.title    || '';
+  var start    = cal.dataset.start    || '';
+  var end      = cal.dataset.end      || '';
+  var location = cal.dataset.location || 'Nau Bostik';
+  var desc     = cal.dataset.desc     || '';
+  var slug     = cal.dataset.slug     || 'event';
+
+  cal.querySelectorAll('.js-cal-ical').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var ics = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Nau Bostik//CA',
+        'BEGIN:VEVENT',
+        'UID:' + slug + '@naubostik.com',
+        'SUMMARY:' + title.replace(/\n/g, '\\n'),
+        'DTSTART:' + start,
+        'DTEND:' + end,
+        'LOCATION:' + location.replace(/\n/g, '\\n'),
+        'DESCRIPTION:' + desc.replace(/\n/g, '\\n'),
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\r\n');
+
+      var blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+      var url  = URL.createObjectURL(blob);
+      var a    = document.createElement('a');
+      a.href     = url;
+      a.download = slug + '.ics';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+  });
 }

@@ -1,10 +1,108 @@
 {{ define "main" }}
-<div class="page-header">
-  <h1>{{ .Title }}</h1>
-  <p class="post-meta">{{ .Date.Format "02/01/2006" }}</p>
-</div>
+{{ $dateStart := .Date }}
+{{ $dateEnd   := .Params.data_fi | default .Date }}
+{{ $hora      := .Params.hora | default "" }}
+{{ $horaFi    := .Params.hora_fi | default "" }}
 
-<div class="content">
-  {{ .Content }}
-</div>
+{{/* Dates ISO per als calendaris */}}
+{{ $fmtDay  := "20060102" }}
+{{ $fmtDT   := "20060102T150405" }}
+
+{{ $gcalStart := "" }}
+{{ $gcalEnd   := "" }}
+{{ if $hora }}
+  {{ $gcalStart = printf "%sT%s00" ($dateStart | time.Format $fmtDay) (replace $hora ":" "") }}
+  {{ if $horaFi }}
+    {{ $gcalEnd = printf "%sT%s00" ($dateEnd | time.Format $fmtDay) (replace $horaFi ":" "") }}
+  {{ else }}
+    {{ $gcalEnd = $gcalStart }}
+  {{ end }}
+{{ else }}
+  {{ $gcalStart = $dateStart | time.Format $fmtDay }}
+  {{ $gcalEnd   = $dateEnd | time.Format $fmtDay }}
+{{ end }}
+
+{{ $location := printf "%s · Nau Bostik, Ferran Turné 1-11, Barcelona" (.Params.planta | default "Nau Bostik") }}
+{{ $gcalURL := printf "https://calendar.google.com/calendar/render?action=TEMPLATE&text=%s&dates=%s/%s&location=%s&details=%s" (.Title | urlquery) $gcalStart $gcalEnd ($location | urlquery) (.Params.descripcio | default .Summary | urlquery) }}
+
+<article class="event-single">
+
+  <header class="event-header">
+    <div class="event-header__back">
+      <a href="{{ "activitats/" | relLangURL }}">&larr; Activitats</a>
+    </div>
+    <h1 class="event-header__title">{{ .Title }}</h1>
+
+    <dl class="event-meta">
+      <div class="event-meta__item">
+        <dt>{{ i18n "event_date" | default "Data" }}</dt>
+        <dd>
+          {{ $dateStart | time.Format "02/01/2006" }}
+          {{ if ne ($dateEnd | time.Format $fmtDay) ($dateStart | time.Format $fmtDay) }}
+            – {{ $dateEnd | time.Format "02/01/2006" }}
+          {{ end }}
+        </dd>
+      </div>
+      {{ if $hora }}
+      <div class="event-meta__item">
+        <dt>{{ i18n "event_time" | default "Hora" }}</dt>
+        <dd>{{ $hora }}{{ if $horaFi }} – {{ $horaFi }}{{ end }}</dd>
+      </div>
+      {{ end }}
+      <div class="event-meta__item">
+        <dt>{{ i18n "event_location" | default "Lloc" }}</dt>
+        <dd>{{ .Params.planta | default "Nau Bostik" }}{{ with .Params.entitat }} · {{ . }}{{ end }}</dd>
+      </div>
+      {{ with .Params.preu }}
+      <div class="event-meta__item event-meta__item--preu">
+        <dt>{{ i18n "event_price" | default "Entrada" }}</dt>
+        <dd>{{ . }}</dd>
+      </div>
+      {{ end }}
+    </dl>
+  </header>
+
+  {{ with .Params.imatge }}
+  <figure class="event-photo">
+    <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
+  </figure>
+  {{ end }}
+
+  <div class="event-body content">
+    {{ .Content }}
+  </div>
+
+  <footer class="event-footer">
+    {{ with .Params.link_extern }}
+    <a href="{{ . }}" class="btn btn-primary event-footer__more" target="_blank" rel="noopener">
+      {{ i18n "event_more_info" | default "Més informació" }} &rarr;
+    </a>
+    {{ end }}
+
+    <div class="event-calendar"
+         data-title="{{ .Title | htmlEscape }}"
+         data-start="{{ $gcalStart }}"
+         data-end="{{ $gcalEnd }}"
+         data-location="{{ $location | htmlEscape }}"
+         data-desc="{{ .Params.descripcio | default .Summary | htmlEscape }}"
+         data-slug="{{ .File.ContentBaseName }}">
+      <p class="event-calendar__label">{{ i18n "event_add_calendar" | default "Afegeix al calendari" }}</p>
+      <div class="event-calendar__btns">
+        <a href="{{ $gcalURL }}" class="cal-btn cal-btn--google" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M21.805 10.023h-9.78v3.955h5.618c-.242 1.237-.978 2.286-2.082 2.988v2.486h3.372c1.973-1.817 3.11-4.49 3.11-7.674 0-.51-.047-1.003-.138-1.355z" fill="#4285F4"/><path d="M12.025 22c2.7 0 4.963-.895 6.618-2.428l-3.372-2.487c-.895.6-2.04.955-3.246.955-2.496 0-4.607-1.686-5.362-3.953H3.18v2.567A9.994 9.994 0 0 0 12.025 22z" fill="#34A853"/><path d="M6.663 14.087a5.997 5.997 0 0 1 0-3.828V7.692H3.18a9.994 9.994 0 0 0 0 8.962l3.483-2.567z" fill="#FBBC05"/><path d="M12.025 6.306c1.408 0 2.67.484 3.664 1.434l2.748-2.748C16.983 3.396 14.72 2.5 12.025 2.5A9.993 9.993 0 0 0 3.18 7.692l3.483 2.567c.755-2.267 2.866-3.953 5.362-3.953z" fill="#EA4335"/></svg>
+          Google Calendar
+        </a>
+        <button class="cal-btn cal-btn--ical js-cal-ical" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Apple / iCal
+        </button>
+        <button class="cal-btn cal-btn--outlook js-cal-ical" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M19.5 3h-15A1.5 1.5 0 0 0 3 4.5v15A1.5 1.5 0 0 0 4.5 21h15a1.5 1.5 0 0 0 1.5-1.5v-15A1.5 1.5 0 0 0 19.5 3zm-7.5 3a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9z"/></svg>
+          Outlook
+        </button>
+      </div>
+    </div>
+  </footer>
+
+</article>
 {{ end }}

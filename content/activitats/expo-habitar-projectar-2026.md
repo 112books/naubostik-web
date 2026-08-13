@@ -8,7 +8,9 @@ entitat = "Arquitectura.coop"
 imatge = "https://naubostik.com/wp-content/uploads/2026/07/260901-EXPO-VOLTES_p-1024x638.jpg"
 descripcio = "Exposició itinerant sobre com les cooperatives transformen la pràctica arquitectònica a través de models col·lectius."
 preu = "Gratuït"
+hora_fi = "19:00"
 data_fi = 2026-10-31
+link_extern = "https://www.arquitectura.coop/inici"
 +++
 
 Exposició itinerant que explora com les cooperatives transformen la pràctica arquitectònica a través de models col·lectius. Aborda el dret a l'habitatge, la sostenibilitat i la participació ciutadana.

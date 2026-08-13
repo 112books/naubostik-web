@@ -8,6 +8,8 @@ entitat = "Markets Barcelona"
 imatge = "https://naubostik.com/wp-content/uploads/2024/03/Market_p.jpg"
 descripcio = "Mercat de roba de segona mà amb més de 2 tones de peces. Inclou personalització de roba en directe."
 preu = "3 €"
+hora_fi = "19:00"
+link_extern = "https://naubostik.com/esdeveniment/mercat-agost/"
 +++
 
 Mercat de roba de segona mà amb **més de 2 tones de roba i més de 8.000 peces**. L'acte posa l'accent en el reciclatge i inclou personalització de roba en directe.
