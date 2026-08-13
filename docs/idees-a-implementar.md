@@ -98,3 +98,6 @@ Sembla que ara a portada han canviat les activitats propies a mostrar. Harien de
 cal a aquest segon blog tal vegada dividir-lo en properes activitats i un trecer blic amb les passades.
 
 I també cal Revisar les imatges dels logos dels colectius a la pestanya del blic La Nau Bostik de la portada.
+
+A història penso qeu caldria posar els videos d'avans // després d'en David Sunyol.
+També veure on posar els vídeos nous que s'han fet, però en trocets promocionals. Tal vegada a entitats.
