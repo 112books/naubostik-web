@@ -7,6 +7,7 @@ telefon = "+34 933 408 350"
 email = "info@naubostik.com"
 telegram = "@NauBostik"
 instagram = "@naubostik"
+youtube = "@naubostik"
 horari_oficina = "De dilluns a divendres, 9.00–16.00 h"
 horari_recinte = "Consulta l'horari de cada activitat"
 
