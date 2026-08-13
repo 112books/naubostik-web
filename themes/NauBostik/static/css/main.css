@@ -2158,6 +2158,19 @@ main.container {
 
 /* === TABS LA NAU === */
 
+.section-header--with-tabs {
+  align-items: center;
+}
+.section-header--with-tabs .tab-nav {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+.section-header--with-tabs .tab-btn {
+  padding-top: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
 .tab-nav {
   display: flex;
   gap: 0;

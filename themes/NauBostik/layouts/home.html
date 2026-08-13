@@ -133,14 +133,13 @@
 {{ $equip := index site.Data "equip" }}
 
 <section class="section">
-  <div class="section-header">
+  <div class="section-header section-header--with-tabs">
     <h2 class="section-title">La Nau Bostik</h2>
-  </div>
-
-  <div class="tab-nav" role="tablist" aria-label="La Nau Bostik">
-    <button class="tab-btn is-active" data-tab="xifres" role="tab" aria-selected="true" aria-controls="tab-xifres" type="button">En xifres</button>
-    <button class="tab-btn" data-tab="espais" role="tab" aria-selected="false" aria-controls="tab-espais" type="button">Espais</button>
-    <button class="tab-btn" data-tab="equip" role="tab" aria-selected="false" aria-controls="tab-equip" type="button">Equip humà</button>
+    <div class="tab-nav" role="tablist" aria-label="La Nau Bostik">
+      <button class="tab-btn is-active" data-tab="xifres" role="tab" aria-selected="true" aria-controls="tab-xifres" type="button">En xifres</button>
+      <button class="tab-btn" data-tab="espais" role="tab" aria-selected="false" aria-controls="tab-espais" type="button">Espais</button>
+      <button class="tab-btn" data-tab="equip" role="tab" aria-selected="false" aria-controls="tab-equip" type="button">Equip humà</button>
+    </div>
   </div>
 
   {{/* TAB: En xifres */}}
@@ -270,7 +269,7 @@
 {{ $noticiesNorm   := where $noticiesAll "Params.territori" "!=" true }}
 {{ $noticiesHero := index ($noticiesDescat.ByDate.Reverse) 0 }}
 {{ if not $noticiesHero }}{{ $noticiesHero = index ($noticiesNorm.ByDate.Reverse) 0 }}{{ end }}
-{{ $noticiesRecents := first 3 ($noticiesNorm.ByDate.Reverse) }}
+{{ $noticiesRecents := first 5 ($noticiesNorm.ByDate.Reverse) }}
 <section class="section">
   <div class="section-header">
     <h2 class="section-title">{{ i18n "home_section_noticies" }}</h2>
