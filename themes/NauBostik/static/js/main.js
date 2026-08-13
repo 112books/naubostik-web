@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initHeaderScroll();
   initRandomEspais();
   initHeroSlideshow();
+  initAgenda();
 });
 
 function initHeroSlideshow() {
@@ -219,4 +220,64 @@ function initScrollTop() {
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll, { passive: true });
   update();
+}
+
+function initAgenda() {
+  var mensual = document.getElementById('agenda-mensual');
+  if (!mensual) return;
+
+  var main = document.querySelector('main');
+  var setmanal = document.getElementById('agenda-setmanal');
+  var toggleBtns = document.querySelectorAll('.agenda-toggle-btn');
+  var filterBtns = document.querySelectorAll('.agenda-filter-btn');
+  var archiveBtn = document.querySelector('.agenda-archive-btn');
+
+  if (setmanal) setmanal.classList.add('agenda-view--hidden');
+
+  toggleBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.agenda-view').forEach(function(v) {
+        v.classList.add('agenda-view--hidden');
+      });
+      var target = document.getElementById('agenda-' + btn.dataset.view);
+      if (target) target.classList.remove('agenda-view--hidden');
+      toggleBtns.forEach(function(b) { b.classList.remove('is-active'); });
+      btn.classList.add('is-active');
+    });
+  });
+
+  var activeFilters = { entitat: '', planta: '' };
+
+  function applyFilters() {
+    document.querySelectorAll('.agenda-item').forEach(function(item) {
+      var okEntitat = !activeFilters.entitat || item.dataset.entitat === activeFilters.entitat;
+      var okPlanta = !activeFilters.planta || item.dataset.planta === activeFilters.planta;
+      item.classList.toggle('agenda-item--hidden', !(okEntitat && okPlanta));
+    });
+  }
+
+  filterBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var type = btn.dataset.filterType;
+      var value = btn.dataset.filterValue;
+      activeFilters[type] = value;
+
+      var group = btn.closest('[data-filter-group="' + type + '"]');
+      if (group) {
+        group.querySelectorAll('.agenda-filter-btn').forEach(function(b) {
+          b.classList.toggle('is-active', b.dataset.filterValue === value);
+        });
+      }
+      applyFilters();
+    });
+  });
+
+  if (archiveBtn && main) {
+    var textShow = archiveBtn.dataset.archiveShow;
+    var textHide = archiveBtn.dataset.archiveHide;
+    archiveBtn.addEventListener('click', function() {
+      var showing = main.classList.toggle('show-past');
+      archiveBtn.textContent = showing ? textHide : textShow;
+    });
+  }
 }
