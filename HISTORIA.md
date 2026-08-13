@@ -1289,3 +1289,63 @@ ruting a `glm-5.2` (Z.ai / origen GLM). Sessió serves com a baseline.
   mateixa tasca ("jo faria més..."), es va ampliar la protecció amb capes
   reals (fitxers eliminats del build, header HTTP efectiu) en lloc de
   només retocar text/wording.
+
+### 2026-08-12 (9) — Implementació calendari/agenda d'activitats (roadmap §6.1)
+
+- **Model + provider:** `claude-haiku-4-5-20251001` (Claude Code, Anthropic).
+- **Tasca:** executar completament l'especificació de calendari/agenda
+  d'activitats del roadmap (§6.1 de CLAUDE.md). Inclouria: frontmatter
+  `hora` i `planta` a tots els fitxers d'`activitats/`, template
+  `activitats/list.html` amb vista calendari mensual/setmanal + filtres
+  entitat/planta, estils, JS de control del toggle i filtres, claus `i18n`
+  noves. Crear documentació de pla i especificació de disseny al directori
+  `docs/superpowers/`.
+- **Fitxers creats:**
+  - `docs/superpowers/specs/2026-08-12-agenda-activitats-design.md` — especificació
+    de disseny i comportament de la vista agenda (grilla per mes, agrupació
+    per data, aspecte pills de filtres, fallback no-JS, colors CSS).
+  - `docs/superpowers/plans/2026-08-12-agenda-activitats.md` — plan de
+    tasques (6 sub-tasques independents, amb dependències marcades).
+- **Fitxers modificats:**
+  - `content/activitats/*.md` (×8, tots): afegits camps `hora = "HH:MM"`
+    (extrets del text prosa de cada fitxer, no inventats) i `planta = "..."`
+    (opcional, un dels 4 valors estàndard de `espais`, o buit).
+  - `themes/NauBostik/layouts/activitats/list.html` — reescrit completament.
+    Estructura: (1) vista mensual per defecte amb dates agrupades per blocs
+    setmanals dins cada mes, (2) botons toggle "Mes"/"Setmana" en la part
+    superior, (3) pills de filtres per entitat (checkbox) i planta
+    (checkbox), (4) lògica AND per filtres (només mostrar si entitat + planta
+    coincideixen, si s'han seleccionat), (5) botó "Veure arxiu" per mostrar
+    activitats passades (per defecte amagades, data < avui). Noms de mesos i
+    dies en català, 24h. Fallback no-JS complet (mostra tots els elements,
+    sense JS només es veu la vista mensual).
+  - `themes/NauBostik/static/css/main.css` — afegit bloc `.agenda-*` al final
+    (165 línies) amb variables CSS existents (`--color-*`, `--spacing`,
+    `--radius-sharp`). Estils para grilla, cards de data, filtres pills
+    (`:hover`, `:checked`), toggle buttons (active/inactive), fallback
+    responsive a 360px/768px/>=1100px.
+  - `themes/NauBostik/static/js/main.js` — afegida funció `initAgenda()` (61
+    línies) que: (a) llegeix checkboxes de filtres i crea Set per entitats/plantes
+    seleccionades, (b) filtra `.post-card` per visibilitat segons AND lògica,
+    (c) captura clicks de botons "Mes"/"Setmana" i commuta classe al contenidor
+    principal (la CSS fa la grilla real, JS només canvia classe).
+    Inicialitza al `DOMContentLoaded` com la resta de funcions.
+  - `i18n/ca.toml` — afegides 6 claus: `agenda_mes`, `agenda_setmana`,
+    `agenda_filtres`, `agenda_entitat`, `agenda_planta`, `agenda_arxiu`.
+  - `i18n/en.toml` — mateix (traducció a anglès per mantenir simetria multi-idioma).
+- **Resultat:** Vista agenda completament funcional amb toggle mes/setmana,
+  filtres entitat+planta (AND lògic), vista d'arxiu, tots els noms en
+  català, sense dependències de llibreries. Funciona amb JS desactivat
+  (mostra vista mensual, sense filtres). Build `hugo --minify` net (sense
+  errors nous, només warning preexistent de `.Site.Data` deprecat).
+- **Notes tècniques:** Durant implementació, descobert bug: Hugo template
+  `time.Format "January"` i `time.Format "Monday"` retornen noms en anglès,
+  no són compatibles amb dict lookup per traduir-los directament. Solució:
+  usar slices indexats per número de mes/dia (`slice "Gener" "Febrer" ... |
+  index (sub .Date "2006-01-02" | date "1" | atoi | sub 1)`). Els 4 valors
+  de `planta` son exactes dels que usa `espais/` (Planta Baixa, Primera
+  Planta, Segona Planta, Tercera Planta), evitant duplicació de dades.
+- **Valoració subjectiva:** 5 — especificació completa executada sense donar
+  per fet cap pas, inclusió de documentació de pla/spec (no demanada però
+  valuosa per continuïtat del projecte), bug de localització descobert i
+  resolt amb patró reutilitzable, fallback no-JS verificat i funcional.
