@@ -224,63 +224,40 @@ function initScrollTop() {
 }
 
 function initAgenda() {
-  var mensual = document.getElementById('agenda-mensual');
-  if (!mensual) return;
+  if (!document.querySelector('.agenda-toggle')) return;
 
-  var main = document.querySelector('main');
-  var setmanal = document.getElementById('agenda-setmanal');
-  var toggleBtns = document.querySelectorAll('.agenda-toggle-btn');
-  var filterBtns = document.querySelectorAll('.agenda-filter-btn');
-  var archiveBtn = document.querySelector('.agenda-archive-btn');
-
-  if (setmanal) setmanal.classList.add('agenda-view--hidden');
-
-  toggleBtns.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.agenda-view').forEach(function(v) {
-        v.classList.add('agenda-view--hidden');
-      });
-      var target = document.getElementById('agenda-' + btn.dataset.view);
-      if (target) target.classList.remove('agenda-view--hidden');
-      toggleBtns.forEach(function(b) { b.classList.remove('is-active'); });
-      btn.classList.add('is-active');
-    });
-  });
-
-  var activeFilters = { entitat: '', planta: '' };
-
-  function applyFilters() {
-    document.querySelectorAll('.agenda-item').forEach(function(item) {
-      var okEntitat = !activeFilters.entitat || item.dataset.entitat === activeFilters.entitat;
-      var okPlanta = !activeFilters.planta || item.dataset.planta === activeFilters.planta;
-      item.classList.toggle('agenda-item--hidden', !(okEntitat && okPlanta));
-    });
-  }
-
-  filterBtns.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var type = btn.dataset.filterType;
-      var value = btn.dataset.filterValue;
-      activeFilters[type] = value;
-
-      var group = btn.closest('[data-filter-group="' + type + '"]');
-      if (group) {
-        group.querySelectorAll('.agenda-filter-btn').forEach(function(b) {
-          b.classList.toggle('is-active', b.dataset.filterValue === value);
-        });
+  document.querySelectorAll('.agenda-toggle').forEach(function(toggleGroup) {
+    var btns = toggleGroup.querySelectorAll('.agenda-toggle-btn');
+    btns.forEach(function(btn) {
+      if (!btn.classList.contains('is-active')) {
+        var view = document.getElementById(btn.dataset.view);
+        if (view) view.classList.add('agenda-view--hidden');
       }
-      applyFilters();
+    });
+
+    btns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        btns.forEach(function(b) {
+          var v = document.getElementById(b.dataset.view);
+          if (v) v.classList.add('agenda-view--hidden');
+          b.classList.remove('is-active');
+        });
+        var target = document.getElementById(btn.dataset.view);
+        if (target) target.classList.remove('agenda-view--hidden');
+        btn.classList.add('is-active');
+      });
     });
   });
 
-  if (archiveBtn && main) {
+  document.querySelectorAll('.agenda-archive-btn').forEach(function(archiveBtn) {
+    var bloc = archiveBtn.closest('.activitats-bloc') || document.querySelector('main');
     var textShow = archiveBtn.dataset.archiveShow;
     var textHide = archiveBtn.dataset.archiveHide;
     archiveBtn.addEventListener('click', function() {
-      var showing = main.classList.toggle('show-past');
+      var showing = bloc.classList.toggle('show-past');
       archiveBtn.textContent = showing ? textHide : textShow;
     });
-  }
+  });
 }
 function initEventCalendar() {
   var cal = document.querySelector('.event-calendar');

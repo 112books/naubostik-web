@@ -29,9 +29,10 @@
   </div>
 </section>
 
-{{ $withImg := where site.RegularPages "Section" "activitats" }}
-{{ $withImg = where $withImg "Params.imatge" "!=" nil }}
-{{ $destacades := last 4 ($withImg.ByDate) }}
+{{ $propies := where site.RegularPages "Section" "activitats" }}
+{{ $propies = where $propies "Params.entitat" nil }}
+{{ $propies = where $propies "Params.imatge" "!=" nil }}
+{{ $destacades := last 4 ($propies.ByDate) }}
 {{ if $destacades }}
 <section class="section">
   <div class="section-header">
@@ -45,9 +46,8 @@
         <img src="{{ .Params.imatge }}" alt="{{ .Title }}" loading="lazy">
       </div>
       <div class="activitat-card__body">
-        {{ with .Params.preu }}<span class="activitat-card__preu">{{ . }}</span>{{ end }}
+        <p class="activitat-card__date">{{ .Date | time.Format "02/01/2006" }}{{ with .Params.hora }} · {{ . }} h{{ end }}{{ with .Params.preu }} · {{ . }}{{ end }}</p>
         <h3 class="activitat-card__title">{{ .LinkTitle }}</h3>
-        <p class="activitat-card__date">{{ .Date | time.Format "02/01/2006" }}{{ with .Params.hora }} · {{ . }}{{ end }}</p>
         {{ with .Params.descripcio }}<p class="activitat-card__desc">{{ . }}</p>{{ end }}
       </div>
     </a>
