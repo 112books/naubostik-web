@@ -84,13 +84,42 @@
 </section>
 {{ end }}
 
-<section class="section section-metric">
-  <h2 class="section-title">{{ i18n "home_section_metric_title" }}</h2>
-  <ul class="metric-list">
-    <li>{{ i18n "home_metric_1" }}</li>
-    <li>{{ i18n "home_metric_2" }}</li>
-    <li>{{ i18n "home_metric_3" }}</li>
-  </ul>
+<section class="section-identitat">
+  <div class="identitat-xifres">
+    <div class="identitat-xifra">
+      <span class="identitat-xifra__num">+30</span>
+      <span class="identitat-xifra__label">entitats residents</span>
+    </div>
+    <div class="identitat-xifra">
+      <span class="identitat-xifra__num">6.500 m²</span>
+      <span class="identitat-xifra__label">d'espai cultural</span>
+    </div>
+    <div class="identitat-xifra">
+      <span class="identitat-xifra__num">+10</span>
+      <span class="identitat-xifra__label">anys d'autogestió</span>
+    </div>
+    <div class="identitat-xifra">
+      <span class="identitat-xifra__num">4</span>
+      <span class="identitat-xifra__label">plantes obertes al barri</span>
+    </div>
+  </div>
+  <div class="identitat-paraules" aria-hidden="true">
+    <span>CULTURA</span>
+    <span>ART URBÀ</span>
+    <span>AUTOGESTIÓ</span>
+    <span>CREACIÓ ARTÍSTICA</span>
+    <span>VALORS</span>
+    <span>LLIBERTAT</span>
+    <span>ESPORT</span>
+    <span>DANSA</span>
+    <span>MÚSICA</span>
+    <span>COMUNITAT</span>
+    <span>FOTOGRAFIA</span>
+    <span>ARQUITECTURA</span>
+    <span>COOPERATIVISME</span>
+    <span>SAGRERA</span>
+    <span>BARCELONA</span>
+  </div>
 </section>
 
 {{ $noticiesAll := where site.RegularPages "Section" "noticies" }}
@@ -130,15 +159,16 @@
       </li>
       {{ end }}
     </ul>
-    {{/* Col 3: notícies de territori */}}
-    {{ if $noticiesTerrit }}
+    {{/* Col 3: notícies de territori (RSS automàtic) */}}
+    {{ $territori := index site.Data "noticies-territori" }}
+    {{ if and $territori $territori.items }}
     <div class="home-news-territori">
       <p class="home-news-territori__label">Del territori</p>
       <ul class="home-news-territori__list">
-        {{ range first 5 ($noticiesTerrit.ByDate.Reverse) }}
-        <li><a href="{{ .RelPermalink }}">
-          <span class="home-news-territori__date">{{ .Date.Format "02/01" }}</span>
-          <span class="home-news-territori__title">{{ .LinkTitle }}</span>
+        {{ range first 6 $territori.items }}
+        <li><a href="{{ .url }}" target="_blank" rel="noopener">
+          <span class="home-news-territori__meta">{{ .date | time.Format "02/01" }}{{ with .source }} · {{ . }}{{ end }}</span>
+          <span class="home-news-territori__title">{{ .title }}</span>
         </a></li>
         {{ end }}
       </ul>
@@ -161,7 +191,7 @@
   </div>
 
   <div class="tab-nav" role="tablist" aria-label="La Nau">
-    <button class="tab-btn is-active" data-tab="espais" role="tab" aria-selected="true" aria-controls="tab-espais" type="button">Espais</button>
+    <button class="tab-btn" data-tab="espais" role="tab" aria-selected="false" aria-controls="tab-espais" type="button">Espais</button>
     <button class="tab-btn" data-tab="equip" role="tab" aria-selected="false" aria-controls="tab-equip" type="button">Equip humà</button>
   </div>
 

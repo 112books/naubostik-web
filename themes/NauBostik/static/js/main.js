@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initAgenda();
   initEventCalendar();
   initHomeTabs();
+  initWordCloud();
 });
 
 function initHeroSlideshow() {
@@ -267,22 +268,77 @@ function initHomeTabs() {
   var btns   = nav.querySelectorAll('.tab-btn');
   var panels = document.querySelectorAll('.tab-panel');
 
-  panels.forEach(function(panel) {
-    if (!panel.classList.contains('is-active')) {
-      panel.classList.add('tab-panel--hidden');
-    }
-  });
+  // Estat inicial: totes les pestanyes tancades
+  btns.forEach(function(b) { b.classList.remove('is-active'); b.setAttribute('aria-selected', 'false'); });
+  panels.forEach(function(p) { p.classList.add('tab-panel--hidden'); });
 
   btns.forEach(function(btn) {
     btn.addEventListener('click', function() {
+      var targetId = 'tab-' + btn.dataset.tab;
+      var target   = document.getElementById(targetId);
+      var isOpen   = btn.classList.contains('is-active');
+
+      // Tanca tot
       btns.forEach(function(b) { b.classList.remove('is-active'); b.setAttribute('aria-selected', 'false'); });
       panels.forEach(function(p) { p.classList.add('tab-panel--hidden'); });
-      btn.classList.add('is-active');
-      btn.setAttribute('aria-selected', 'true');
-      var target = document.getElementById('tab-' + btn.dataset.tab);
-      if (target) target.classList.remove('tab-panel--hidden');
+
+      // Si no estava obert, obre'l (toggle)
+      if (!isOpen && target) {
+        btn.classList.add('is-active');
+        btn.setAttribute('aria-selected', 'true');
+        target.classList.remove('tab-panel--hidden');
+      }
     });
   });
+}
+
+function initWordCloud() {
+  var container = document.querySelector('.identitat-paraules');
+  if (!container) return;
+
+  var words = container.querySelectorAll('span');
+  if (!words.length) return;
+
+  var cw = container.offsetWidth;
+  var ch = container.offsetHeight;
+
+  // Posicionament aleatori de cada paraula
+  words.forEach(function(w) {
+    var size = 0.75 + Math.random() * 0.9; // entre 0.75rem i 1.65rem
+    w.style.fontSize = size + 'rem';
+    var maxLeft = Math.max(0, cw - w.offsetWidth - 10);
+    var maxTop  = Math.max(0, ch - w.offsetHeight - 10);
+    w.style.left = Math.floor(Math.random() * maxLeft) + 'px';
+    w.style.top  = Math.floor(Math.random() * maxTop)  + 'px';
+  });
+
+  var wordArr = Array.from(words);
+  var active  = new Set();
+  var VISIBLE_COUNT = 3;
+
+  function pulse() {
+    // Apaga un dels visibles a l'atzar
+    if (active.size >= VISIBLE_COUNT) {
+      var toHide = Array.from(active)[Math.floor(Math.random() * active.size)];
+      toHide.classList.remove('is-visible');
+      active.delete(toHide);
+    }
+    // Encén una paraula nova que no estigui activa
+    var candidates = wordArr.filter(function(w) { return !active.has(w); });
+    if (candidates.length) {
+      var pick = candidates[Math.floor(Math.random() * candidates.length)];
+      pick.classList.add('is-visible');
+      active.add(pick);
+    }
+  }
+
+  // Encén les primeres VISIBLE_COUNT paraules immediatament
+  for (var i = 0; i < VISIBLE_COUNT && i < wordArr.length; i++) {
+    wordArr[i].classList.add('is-visible');
+    active.add(wordArr[i]);
+  }
+
+  setInterval(pulse, 900);
 }
 
 function initEventCalendar() {

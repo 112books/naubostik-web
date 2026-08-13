@@ -1,0 +1,59 @@
+name: Actualitza notícies de territori
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'  # Cada dilluns a les 8h Barcelona (6h UTC)
+  workflow_dispatch:       # Execució manual des de GitHub Actions
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  fetch-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Fetch notícies territori
+        run: python scripts/fetch-territori.py
+
+      - name: Commit YAML actualitzat
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/noticies-territori.yaml
+          git diff --staged --quiet || git commit -m "auto: actualitza notícies de territori [skip ci]"
+          git push || true
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.147.0'
+          extended: true
+
+      - name: Build Hugo
+        run: hugo --minify --baseURL https://112books.github.io/naubostik-web/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
