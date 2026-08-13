@@ -1,13 +1,61 @@
 treballadors:
-  - nom: "Equip de Gestió"
-    rol: "Coordinació i gestió de l'espai"
-    foto: ""
-    email: "info@naubostik.com"
-    bio: "L'equip que s'ocupa del dia a dia de la Nau Bostik: relació amb entitats, manteniment, comunicació i projectes comunitaris."
+  - nom: "Jorge Sanchez"
+    rol: "Coordinació"
+    email: "coordinacio@naubostik.com"
+    foto: "https://naubostik.com/wp-content/uploads/2022/08/Staff-Jorge-300x300.jpeg"
+
+  - nom: "Eli Crego"
+    rol: "Dinamització"
+    email: "dinamitzacio@naubostik.com"
+    foto: "https://naubostik.com/wp-content/uploads/2025/11/Eli_Perfil-BN-300x300.jpg"
+
+  - nom: "Alex Lopez"
+    rol: "Tècnic"
+    email: "tecnic@naubostik.com"
+    foto: "https://naubostik.com/wp-content/uploads/2022/08/Staff-Alex-300x300.jpeg"
+
+  - nom: "Souleymane Bah"
+    rol: "Manteniment"
+    email: ""
+    foto: "https://naubostik.com/wp-content/uploads/2022/08/Staff-Souleymane-300x300.jpeg"
+
+  - nom: "Nora Grijalba"
+    rol: "Comunicació"
+    email: "comunicacio@naubostik.com"
+    foto: "https://naubostik.com/wp-content/uploads/2025/01/Nora_perfil-300x300.jpg"
+
+  - nom: "Laura Ciria"
+    rol: "Projectes"
+    email: "projectes@naubostik.com"
+    foto: "https://naubostik.com/wp-content/uploads/2022/08/Staff-Laura-300x300.jpeg"
+
+  - nom: "Romina Maldonado"
+    rol: "Comptabilitat"
+    email: "comptabilitat@naubostik.com"
+    foto: "https://naubostik.com/wp-content/uploads/2022/08/Staff-Romina-300x300.jpeg"
+
+  - nom: "Mabe Briones"
+    rol: "Administració"
+    email: "administracio@naubostik.com"
+    foto: "https://naubostik.com/wp-content/uploads/2024/03/mabe_perfil-300x300.jpg"
 
 colaboradors:
-  - nom: "Col·laboradors"
-    rol: "Suport i projectes específics"
-    foto: ""
+  - nom: "Xavier Basiana"
+    rol: "Impulsor / Fundador"
     email: ""
-    bio: "Persones i entitats que col·laboren puntualment amb la Nau Bostik en projectes, comunicació i dinamització."
+    foto: "https://naubostik.com/wp-content/uploads/2022/12/xb-300x300.png"
+
+  - nom: "David Suñol"
+    rol: "Col·laborador"
+    email: ""
+    foto: "https://naubostik.com/wp-content/uploads/2022/12/david-300x300.jpg"
+
+  - nom: "Aureli Gandul"
+    rol: "Col·laborador"
+    email: ""
+    foto: "https://naubostik.com/wp-content/uploads/2022/12/aureli-300x300.jpg"
+
+  - nom: "Joan Linux"
+    rol: "Col·laborador"
+    email: ""
+    foto: "https://naubostik.com/wp-content/uploads/2022/12/joan-300x300.jpg"

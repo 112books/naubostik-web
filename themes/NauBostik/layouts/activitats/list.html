@@ -28,7 +28,7 @@
       <li class="act-item">
         {{ if .Params.imatge }}
         <a class="act-item__img" href="{{ .RelPermalink }}">
-          <img src="{{ .Params.imatge }}" alt="{{ .Title }}" loading="lazy">
+          <img src="{{ .Params.imatge | relURL }}" alt="{{ .Title }}" loading="lazy">
         </a>
         {{ end }}
         <div class="act-item__body">
@@ -71,7 +71,7 @@
       <li class="act-item">
         {{ if .Params.imatge }}
         <a class="act-item__img" href="{{ .RelPermalink }}">
-          <img src="{{ .Params.imatge }}" alt="{{ .Title }}" loading="lazy">
+          <img src="{{ .Params.imatge | relURL }}" alt="{{ .Title }}" loading="lazy">
         </a>
         {{ end }}
         <div class="act-item__body">

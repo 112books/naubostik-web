@@ -290,6 +290,9 @@ function initHomeTabs() {
         btn.classList.add('is-active');
         btn.setAttribute('aria-selected', 'true');
         target.classList.remove('tab-panel--hidden');
+        target.classList.remove('tab-panel--in');
+        void target.offsetWidth;
+        target.classList.add('tab-panel--in');
       }
     });
   });

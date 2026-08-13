@@ -125,114 +125,7 @@
 </section>
 {{ end }}
 
-<section class="section-identitat">
-  <div class="identitat-xifres">
-    <div class="identitat-xifra">
-      <span class="identitat-xifra__num">+30</span>
-      <span class="identitat-xifra__label">entitats residents</span>
-    </div>
-    <div class="identitat-xifra">
-      <span class="identitat-xifra__num">6.000 m²</span>
-      <span class="identitat-xifra__label">d'espai cultural</span>
-    </div>
-    <div class="identitat-xifra">
-      <span class="identitat-xifra__num">12</span>
-      <span class="identitat-xifra__label">naus obertes al barri</span>
-    </div>
-    <div class="identitat-xifra">
-      <span class="identitat-xifra__num">+10</span>
-      <span class="identitat-xifra__label">anys d'autogestió</span>
-    </div>
-  </div>
-  <div class="identitat-paraules" aria-hidden="true">
-    <span>CULTURA</span>
-    <span>ART URBÀ</span>
-    <span>AUTOGESTIÓ</span>
-    <span>CREACIÓ ARTÍSTICA</span>
-    <span>VALORS</span>
-    <span>LLIBERTAT</span>
-    <span>ESPORT</span>
-    <span>DANSA</span>
-    <span>MÚSICA</span>
-    <span>COMUNITAT</span>
-    <span>FOTOGRAFIA</span>
-    <span>ARQUITECTURA</span>
-    <span>COOPERATIVISME</span>
-    <span>SAGRERA</span>
-    <span>BARCELONA</span>
-    <span>ECOLOGIA</span>
-    <span>ENERGIA RENOVABLE</span>
-    <span>COOPERATIVA</span>
-    <span>CIRC</span>
-    <span>ARTS ESCÈNIQUES</span>
-    <span>FORMACIÓ</span>
-    <span>IMATGE</span>
-    <span>PROGRAMARI LLIURE</span>
-    <span>EDITORIAL</span>
-    <span>RECURSOS CULTURALS</span>
-    <span>EXPOSICIONS FOTOGRÀFIQUES</span>
-    <span>ART</span>
-    <span>PINTURA</span>
-  </div>
-</section>
-
-{{ $noticiesAll := where site.RegularPages "Section" "noticies" }}
-{{ if $noticiesAll }}
-{{ $noticiesDescat := where $noticiesAll "Params.destacada" true }}
-{{ $noticiesTerrit := where $noticiesAll "Params.territori" true }}
-{{ $noticiesNorm   := where $noticiesAll "Params.territori" "!=" true }}
-{{ $noticiesHero := index ($noticiesDescat.ByDate.Reverse) 0 }}
-{{ if not $noticiesHero }}{{ $noticiesHero = index ($noticiesNorm.ByDate.Reverse) 0 }}{{ end }}
-{{ $noticiesRecents := first 3 ($noticiesNorm.ByDate.Reverse) }}
-<section class="section">
-  <div class="section-header">
-    <h2 class="section-title">{{ i18n "home_section_noticies" }}</h2>
-    <a href="{{ "noticies/" | relLangURL }}" class="section-link">{{ i18n "home_link_veure_totes" }} &rarr;</a>
-  </div>
-  <div class="home-news-grid">
-    {{/* Col 1: notícia destacada */}}
-    {{ with $noticiesHero }}
-    <a class="home-news-hero" href="{{ .RelPermalink }}">
-      {{ with .Params.imatge }}<div class="home-news-hero__img"><img src="{{ . }}" alt="{{ $.Title }}" loading="lazy"></div>{{ end }}
-      <div class="home-news-hero__body">
-        {{ if .Params.destacada }}<span class="home-news-badge">Destacat</span>{{ end }}
-        <h3 class="home-news-hero__title">{{ .LinkTitle }}</h3>
-        <p class="home-news-hero__meta">{{ .Date.Format "02/01/2006" }}</p>
-        <p class="home-news-hero__excerpt">{{ .Summary | truncate 160 }}</p>
-      </div>
-    </a>
-    {{ end }}
-    {{/* Col 2: darreres notícies */}}
-    <ul class="home-news-recents">
-      {{ range $noticiesRecents }}
-      <li class="home-news-item">
-        <a href="{{ .RelPermalink }}">
-          <p class="home-news-item__date">{{ .Date.Format "02/01/2006" }}</p>
-          <h4 class="home-news-item__title">{{ .LinkTitle }}</h4>
-        </a>
-      </li>
-      {{ end }}
-    </ul>
-    {{/* Col 3: notícies de territori (RSS automàtic) */}}
-    {{ $territori := index site.Data "noticies-territori" }}
-    {{ if and $territori $territori.items }}
-    <div class="home-news-territori">
-      <p class="home-news-territori__label">Del territori</p>
-      <ul class="home-news-territori__list">
-        {{ range first 6 $territori.items }}
-        <li><a href="{{ .url }}" target="_blank" rel="noopener">
-          <span class="home-news-territori__meta">{{ .date | time.Format "02/01" }}{{ with .source }} · {{ . }}{{ end }}</span>
-          <span class="home-news-territori__title">{{ .title }}</span>
-        </a></li>
-        {{ end }}
-      </ul>
-    </div>
-    {{ end }}
-  </div>
-</section>
-{{ end }}
-
-{{/* ── LA NAU: tres pestanyes ── */}}
+{{/* ── LA NAU BOSTIK: tres pestanyes ── */}}
 {{ $espaisAll      := where site.RegularPages "Section" "espais" }}
 {{ $espaisCedibles := where $espaisAll "Params.cedible" true }}
 {{ $espaisPortada  := where $espaisAll "Params.portada" true }}
@@ -241,12 +134,68 @@
 
 <section class="section">
   <div class="section-header">
-    <h2 class="section-title">La Nau</h2>
+    <h2 class="section-title">La Nau Bostik</h2>
   </div>
 
-  <div class="tab-nav" role="tablist" aria-label="La Nau">
-    <button class="tab-btn is-active" data-tab="espais" role="tab" aria-selected="true" aria-controls="tab-espais" type="button">Espais</button>
+  <div class="tab-nav" role="tablist" aria-label="La Nau Bostik">
+    <button class="tab-btn is-active" data-tab="xifres" role="tab" aria-selected="true" aria-controls="tab-xifres" type="button">En xifres</button>
+    <button class="tab-btn" data-tab="espais" role="tab" aria-selected="false" aria-controls="tab-espais" type="button">Espais</button>
     <button class="tab-btn" data-tab="equip" role="tab" aria-selected="false" aria-controls="tab-equip" type="button">Equip humà</button>
+  </div>
+
+  {{/* TAB: En xifres */}}
+  <div class="tab-panel is-active" id="tab-xifres" role="tabpanel">
+    <div class="section-identitat">
+      <div class="identitat-xifres">
+        <div class="identitat-xifra">
+          <span class="identitat-xifra__num">+30</span>
+          <span class="identitat-xifra__label">entitats residents</span>
+        </div>
+        <div class="identitat-xifra">
+          <span class="identitat-xifra__num">6.000 m²</span>
+          <span class="identitat-xifra__label">d'espai cultural</span>
+        </div>
+        <div class="identitat-xifra">
+          <span class="identitat-xifra__num">12</span>
+          <span class="identitat-xifra__label">naus obertes al barri</span>
+        </div>
+        <div class="identitat-xifra">
+          <span class="identitat-xifra__num">+10</span>
+          <span class="identitat-xifra__label">anys d'autogestió</span>
+        </div>
+      </div>
+      <div class="identitat-paraules" aria-hidden="true">
+        <span>CULTURA</span>
+        <span>ART URBÀ</span>
+        <span>AUTOGESTIÓ</span>
+        <span>CREACIÓ ARTÍSTICA</span>
+        <span>VALORS</span>
+        <span>LLIBERTAT</span>
+        <span>ESPORT</span>
+        <span>DANSA</span>
+        <span>MÚSICA</span>
+        <span>COMUNITAT</span>
+        <span>FOTOGRAFIA</span>
+        <span>ARQUITECTURA</span>
+        <span>COOPERATIVISME</span>
+        <span>SAGRERA</span>
+        <span>BARCELONA</span>
+        <span>ECOLOGIA</span>
+        <span>ENERGIA RENOVABLE</span>
+        <span>COOPERATIVA</span>
+        <span>CIRC</span>
+        <span>ARTS ESCÈNIQUES</span>
+        <span>FORMACIÓ</span>
+        <span>IMATGE</span>
+        <span>PROGRAMARI LLIURE</span>
+        <span>EDITORIAL</span>
+        <span>RECURSOS CULTURALS</span>
+        <span>EXPOSICIONS FOTOGRÀFIQUES</span>
+        <span>ART</span>
+        <span>PINTURA</span>
+      </div>
+    </div>
+    <p class="tab-panel__link"><a href="{{ "qui-som/" | relLangURL }}">Llegiu la nostra història &rarr;</a></p>
   </div>
 
   {{/* TAB: Espais */}}
@@ -279,7 +228,7 @@
     <div class="equip-grid">
       {{ range .treballadors }}
       <div class="equip-card">
-        {{ if .foto }}<div class="equip-card__foto"><img src="{{ .foto | relURL }}" alt="{{ .nom }}" loading="lazy"></div>
+        {{ if .foto }}<div class="equip-card__foto"><img src="{{ .foto }}" alt="{{ .nom }}" loading="lazy"></div>
         {{ else }}<div class="equip-card__foto equip-card__foto--placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>{{ end }}
         <div class="equip-card__body">
           <h3 class="equip-card__nom">{{ .nom }}</h3>
@@ -296,7 +245,7 @@
     <div class="equip-grid">
       {{ range .colaboradors }}
       <div class="equip-card">
-        {{ if .foto }}<div class="equip-card__foto"><img src="{{ .foto | relURL }}" alt="{{ .nom }}" loading="lazy"></div>
+        {{ if .foto }}<div class="equip-card__foto"><img src="{{ .foto }}" alt="{{ .nom }}" loading="lazy"></div>
         {{ else }}<div class="equip-card__foto equip-card__foto--placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>{{ end }}
         <div class="equip-card__body">
           <h3 class="equip-card__nom">{{ .nom }}</h3>
@@ -313,5 +262,64 @@
   </div>
 
 </section>
+
+{{ $noticiesAll := where site.RegularPages "Section" "noticies" }}
+{{ if $noticiesAll }}
+{{ $noticiesDescat := where $noticiesAll "Params.destacada" true }}
+{{ $noticiesTerrit := where $noticiesAll "Params.territori" true }}
+{{ $noticiesNorm   := where $noticiesAll "Params.territori" "!=" true }}
+{{ $noticiesHero := index ($noticiesDescat.ByDate.Reverse) 0 }}
+{{ if not $noticiesHero }}{{ $noticiesHero = index ($noticiesNorm.ByDate.Reverse) 0 }}{{ end }}
+{{ $noticiesRecents := first 3 ($noticiesNorm.ByDate.Reverse) }}
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">{{ i18n "home_section_noticies" }}</h2>
+    <a href="{{ "noticies/" | relLangURL }}" class="section-link">{{ i18n "home_link_veure_totes" }} &rarr;</a>
+  </div>
+  <div class="home-news-grid">
+    {{/* Col 1: notícia destacada */}}
+    {{ with $noticiesHero }}
+    <a class="home-news-hero" href="{{ .RelPermalink }}">
+      {{ with .Params.imatge }}<div class="home-news-hero__img"><img src="{{ . | relURL }}" alt="{{ $.Title }}" loading="lazy"></div>{{ end }}
+      <div class="home-news-hero__body">
+        {{ if .Params.destacada }}<span class="home-news-badge">Destacat</span>{{ end }}
+        <h3 class="home-news-hero__title">{{ .LinkTitle }}</h3>
+        <p class="home-news-hero__meta">{{ .Date.Format "02/01/2006" }}</p>
+        <p class="home-news-hero__excerpt">{{ .Summary | truncate 160 }}</p>
+      </div>
+    </a>
+    {{ end }}
+    {{/* Col 2: darreres notícies */}}
+    <ul class="home-news-recents">
+      {{ range $noticiesRecents }}
+      <li class="home-news-item">
+        <a href="{{ .RelPermalink }}">
+          {{ with .Params.imatge }}<div class="home-news-item__thumb"><img src="{{ . | relURL }}" alt="" loading="lazy"></div>{{ end }}
+          <div class="home-news-item__text">
+            <p class="home-news-item__date">{{ .Date.Format "02/01/2006" }}</p>
+            <h4 class="home-news-item__title">{{ .LinkTitle }}</h4>
+          </div>
+        </a>
+      </li>
+      {{ end }}
+    </ul>
+    {{/* Col 3: notícies de territori (RSS automàtic) */}}
+    {{ $territori := index site.Data "noticies-territori" }}
+    {{ if and $territori $territori.items }}
+    <div class="home-news-territori">
+      <p class="home-news-territori__label">Del territori</p>
+      <ul class="home-news-territori__list">
+        {{ range first 6 $territori.items }}
+        <li><a href="{{ .url }}" target="_blank" rel="noopener">
+          <span class="home-news-territori__meta">{{ .date | time.Format "02/01" }}{{ with .source }} · {{ . }}{{ end }}</span>
+          <span class="home-news-territori__title">{{ .title }}</span>
+        </a></li>
+        {{ end }}
+      </ul>
+    </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
 
 {{ end }}
