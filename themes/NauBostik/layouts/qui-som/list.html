@@ -1,0 +1,144 @@
+{{ define "main" }}
+{{ $equip := index site.Data "equip" }}
+
+<div class="page-header">
+  <h1>{{ .Title }}</h1>
+</div>
+
+<div class="qui-som-wrap">
+
+  <div class="tab-nav" role="tablist" aria-label="Qui som">
+    <button class="tab-btn is-active" data-tab="resum" role="tab" aria-selected="true" aria-controls="tab-resum" type="button">Resum</button>
+    <button class="tab-btn" data-tab="equip" role="tab" aria-selected="false" aria-controls="tab-equip" type="button">Equip gestor</button>
+    <button class="tab-btn" data-tab="colaboradors" role="tab" aria-selected="false" aria-controls="tab-colaboradors" type="button">Col·laboradors</button>
+    <button class="tab-btn" data-tab="historia" role="tab" aria-selected="false" aria-controls="tab-historia" type="button">Història</button>
+    <button class="tab-btn" data-tab="transparencia" role="tab" aria-selected="false" aria-controls="tab-transparencia" type="button">Transparència</button>
+    <button class="tab-btn" data-tab="identitat" role="tab" aria-selected="false" aria-controls="tab-identitat" type="button">Identitat visual</button>
+  </div>
+
+  {{/* TAB: Resum i motivació */}}
+  <div class="tab-panel is-active" id="tab-resum" role="tabpanel">
+    <div class="qui-som-resum">
+      <div class="qui-som-resum__text">
+        <p>La Nau Bostik és un <strong>equipament sociocultural de gestió comunitària</strong> situat a l'antiga fàbrica de la Bostik, al barri de la Sagrera, a Barcelona. Un espai on conviuen projectes artístics, socials i comunitaris, obert a tothom i gestionat col·lectivament.</p>
+        <p>Nascut al febrer del 2015, quan un grup de veïns i veïnes impulsats pel Xavier Basiana van transformar un antic recinte industrial abandonat en un nou espai obert a les necessitats veïnals i a tota forma d'expressió artística i cultural, la Nau Bostik es consolida avui com un referent de la gestió comunitària a Barcelona.</p>
+      </div>
+      <div class="qui-som-valors">
+        <h2 class="qui-som-valors__title">Els nostres valors</h2>
+        <ul class="qui-som-valors__list">
+          <li><strong>Autogestió</strong> — Un espai gestionat col·lectivament pels seus usuaris i col·lectius</li>
+          <li><strong>Accessibilitat</strong> — Activitats obertes a tothom, sense barreres econòmiques</li>
+          <li><strong>Participació</strong> — Fomentem la implicació del veïnat en les activitats</li>
+          <li><strong>Diversitat</strong> — Donem espai a múltiples expressions culturals i artístiques</li>
+          <li><strong>Transparència</strong> — Decisions preses de forma assembleària i comptes públics</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  {{/* TAB: Equip gestor */}}
+  <div class="tab-panel tab-panel--hidden" id="tab-equip" role="tabpanel">
+    {{ with $equip }}
+    {{ if .treballadors }}
+    <div class="equip-grid">
+      {{ range .treballadors }}
+      <div class="equip-card">
+        {{ if .foto }}<div class="equip-card__foto"><img src="{{ .foto }}" alt="{{ .nom }}" loading="lazy"></div>
+        {{ else }}<div class="equip-card__foto equip-card__foto--placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>{{ end }}
+        <div class="equip-card__body">
+          <h3 class="equip-card__nom">{{ .nom }}</h3>
+          <p class="equip-card__rol">{{ .rol }}</p>
+          {{ with .bio }}<p class="equip-card__bio">{{ . }}</p>{{ end }}
+          {{ with .email }}<a class="equip-card__email" href="mailto:{{ . }}">{{ . }}</a>{{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
+    {{ end }}
+    {{ end }}
+  </div>
+
+  {{/* TAB: Col·laboradors */}}
+  <div class="tab-panel tab-panel--hidden" id="tab-colaboradors" role="tabpanel">
+    {{ with $equip }}
+    {{ if .colaboradors }}
+    <div class="equip-grid">
+      {{ range .colaboradors }}
+      <div class="equip-card">
+        {{ if .foto }}<div class="equip-card__foto"><img src="{{ .foto }}" alt="{{ .nom }}" loading="lazy"></div>
+        {{ else }}<div class="equip-card__foto equip-card__foto--placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>{{ end }}
+        <div class="equip-card__body">
+          <h3 class="equip-card__nom">{{ .nom }}</h3>
+          <p class="equip-card__rol">{{ .rol | default "Col·laborador/a" }}</p>
+          {{ with .bio }}<p class="equip-card__bio">{{ . }}</p>{{ end }}
+          {{ with .email }}<a class="equip-card__email" href="mailto:{{ . }}">{{ . }}</a>{{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
+    {{ end }}
+    {{ end }}
+  </div>
+
+  {{/* TAB: Història */}}
+  <div class="tab-panel tab-panel--hidden" id="tab-historia" role="tabpanel">
+    <div class="qui-som-historia">
+      <h2>Orígens de la Bostik</h2>
+      <p>La Nau Bostik va ser una de les cinquanta fàbriques d'una important multinacional especialitzada en la producció d'adhesius. L'empresa, que té els orígens a Chelsea, Massachusetts (EUA), es funda el 1889 amb el nom de <em>The Boston Blacking Co.</em> Aquesta productora de cola per a la indústria sabatera arriba a Catalunya com a Bostik l'any 1923, quan la companyia s'internacionalitza i comença a diversificar els seus productes.</p>
+      <p>La presència de Bostik al país ha estat ininterrompuda des del 1923. La companyia agafa una forta embranzida a la dècada de 1960, quan es construeix la Nau Bostik. El recinte va tenir un ús industrial fins que el 2006 tanca definitivament les seves operacions.</p>
+
+      <h2>La transformació (2015)</h2>
+      <p>Al febrer del 2015 la història fa un gir inesperat: la Nau Bostik, predestinada a ser enderrocada per construir-hi blocs de pisos, és cedida temporalment a un grup de veïns i veïnes impulsats pel Xavier Basiana, que comencen a transformar aquest antic recinte industrial abandonat en <strong>un nou espai obert a les necessitats veïnals i a tota forma d'expressió artística i cultural.</strong></p>
+      <p>Des d'aleshores, la Nau Bostik creix any rere any, consolidant-se com un dels espais de gestió comunitària de referència a Barcelona, acollint més de 30 entitats residents i milers de persones cada any.</p>
+    </div>
+  </div>
+
+  {{/* TAB: Transparència */}}
+  <div class="tab-panel tab-panel--hidden" id="tab-transparencia" role="tabpanel">
+    <p class="qui-som-transparencia__intro">Publiquem les memòries anuals d'activitat i econòmiques per garantir la rendició de comptes envers el veïnat i els nostres grups de suport.</p>
+    <div class="qui-som-memories">
+      <div class="memoria-card">
+        <div class="memoria-card__any">2024</div>
+        <h3 class="memoria-card__title">Memòria 2024</h3>
+        <p class="memoria-card__desc">Activitats, col·lectius i comptes de l'any 2024.</p>
+        <a class="memoria-card__link" href="https://naubostik.com" target="_blank" rel="noopener">Descarregar &rarr;</a>
+      </div>
+      <div class="memoria-card">
+        <div class="memoria-card__any">2023</div>
+        <h3 class="memoria-card__title">Memòria 2023</h3>
+        <p class="memoria-card__desc">Activitats, col·lectius i comptes de l'any 2023.</p>
+        <a class="memoria-card__link" href="https://naubostik.com" target="_blank" rel="noopener">Descarregar &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  {{/* TAB: Identitat visual */}}
+  <div class="tab-panel tab-panel--hidden" id="tab-identitat" role="tabpanel">
+    <div class="qui-som-identitat">
+      <p>La identitat visual de la Nau Bostik es basa en el taronja com a color principal, una tipografia neta i un logotip que reflecteix l'esperit industrial i comunitari de l'espai.</p>
+      <div class="identitat-logos">
+        <div class="identitat-logo-card">
+          <div class="identitat-logo-card__img">
+            <img src="https://naubostik.com/wp-content/uploads/2026/03/Logo-NB-taronja.jpg" alt="Logotip Nau Bostik — color" loading="lazy">
+          </div>
+          <p class="identitat-logo-card__label">Versió color</p>
+        </div>
+        <div class="identitat-logo-card">
+          <div class="identitat-logo-card__img identitat-logo-card__img--dark">
+            <img src="https://naubostik.com/wp-content/uploads/2025/07/Logo-NAU-BOSTIK-BN-300x283.jpg" alt="Logotip Nau Bostik — B/N positiu" loading="lazy">
+          </div>
+          <p class="identitat-logo-card__label">B/N positiu</p>
+        </div>
+        <div class="identitat-logo-card">
+          <div class="identitat-logo-card__img identitat-logo-card__img--black">
+            <img src="https://naubostik.com/wp-content/uploads/2025/07/Logo-NAU-BOSTIK-negatiu-BN-300x283.jpg" alt="Logotip Nau Bostik — B/N negatiu" loading="lazy">
+          </div>
+          <p class="identitat-logo-card__label">B/N negatiu</p>
+        </div>
+      </div>
+      <p class="identitat-manual-link"><a href="https://naubostik.com/identitat-visual-de-la-nau-bostik/" target="_blank" rel="noopener">Manual d'identitat corporativa i descàrregues &rarr;</a></p>
+    </div>
+  </div>
+
+</div>
+{{ end }}

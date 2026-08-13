@@ -20,7 +20,7 @@
     {{ end }}
     {{ end }}
     <p class="hero-kicker">{{ i18n "home_hero_kicker" }}</p>
-    <h1>{{ i18n "home_hero_title_line1" }}<br>{{ i18n "home_hero_title_line2" }}</h1>
+    <h1>{{ i18n "home_hero_title_line1" }}{{ with i18n "home_hero_title_line2" }}<br>{{ . }}{{ end }}</h1>
     <p class="hero-sub">{{ i18n "home_hero_sub" }}</p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="{{ "activitats/" | relLangURL }}">{{ i18n "home_btn_agenda" }}</a>
@@ -137,6 +137,7 @@
     <h2 class="section-title">La Nau Bostik</h2>
     <div class="tab-nav" role="tablist" aria-label="La Nau Bostik">
       <button class="tab-btn is-active" data-tab="xifres" role="tab" aria-selected="true" aria-controls="tab-xifres" type="button">En xifres</button>
+      <button class="tab-btn" data-tab="collectius" role="tab" aria-selected="false" aria-controls="tab-collectius" type="button">Col·lectius</button>
       <button class="tab-btn" data-tab="espais" role="tab" aria-selected="false" aria-controls="tab-espais" type="button">Espais</button>
       <button class="tab-btn" data-tab="equip" role="tab" aria-selected="false" aria-controls="tab-equip" type="button">Equip humà</button>
     </div>
@@ -197,8 +198,25 @@
     <p class="tab-panel__link"><a href="{{ "qui-som/" | relLangURL }}">Llegiu la nostra història &rarr;</a></p>
   </div>
 
+  {{/* TAB: Col·lectius */}}
+  {{ $collectius := where site.RegularPages "Section" "collectius" }}
+  <div class="tab-panel tab-panel--hidden" id="tab-collectius" role="tabpanel">
+    <div class="home-col-logos">
+      {{ range $collectius.ByTitle }}
+      <a href="{{ .RelPermalink }}" class="home-col-logo-card" title="{{ .Title }}">
+        {{ if .Params.logo }}
+        <img src="{{ .Params.logo }}" alt="{{ .Title }}" loading="lazy">
+        {{ else }}
+        <span class="home-col-logo-card__name">{{ .Title }}</span>
+        {{ end }}
+      </a>
+      {{ end }}
+    </div>
+    <p class="tab-panel__link"><a href="{{ "collectius/" | relLangURL }}">Veure tots els col·lectius &rarr;</a></p>
+  </div>
+
   {{/* TAB: Espais */}}
-  <div class="tab-panel" id="tab-espais" role="tabpanel">
+  <div class="tab-panel tab-panel--hidden" id="tab-espais" role="tabpanel">
     <div class="planta-grid">
       {{ range $espaisTab }}
       <a href="{{ .RelPermalink }}" class="espai-card">
@@ -308,7 +326,7 @@
     <div class="home-news-territori">
       <p class="home-news-territori__label">Del territori</p>
       <ul class="home-news-territori__list">
-        {{ range first 6 $territori.items }}
+        {{ range first 5 $territori.items }}
         <li><a href="{{ .url }}" target="_blank" rel="noopener">
           <span class="home-news-territori__meta">{{ .date | time.Format "02/01" }}{{ with .source }} · {{ . }}{{ end }}</span>
           <span class="home-news-territori__title">{{ .title }}</span>
