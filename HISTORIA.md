@@ -1452,3 +1452,21 @@ ruting a `glm-5.2` (Z.ai / origen GLM). Sessió serves com a baseline.
     (`data-gallery="activitat-{slug}"`, mateix patró que notícies).
 - **Verificació Playwright:** 0 imatges trencades, 470 heros, 444 galeries,
   3 botons de calendari per single, 5 futurs al llistat + arxiu de passats.
+
+## Contingut complet dels col·lectius + logos localitzats (2026-08-13)
+- **Objectiu:** les fitxes de `/collectius/` només tenien frontmatter (logo remot
+  del WP, web, descripcio curta); portar el cos real de cada entitat.
+- **Fets:**
+  - 22 logos descarregats (300×300) a `static/img/collectius/`; `logo` del
+    frontmatter apunta ara a `/img/collectius/{slug}.jpg`.
+  - Conversor Python (HTMLParser) que afegeix el cos del WP (`espais_nau_bostik`)
+    al body de les 22 fitxes (paràgrafs, strong/em, enllaços, llistes, `hr`,
+    neteja de divs `wp-block-*`). Es retalla el primer paràgraf si duplica la
+    `descripcio`.
+  - `list.html`/`single.html` de collectius: `logo | strings.TrimPrefix "/" | relURL`
+    (patró espais/activitats) per GH Pages.
+  - `basket-beat` (draft) i els 4 espais físics del WP ja coberts per `/espais/`
+    no es toquen.
+- **Verificació Playwright:** 22 singles amb logo + cos, 0 imatges trencades.
+- **Pendent nou:** llistat d'activitats amb només 5 properes + enllaç "Totes"
+  a pàgina nova a 4 columnes amb tot l'històric i scroll infinit (o paginador).
