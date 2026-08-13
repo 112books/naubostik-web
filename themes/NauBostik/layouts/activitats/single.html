@@ -51,7 +51,7 @@
       {{ end }}
       <div class="event-meta__item">
         <dt>{{ i18n "event_location" | default "Lloc" }}</dt>
-        <dd>{{ .Params.planta | default "Nau Bostik" }}{{ with .Params.entitat }} · {{ . }}{{ end }}</dd>
+        <dd>{{ .Params.planta | default "Nau Bostik" }}{{ with .Params.entitat }} · {{ . }}{{ end }}{{ with .Params.organitzador }} · {{ . }}{{ end }}</dd>
       </div>
       {{ with .Params.preu }}
       <div class="event-meta__item event-meta__item--preu">

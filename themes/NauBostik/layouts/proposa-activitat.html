@@ -1,0 +1,172 @@
+{{ define "main" }}
+<div class="page-header">
+  <h1>{{ .Title }}</h1>
+  <p class="lead">La Nau Bostik és un espai obert a la comunitat. Si tens un projecte, taller o activitat que vols dur a terme aquí, explica'ns-ho.</p>
+</div>
+
+<div class="proposa-grid">
+
+  <div class="proposa-main">
+
+    <section class="proposa-section">
+      <h2>Condicions generals</h2>
+      <ul>
+        <li>L'activitat ha de ser d'accés públic o oberta a la comunitat del barri.</li>
+        <li>Ha de tenir caràcter cultural, social, educatiu o creatiu.</li>
+        <li>No pot tenir finalitat lucrativa directa ni estar vinculada a partits polítics o entitats religioses.</li>
+        <li>La persona o entitat proposant és responsable de l'organització i del compliment de la normativa vigent (llicències, aforament, accessibilitat).</li>
+        <li>L'assignació d'espai queda subjecta a disponibilitat i aprovació de l'equip de gestió.</li>
+        <li>Les activitats aprovades es difonen a través dels canals de la Nau Bostik (web, xarxes, butlletí).</li>
+      </ul>
+    </section>
+
+    <section class="proposa-section">
+      <h2>Espais disponibles</h2>
+      <div class="proposa-espais">
+        <div class="proposa-espai">
+          <h3>Nau Andy Warhol</h3>
+          <p>Planta baixa · Aforament fins a 400 persones · Actes multitudinaris, mercats, concerts, fires</p>
+        </div>
+        <div class="proposa-espai">
+          <h3>Sala Aureli Gandul</h3>
+          <p>Planta baixa · ~80 persones · Xerrades, projeccions, assemblees, tallers</p>
+        </div>
+        <div class="proposa-espai">
+          <h3>Sala Basiana</h3>
+          <p>Primera planta · ~40 persones · Exposicions, presentacions, reunions</p>
+        </div>
+        <div class="proposa-espai">
+          <h3>Espais Exteriors</h3>
+          <p>Pati i zona exterior · Variable · Activitats a l'aire lliure, mercats, actes comunitaris</p>
+        </div>
+        <div class="proposa-espai">
+          <h3>Sala 112</h3>
+          <p>Primera planta · ~30 persones · Tallers, formació, reunions petites</p>
+        </div>
+      </div>
+      <p class="proposa-note"><a href="{{ "espais/" | relLangURL }}">Veure tots els espais &rarr;</a></p>
+    </section>
+
+    <section class="proposa-section" id="faq">
+      <h2>Preguntes freqüents</h2>
+      <details class="proposa-faq">
+        <summary>Quin cost té usar un espai?</summary>
+        <p>Depenem del tipus d'activitat i de si l'entitat és resident o externa. Les activitats comunitàries sense ànim de lucre es valoren cas per cas. Contacta'ns per a pressupost.</p>
+      </details>
+      <details class="proposa-faq">
+        <summary>Quan trigaré a rebre resposta?</summary>
+        <p>L'equip de gestió revisa les propostes un cop a la setmana. Rebràs resposta en un màxim de 10 dies hàbils.</p>
+      </details>
+      <details class="proposa-faq">
+        <summary>Puc fer una activitat de pagament?</summary>
+        <p>Sí, si el preu és accessible i l'activitat té interès comunitari. Cal especificar-ho a la proposta.</p>
+      </details>
+      <details class="proposa-faq">
+        <summary>Necessito assegurança pròpia?</summary>
+        <p>Per a activitats amb públic adult, sí. Per a activitats infantils o amb col·lectius vulnerables, és obligatori acreditar assegurança de responsabilitat civil.</p>
+      </details>
+      <details class="proposa-faq">
+        <summary>Podeu ajudar-me a difondre-la?</summary>
+        <p>Si l'activitat és aprovada, la publiquem al web i la incloem al butlletí setmanal. Les xarxes socials es gestionen cas per cas.</p>
+      </details>
+    </section>
+
+    <section class="proposa-section" id="formulari">
+      <h2>Envia la teva proposta</h2>
+      <p>Omple el formulari i l'equip de gestió es posarà en contacte amb tu.</p>
+
+      <form name="proposta-activitat" method="POST" netlify netlify-honeypot="bot-field" class="proposa-form">
+        <input type="hidden" name="form-name" value="proposta-activitat">
+        <p class="proposa-form__honeypot" aria-hidden="true">
+          <label>No ompliu aquest camp: <input name="bot-field"></label>
+        </p>
+
+        <div class="form-group">
+          <label for="nom">Nom i cognoms *</label>
+          <input type="text" id="nom" name="nom" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Correu electrònic *</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="entitat">Entitat o col·lectiu (si escau)</label>
+          <input type="text" id="entitat" name="entitat" placeholder="Deixa buit si és a títol personal">
+        </div>
+
+        <div class="form-group">
+          <label for="titol">Títol de l'activitat *</label>
+          <input type="text" id="titol" name="titol" required>
+        </div>
+
+        <div class="form-group">
+          <label for="tipus">Tipus d'activitat *</label>
+          <select id="tipus" name="tipus" required>
+            <option value="">— Selecciona —</option>
+            <option>Taller</option>
+            <option>Xerrada / conferència</option>
+            <option>Concert / actuació</option>
+            <option>Exposició</option>
+            <option>Mercat / fira</option>
+            <option>Projecció</option>
+            <option>Activitat infantil</option>
+            <option>Altra</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="espai">Espai preferit</label>
+          <select id="espai" name="espai">
+            <option value="">— No ho sé encara —</option>
+            <option>Nau Andy Warhol (fins a 400 pers.)</option>
+            <option>Sala Aureli Gandul (~80 pers.)</option>
+            <option>Sala Basiana (~40 pers.)</option>
+            <option>Sala 112 (~30 pers.)</option>
+            <option>Espais Exteriors</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="data">Data prevista *</label>
+            <input type="date" id="data" name="data" required>
+          </div>
+          <div class="form-group">
+            <label for="hora">Hora d'inici</label>
+            <input type="time" id="hora" name="hora">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="descripcio">Descripció de l'activitat *</label>
+          <textarea id="descripcio" name="descripcio" rows="5" required placeholder="Explica en què consisteix, a qui va dirigida, si té cost per al públic, quants assistents espereu..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="observacions">Observacions o necessitats tècniques</label>
+          <textarea id="observacions" name="observacions" rows="3" placeholder="Equip de so, projector, taules, cadires..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Envia la proposta</button>
+      </form>
+    </section>
+
+  </div>
+
+  <aside class="proposa-aside">
+    <div class="proposa-aside-box">
+      <h3>Contacte directe</h3>
+      <p>Si prefereixes parlar-nos primer, escriu-nos:</p>
+      <a href="mailto:info@naubostik.com" class="btn btn-secondary">info@naubostik.com</a>
+    </div>
+    <div class="proposa-aside-box">
+      <h3>Qui som</h3>
+      <p>La Nau Bostik és un equipament sociocultural autogestionat al barri de La Sagrera de Barcelona, amb més de 30 entitats residents.</p>
+      <a href="{{ "qui-som/" | relLangURL }}">Coneix-nos &rarr;</a>
+    </div>
+  </aside>
+
+</div>
+{{ end }}

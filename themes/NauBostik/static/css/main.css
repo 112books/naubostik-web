@@ -1672,6 +1672,404 @@ main.container {
   .activitat-cards--4 { grid-template-columns: 1fr; }
 }
 
+/* === ACTIVITATS 3 COLUMNES === */
+
+.act-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  align-items: start;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sharp);
+  overflow: hidden;
+}
+
+.act-col {
+  padding: 1.5rem;
+  border-right: 1px solid var(--color-border);
+  min-height: 400px;
+}
+
+.act-col:last-child {
+  border-right: none;
+}
+
+.act-col__title {
+  font-size: 1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--color-primary);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 2px solid var(--color-accent);
+}
+
+.act-col__title--entitats {
+  border-bottom-color: var(--color-secondary);
+}
+
+.act-col--tallers .act-col__title {
+  border-bottom-color: var(--color-muted);
+}
+
+.act-col__cta {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: var(--fs-sm);
+}
+
+.act-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.act-list--past {
+  margin-top: 1rem;
+  opacity: 0.7;
+}
+
+.act-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.act-item__img {
+  display: block;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  border-radius: var(--radius-sharp);
+}
+
+.act-item__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.act-item__img:hover img {
+  transform: scale(1.04);
+}
+
+.act-item__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.act-item__entitat {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-secondary);
+}
+
+.act-item__date {
+  font-size: var(--fs-sm);
+  color: var(--color-muted);
+  margin: 0;
+  font-weight: 600;
+}
+
+.act-item__periodicitat {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+  margin: 0;
+}
+
+.act-item__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.act-item__title a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.act-item__title a:hover {
+  color: var(--color-accent);
+}
+
+.act-item__desc {
+  font-size: var(--fs-sm);
+  color: var(--color-secondary);
+  line-height: 1.5;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.act-item--past .act-item__title a {
+  color: var(--color-muted);
+}
+
+.act-item--taller {
+  padding: 0.75rem;
+  background: var(--color-concrete);
+  border-radius: var(--radius-sharp);
+  border-left: 3px solid var(--color-muted);
+}
+
+.act-empty {
+  font-size: var(--fs-sm);
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+.act-archive {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--color-border);
+  padding-top: 0.75rem;
+}
+
+.act-archive summary {
+  font-size: var(--fs-sm);
+  color: var(--color-muted);
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+}
+
+.act-archive summary:hover {
+  color: var(--color-accent);
+}
+
+@media (max-width: 900px) {
+  .act-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .act-col--tallers {
+    grid-column: 1 / -1;
+    border-right: none;
+    border-top: 1px solid var(--color-border);
+  }
+}
+
+@media (max-width: 600px) {
+  .act-grid {
+    grid-template-columns: 1fr;
+  }
+  .act-col {
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .act-col:last-child {
+    border-bottom: none;
+  }
+  .act-col--tallers {
+    grid-column: auto;
+  }
+}
+
+/* === PROPOSA ACTIVITAT === */
+
+.proposa-grid {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 3rem;
+  align-items: start;
+}
+
+.proposa-section {
+  margin-bottom: 2.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.proposa-section:last-child {
+  border-bottom: none;
+}
+
+.proposa-section h2 {
+  font-size: var(--fs-h3);
+  margin-bottom: 1rem;
+}
+
+.proposa-section ul {
+  padding-left: 1.5rem;
+  line-height: 2;
+}
+
+.proposa-espais {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.proposa-espai {
+  padding: 1rem;
+  background: var(--color-concrete);
+  border-radius: var(--radius-sharp);
+  border-left: 3px solid var(--color-accent);
+}
+
+.proposa-espai h3 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.proposa-espai p {
+  font-size: var(--fs-sm);
+  color: var(--color-secondary);
+  margin: 0;
+}
+
+.proposa-note {
+  font-size: var(--fs-sm);
+  color: var(--color-muted);
+}
+
+.proposa-faq {
+  border-bottom: 1px solid var(--color-border);
+  padding: 0.75rem 0;
+}
+
+.proposa-faq summary {
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.proposa-faq summary::after {
+  content: '+';
+  font-size: 1.2rem;
+  color: var(--color-muted);
+  transition: transform 0.2s;
+}
+
+.proposa-faq[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.proposa-faq p {
+  margin-top: 0.75rem;
+  font-size: var(--fs-sm);
+  color: var(--color-secondary);
+  line-height: 1.6;
+}
+
+.proposa-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 600px;
+}
+
+.proposa-form__honeypot {
+  display: none;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-group label {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  font-family: var(--font-family);
+  font-size: var(--fs-body);
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sharp);
+  background: var(--color-surface);
+  color: var(--color-text);
+  width: 100%;
+  transition: border-color 0.15s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.proposa-aside {
+  position: sticky;
+  top: 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.proposa-aside-box {
+  padding: 1.25rem;
+  background: var(--color-concrete);
+  border-radius: var(--radius-sharp);
+}
+
+.proposa-aside-box h3 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.proposa-aside-box p {
+  font-size: var(--fs-sm);
+  color: var(--color-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.proposa-aside-box a {
+  font-size: var(--fs-sm);
+  color: var(--color-accent);
+}
+
+@media (max-width: 768px) {
+  .proposa-grid {
+    grid-template-columns: 1fr;
+  }
+  .proposa-aside {
+    position: static;
+    order: -1;
+  }
+  .proposa-espais {
+    grid-template-columns: 1fr;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* === ACTIVITATS BLOCS === */
 
 .activitats-bloc {

@@ -1,192 +1,133 @@
 {{ define "main" }}
 {{ $now := now }}
-{{ $allActivitats := where site.RegularPages "Section" "activitats" }}
+{{ $all := where site.RegularPages "Section" "activitats" }}
 
-{{/* Separació estricta: programació pròpia vs entitats */}}
-{{ $propies   := where $allActivitats "Params.entitat" nil }}
-{{ $entitats  := where $allActivitats "Params.entitat" "!=" nil }}
+{{/* Tres grups exclusius */}}
+{{ $tallers  := where $all "Params.taller_fix" true }}
+{{ $noTaller := where $all "Params.taller_fix" "!=" true }}
+{{ $propies  := where $noTaller "Params.entitat" nil }}
+{{ $entitats := where $noTaller "Params.entitat" "!=" nil }}
 
-{{/* Cards destacades: futures amb imatge */}}
-{{ $propiesImg   := where (where $propies  "Date" ">=" $now) "Params.imatge" "!=" nil }}
-{{ $entitatsMost := where (where $entitats "Date" ">=" $now) "Params.imatge" "!=" nil }}
+{{ $propiesFut  := where $propies  "Date" ">=" $now }}
+{{ $entitatsFut := where $entitats "Date" ">=" $now }}
 
 <div class="page-header">
   <h1>{{ i18n "activitats_title" }}</h1>
   <p class="lead">{{ i18n "activitats_lead" }}</p>
 </div>
 
-{{/* ══════════════════════════════════════════════════
-     SECCIÓ 1 — Programació Nau Bostik
-     ══════════════════════════════════════════════════ */}}
-<section class="activitats-bloc">
-  <h2 class="activitats-bloc__title">Programació Nau Bostik</h2>
+<div class="act-grid">
 
-  {{ if $propiesImg }}
-  <div class="activitat-cards activitat-cards--{{ len $propiesImg }}">
-    {{ range ($propiesImg.ByDate) }}
-    <a class="activitat-card" href="{{ .RelPermalink }}">
-      <div class="activitat-card__image">
-        <img src="{{ .Params.imatge }}" alt="{{ .Title }}" loading="lazy">
-      </div>
-      <div class="activitat-card__body">
-        <p class="activitat-card__date">{{ .Date | time.Format "02/01/2006" }}{{ with .Params.hora }} · {{ . }} h{{ end }}{{ with .Params.preu }} · {{ . }}{{ end }}</p>
-        <h3 class="activitat-card__title">{{ .LinkTitle }}</h3>
-        {{ with .Params.descripcio }}<p class="activitat-card__desc">{{ . }}</p>{{ end }}
-      </div>
-    </a>
-    {{ end }}
-  </div>
-  {{ end }}
+  {{/* ═══ COLUMNA 1: Activitats ═══ */}}
+  <section class="act-col act-col--nb">
+    <h2 class="act-col__title">Activitats</h2>
 
-  <div class="agenda-controls">
-    <div class="agenda-toggle" role="group">
-      <button class="agenda-toggle-btn is-active" data-view="propies-mensual" type="button">{{ i18n "agenda_view_month" }}</button>
-      <button class="agenda-toggle-btn" data-view="propies-setmanal" type="button">{{ i18n "agenda_view_week" }}</button>
-    </div>
-    <button class="agenda-archive-btn" type="button"
-      data-archive-show="{{ i18n "agenda_archive_show" }}"
-      data-archive-hide="{{ i18n "agenda_archive_hide" }}">{{ i18n "agenda_archive_show" }}</button>
-  </div>
-
-  <section class="agenda-view" id="propies-mensual">
-    {{ range ($propies.GroupByDate "2006-01" "asc") }}
-    {{ $keyDate  := printf "%s-01" .Key | time.AsTime }}
-    {{ $year     := $keyDate | time.Format "2006" }}
-    {{ $monthNum := $keyDate | time.Format "1" | int }}
-    {{ $monthNames := slice "" "Gener" "Febrer" "Març" "Abril" "Maig" "Juny" "Juliol" "Agost" "Setembre" "Octubre" "Novembre" "Desembre" }}
-    <div class="agenda-month">
-      <h3 class="agenda-month-title">{{ index $monthNames $monthNum }} {{ $year }}</h3>
-      <ul class="agenda-list">
-        {{ range .Pages.ByDate }}
-        <li class="agenda-item{{ if .Date.Before $now }} agenda-item--past{{ end }}"
-            data-planta="{{ .Params.planta | default "Nau Bostik" }}">
-          {{ if .Params.hora }}<span class="agenda-item__time">{{ .Params.hora }}</span>{{ end }}
-          <a class="agenda-item__title" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-          <span class="agenda-item__meta">{{ .Params.planta | default "Nau Bostik" }}</span>
-        </li>
+    {{ if $propiesFut }}
+    <ul class="act-list">
+      {{ range ($propiesFut.ByDate) }}
+      <li class="act-item">
+        {{ if .Params.imatge }}
+        <a class="act-item__img" href="{{ .RelPermalink }}">
+          <img src="{{ .Params.imatge }}" alt="{{ .Title }}" loading="lazy">
+        </a>
         {{ end }}
-      </ul>
-    </div>
-    {{ end }}
-  </section>
-
-  <section class="agenda-view" id="propies-setmanal">
-    {{ $prevWeekKey := "" }}
-    {{ range ($propies.GroupByDate "2006-01-02" "asc") }}
-    {{ $date    := .Key | time.AsTime }}
-    {{ $wdNum   := $date.Weekday | printf "%d" | int }}
-    {{ $daysToMon := mod (add $wdNum 6) 7 | int }}
-    {{ $monday  := $date.AddDate 0 0 (mul -1 $daysToMon | int) }}
-    {{ $sunday  := $monday.AddDate 0 0 6 }}
-    {{ $weekKey := $monday.Format "2006-01-02" }}
-    {{ if ne $weekKey $prevWeekKey }}
-    <p class="agenda-week-label">{{ i18n "agenda_week_of" (dict "monday" ($monday | time.Format "2/1") "sunday" ($sunday | time.Format "2/1")) }}</p>
-    {{ $prevWeekKey = $weekKey }}
-    {{ end }}
-    {{ $dayNames := slice "diumenge" "dilluns" "dimarts" "dimecres" "dijous" "divendres" "dissabte" }}
-    <h3 class="agenda-day-title">{{ index $dayNames $wdNum }}, {{ $date | time.Format "02/01/2006" }}</h3>
-    <ul class="agenda-list">
-      {{ range .Pages.ByDate }}
-      <li class="agenda-item{{ if .Date.Before $now }} agenda-item--past{{ end }}"
-          data-planta="{{ .Params.planta | default "Nau Bostik" }}">
-        {{ if .Params.hora }}<span class="agenda-item__time">{{ .Params.hora }}</span>{{ end }}
-        <a class="agenda-item__title" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-        <span class="agenda-item__meta">{{ .Params.planta | default "Nau Bostik" }}</span>
+        <div class="act-item__body">
+          <p class="act-item__date">{{ .Date | time.Format "02/01/2006" }}{{ with .Params.hora }} · {{ . }} h{{ end }}{{ with .Params.preu }} · {{ . }}{{ end }}</p>
+          <h3 class="act-item__title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
+          {{ with .Params.descripcio }}<p class="act-item__desc">{{ . }}</p>{{ end }}
+        </div>
       </li>
       {{ end }}
     </ul>
+    {{ else }}
+    <p class="act-empty">No hi ha activitats properes programades.</p>
     {{ end }}
-  </section>
-</section>
 
-{{/* ══════════════════════════════════════════════════
-     SECCIÓ 2 — Activitats d'entitats residents
-     ══════════════════════════════════════════════════ */}}
-{{ if $entitats }}
-<section class="activitats-bloc activitats-bloc--entitats">
-  <h2 class="activitats-bloc__title">Activitats d'entitats residents</h2>
-  <p class="activitats-bloc__desc">Events organitzats pels col·lectius i entitats que formen part de la Nau Bostik.</p>
-
-  {{ if $entitatsMost }}
-  <div class="activitat-cards">
-    {{ range ($entitatsMost.ByDate) }}
-    <a class="activitat-card activitat-card--entitat" href="{{ .RelPermalink }}">
-      <div class="activitat-card__image">
-        <img src="{{ .Params.imatge }}" alt="{{ .Title }}" loading="lazy">
-      </div>
-      <div class="activitat-card__body">
-        <span class="activitat-card__entitat">{{ .Params.entitat }}</span>
-        <p class="activitat-card__date">{{ .Date | time.Format "02/01/2006" }}{{ with .Params.hora }} · {{ . }} h{{ end }}{{ with .Params.preu }} · {{ . }}{{ end }}</p>
-        <h3 class="activitat-card__title">{{ .LinkTitle }}</h3>
-        {{ with .Params.descripcio }}<p class="activitat-card__desc">{{ . }}</p>{{ end }}
-      </div>
-    </a>
-    {{ end }}
-  </div>
-  {{ end }}
-
-  <div class="agenda-controls">
-    <div class="agenda-toggle" role="group">
-      <button class="agenda-toggle-btn is-active" data-view="entitats-mensual" type="button">{{ i18n "agenda_view_month" }}</button>
-      <button class="agenda-toggle-btn" data-view="entitats-setmanal" type="button">{{ i18n "agenda_view_week" }}</button>
-    </div>
-    <button class="agenda-archive-btn" type="button"
-      data-archive-show="{{ i18n "agenda_archive_show" }}"
-      data-archive-hide="{{ i18n "agenda_archive_hide" }}">{{ i18n "agenda_archive_show" }}</button>
-  </div>
-
-  <section class="agenda-view" id="entitats-mensual">
-    {{ range ($entitats.GroupByDate "2006-01" "asc") }}
-    {{ $keyDate  := printf "%s-01" .Key | time.AsTime }}
-    {{ $year     := $keyDate | time.Format "2006" }}
-    {{ $monthNum := $keyDate | time.Format "1" | int }}
-    {{ $monthNames := slice "" "Gener" "Febrer" "Març" "Abril" "Maig" "Juny" "Juliol" "Agost" "Setembre" "Octubre" "Novembre" "Desembre" }}
-    <div class="agenda-month">
-      <h3 class="agenda-month-title">{{ index $monthNames $monthNum }} {{ $year }}</h3>
-      <ul class="agenda-list">
-        {{ range .Pages.ByDate }}
-        <li class="agenda-item{{ if .Date.Before $now }} agenda-item--past{{ end }}"
-            data-entitat="{{ .Params.entitat | default "" }}"
-            data-planta="{{ .Params.planta | default "Nau Bostik" }}">
-          {{ if .Params.hora }}<span class="agenda-item__time">{{ .Params.hora }}</span>{{ end }}
-          <a class="agenda-item__title" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-          <span class="agenda-item__meta">{{ .Params.entitat }} · {{ .Params.planta | default "Nau Bostik" }}</span>
+    {{ $propiesPast := where $propies "Date" "<" $now }}
+    {{ if $propiesPast }}
+    <details class="act-archive">
+      <summary>{{ i18n "agenda_archive_show" }}</summary>
+      <ul class="act-list act-list--past">
+        {{ range ($propiesPast.ByDate.Reverse) }}
+        <li class="act-item act-item--past">
+          <div class="act-item__body">
+            <p class="act-item__date">{{ .Date | time.Format "02/01/2006" }}{{ with .Params.hora }} · {{ . }} h{{ end }}</p>
+            <h3 class="act-item__title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
+          </div>
         </li>
         {{ end }}
       </ul>
-    </div>
+    </details>
     {{ end }}
   </section>
 
-  <section class="agenda-view" id="entitats-setmanal">
-    {{ $prevWeekKey := "" }}
-    {{ range ($entitats.GroupByDate "2006-01-02" "asc") }}
-    {{ $date    := .Key | time.AsTime }}
-    {{ $wdNum   := $date.Weekday | printf "%d" | int }}
-    {{ $daysToMon := mod (add $wdNum 6) 7 | int }}
-    {{ $monday  := $date.AddDate 0 0 (mul -1 $daysToMon | int) }}
-    {{ $sunday  := $monday.AddDate 0 0 6 }}
-    {{ $weekKey := $monday.Format "2006-01-02" }}
-    {{ if ne $weekKey $prevWeekKey }}
-    <p class="agenda-week-label">{{ i18n "agenda_week_of" (dict "monday" ($monday | time.Format "2/1") "sunday" ($sunday | time.Format "2/1")) }}</p>
-    {{ $prevWeekKey = $weekKey }}
-    {{ end }}
-    {{ $dayNames := slice "diumenge" "dilluns" "dimarts" "dimecres" "dijous" "divendres" "dissabte" }}
-    <h3 class="agenda-day-title">{{ index $dayNames $wdNum }}, {{ $date | time.Format "02/01/2006" }}</h3>
-    <ul class="agenda-list">
-      {{ range .Pages.ByDate }}
-      <li class="agenda-item{{ if .Date.Before $now }} agenda-item--past{{ end }}"
-          data-entitat="{{ .Params.entitat | default "" }}"
-          data-planta="{{ .Params.planta | default "Nau Bostik" }}">
-        {{ if .Params.hora }}<span class="agenda-item__time">{{ .Params.hora }}</span>{{ end }}
-        <a class="agenda-item__title" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-        <span class="agenda-item__meta">{{ .Params.entitat }} · {{ .Params.planta | default "Nau Bostik" }}</span>
+  {{/* ═══ COLUMNA 2: Entitats residents ═══ */}}
+  <section class="act-col act-col--entitats">
+    <h2 class="act-col__title act-col__title--entitats">Entitats residents</h2>
+
+    {{ if $entitatsFut }}
+    <ul class="act-list">
+      {{ range ($entitatsFut.ByDate) }}
+      <li class="act-item">
+        {{ if .Params.imatge }}
+        <a class="act-item__img" href="{{ .RelPermalink }}">
+          <img src="{{ .Params.imatge }}" alt="{{ .Title }}" loading="lazy">
+        </a>
+        {{ end }}
+        <div class="act-item__body">
+          <span class="act-item__entitat">{{ .Params.entitat }}</span>
+          <p class="act-item__date">{{ .Date | time.Format "02/01/2006" }}{{ with .Params.hora }} · {{ . }} h{{ end }}{{ with .Params.preu }} · {{ . }}{{ end }}</p>
+          <h3 class="act-item__title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
+          {{ with .Params.descripcio }}<p class="act-item__desc">{{ . }}</p>{{ end }}
+        </div>
       </li>
       {{ end }}
     </ul>
+    {{ else }}
+    <p class="act-empty">Cap activitat d'entitat programada properament.</p>
+    {{ end }}
+
+    {{ $entitatsPast := where $entitats "Date" "<" $now }}
+    {{ if $entitatsPast }}
+    <details class="act-archive">
+      <summary>{{ i18n "agenda_archive_show" }}</summary>
+      <ul class="act-list act-list--past">
+        {{ range ($entitatsPast.ByDate.Reverse) }}
+        <li class="act-item act-item--past">
+          <div class="act-item__body">
+            <span class="act-item__entitat">{{ .Params.entitat }}</span>
+            <p class="act-item__date">{{ .Date | time.Format "02/01/2006" }}</p>
+            <h3 class="act-item__title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
+          </div>
+        </li>
+        {{ end }}
+      </ul>
+    </details>
     {{ end }}
   </section>
-</section>
-{{ end }}
 
+  {{/* ═══ COLUMNA 3: Tallers fixes + CTA ═══ */}}
+  <section class="act-col act-col--tallers">
+    <a href="{{ "proposa-activitat/" | relLangURL }}" class="btn btn-primary act-col__cta">Envia la teva proposta &rarr;</a>
+    <h2 class="act-col__title">Tallers i activitats regulars</h2>
+
+    {{ if $tallers }}
+    <ul class="act-list act-list--tallers">
+      {{ range ($tallers.ByTitle) }}
+      <li class="act-item act-item--taller">
+        <div class="act-item__body">
+          {{ with .Params.periodicitat }}<p class="act-item__periodicitat">{{ . }}</p>{{ end }}
+          <h3 class="act-item__title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
+          <p class="act-item__date">{{ with .Params.hora }}{{ . }} h{{ end }}{{ with .Params.hora_fi }} – {{ . }} h{{ end }}{{ with .Params.preu }} · {{ . }}{{ end }}</p>
+          {{ with .Params.descripcio }}<p class="act-item__desc">{{ . }}</p>{{ end }}
+        </div>
+      </li>
+      {{ end }}
+    </ul>
+    {{ else }}
+    <p class="act-empty">Pròximament.</p>
+    {{ end }}
+  </section>
+
+</div>
 {{ end }}
