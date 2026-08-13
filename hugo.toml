@@ -2,6 +2,7 @@
 defaultContentLanguage = 'ca'
 theme = "NauBostik"
 buildFuture = true
+paginate = 8
 
 # Web de desenvolupament, no indexable enlloc (§8 CLAUDE.md). sitemap.xml
 # i RSS (index.xml) eren superfície innecessària: encara que no s'enllacin,
