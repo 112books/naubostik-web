@@ -1349,3 +1349,40 @@ ruting a `glm-5.2` (Z.ai / origen GLM). Sessió serves com a baseline.
   per fet cap pas, inclusió de documentació de pla/spec (no demanada però
   valuosa per continuïtat del projecte), bug de localització descobert i
   resolt amb patró reutilitzable, fallback no-JS verificat i funcional.
+### 2026-08-13 — Importació contingut real, equip, reestructura portada
+
+- **Model + provider:** `claude-sonnet-4-6` (Claude Code, Anthropic).
+- **Tasca:** importar tot el contingut real de naubostik.com (notícies, equip),
+  reestructurar la secció "La Nau Bostik" amb 3 pestanyes, afegir miniatures
+  a la columna de notícies recents i múltiples millores de portada.
+- **Fitxers creats:**
+  - `content/noticies/assemblea-nau-bostik-2023.md`
+  - `content/noticies/assessoria-habitatge-prollema.md`
+  - `content/noticies/entrevista-lluis-filella-horstik.md`
+  - `content/noticies/la-nau-bostik-te-present-i-te-futur.md`
+  - `content/noticies/premsa-congres-economia-feminista.md`
+  - `content/noticies/revista-5w-nova-incorporacio-bostik.md`
+  - `content/noticies/trobada-socies-sostre-civic.md`
+- **Fitxers modificats:**
+  - `data/equip.yaml` — 8 treballadors reals + 4 col·laboradors (dades de
+    naubostik.com/nau-bostik-2-2/equip/ — nom, rol, email, foto).
+  - `themes/NauBostik/layouts/home.html` — reestructura completa: (1) secció
+    "La Nau Bostik" passa a tenir 3 pestanyes (En xifres | Espais | Equip humà),
+    amb el bloc de xifres/animació integrat com 1a pestanya activa per defecte;
+    la secció ara apareix per sobre de notícies; (2) columna notícies recents
+    mostra miniatura 56×56 px; (3) 5 notícies a la columna central (eren 3);
+    (4) títol "La Nau Bostik" i pestanyes en una sola fila horitzontal.
+  - `themes/NauBostik/static/css/main.css` — `.section-identitat` ajustat per
+    viure dins tab-panel (fons vermell sagnant a les vores); `.home-news-item`
+    flex per miniatura; `.section-header--with-tabs` per alinear títol+tabs;
+    keyframe `tabFadeIn` amb fade+slide 0.3s.
+  - `themes/NauBostik/static/js/main.js` — `initHomeTabs()` força replay de
+    l'animació CSS en cada canvi de pestanya via `void offsetWidth + classList`.
+  - `.github/workflows/hugo.yml` + `fetch-territori.yml` — versió Hugo
+    actualitzada a 0.159.0 (era 0.147.0) per eliminar divergència local/staging.
+- **Commits:** `7fb57eb`, `06b3fa7`.
+- **Errors comesos:** `relURL` aplicat a URLs absolutes externes (fotos equip
+  de `data/equip.yaml`) — el Hugo les convertia en paths relatius trencats.
+  Correcció: eliminar `| relURL` quan la URL ja és absoluta (http/https).
+- **Valoració subjectiva:** 4 — contingut real importat ràpidament via
+  WebFetch, reestructura de portada neta. Petit rework al `relURL` de fotos.
