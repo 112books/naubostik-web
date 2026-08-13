@@ -1,0 +1,99 @@
+{{ define "main" }}
+{{ $now := now }}
+{{ $all := where site.RegularPages "Section" "activitats" }}
+{{ $entitats := where $all "Params.entitat" "!=" nil }}
+
+{{ $fut  := where $entitats "Date" ">=" $now }}
+{{ $past := where $entitats "Date" "<"  $now }}
+
+<div class="page-header">
+  <h1>{{ .Title }}</h1>
+  <p class="lead">{{ .Content | plainify | truncate 200 }}</p>
+</div>
+
+{{/* ── Properes ── */}}
+{{ if $fut }}
+<section class="act-historica">
+  <div class="section-header">
+    <h2 class="act-historica__title">Properes</h2>
+  </div>
+  <ul class="act-historica-grid">
+    {{ range ($fut.ByDate) }}
+    {{ $logo := partial "logo-entitat" .Params.entitat }}
+    <li class="act-item">
+      {{ if .Params.imatge }}
+      <a class="act-item__img act-item__img--cover" href="{{ .RelPermalink }}">
+        <img src="{{ .Params.imatge | relURL }}" alt="{{ .Title }}" loading="lazy">
+      </a>
+      {{ else if $logo }}
+      <a class="act-item__img act-item__img--logo" href="{{ .RelPermalink }}">
+        <img src="{{ $logo }}" alt="" loading="lazy">
+      </a>
+      {{ end }}
+      <div class="act-item__body">
+        {{ if and $logo (not .Params.imatge) }}<span class="act-item__logo"><img src="{{ $logo }}" alt="" loading="lazy"></span>{{ end }}
+        <span class="act-item__entitat">{{ .Params.entitat }}</span>
+        <p class="act-item__date">{{ .Date | time.Format "02/01/2006" }}{{ with .Params.hora }} · {{ . }} h{{ end }}{{ with .Params.preu }} · {{ . }}{{ end }}</p>
+        <h3 class="act-item__title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
+        {{ with .Params.descripcio }}<p class="act-item__desc">{{ . }}</p>{{ end }}
+      </div>
+    </li>
+    {{ end }}
+  </ul>
+</section>
+{{ end }}
+
+{{/* ── Passades ── */}}
+{{ if $past }}
+{{ $pastSorted := $past.ByDate.Reverse }}
+{{ $pastIni    := first 48 $pastSorted }}
+{{ $pastJson   := slice }}
+{{ range (after 48 $pastSorted) }}
+  {{ $logo := partial "logo-entitat" .Params.entitat }}
+  {{ $foto := cond (ne .Params.imatge "") (.Params.imatge | relURL) $logo }}
+  {{ $pastJson = $pastJson | append (dict
+       "title"    .Title
+       "url"      .RelPermalink
+       "entitat"  (.Params.entitat | default "")
+       "date"     (.Date | time.Format "02/01/2006")
+       "hora"     (.Params.hora | default "")
+       "preu"     (.Params.preu | default "")
+       "img"      $foto
+       "desc"     (.Params.descripcio | default "")) }}
+{{ end }}
+
+<section class="act-historica">
+  <div class="section-header">
+    <h2 class="act-historica__title">Passades</h2>
+  </div>
+  <div class="act-hscroll-wrap">
+    <ul class="act-historica-grid act-historica-grid--hscroll" id="act-ent-historica-grid">
+      {{ range $pastIni }}
+      {{ $logo := partial "logo-entitat" .Params.entitat }}
+      <li class="act-item">
+        {{ if .Params.imatge }}
+        <a class="act-item__img act-item__img--cover" href="{{ .RelPermalink }}">
+          <img src="{{ .Params.imatge | relURL }}" alt="{{ .Title }}" loading="lazy">
+        </a>
+        {{ else if $logo }}
+        <a class="act-item__img act-item__img--logo" href="{{ .RelPermalink }}">
+          <img src="{{ $logo }}" alt="" loading="lazy">
+        </a>
+        {{ end }}
+        <div class="act-item__body">
+          {{ if and $logo (not .Params.imatge) }}<span class="act-item__logo"><img src="{{ $logo }}" alt="" loading="lazy"></span>{{ end }}
+          <span class="act-item__entitat">{{ .Params.entitat }}</span>
+          <p class="act-item__date">{{ .Date | time.Format "02/01/2006" }}{{ with .Params.hora }} · {{ . }} h{{ end }}{{ with .Params.preu }} · {{ . }}{{ end }}</p>
+          <h3 class="act-item__title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
+          {{ with .Params.descripcio }}<p class="act-item__desc">{{ . }}</p>{{ end }}
+        </div>
+      </li>
+      {{ end }}
+      {{ if $pastJson }}<li class="act-historica-sentinel" id="act-ent-historica-sentinel"></li>{{ end }}
+    </ul>
+  </div>
+  <script type="application/json" id="act-ent-historica-data">{{ $pastJson | jsonify | safeHTML }}</script>
+</section>
+{{ end }}
+
+{{ end }}

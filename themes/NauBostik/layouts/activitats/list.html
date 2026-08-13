@@ -6,20 +6,23 @@
 {{ $tallers  := where $all "Params.taller_fix" true }}
 {{ $noTaller := where $all "Params.taller_fix" "!=" true }}
 {{ $propies  := where $noTaller "Params.entitat" nil }}
-{{ $entitats := where $noTaller "Params.entitat" "!=" nil }}
+{{ $entitats := where (where $noTaller "Params.entitat" "!=" nil) "Params.entitat" "!=" "" }}
 
 {{ $propiesFut  := where $propies  "Date" ">=" $now }}
 {{ $entitatsFut := where $entitats "Date" ">=" $now }}
 
-{{/* Bloc B: la resta d'activitats pròpies (futures que no hi caben + passades),
-     de la més propera a realitzar-se a la més antiga. */}}
-{{ $futRest := after 3 ($propiesFut.ByDate) }}
+{{/* Bloc B: properes pròpies sense els 3 primers no-avis (ja a Columna 1) */}}
+{{ $noAvis := (where $propiesFut "Params.avis" nil).ByDate }}
+{{ $avisItems := (where $propiesFut "Params.avis" "!=" nil).ByDate }}
+{{ $properesFut := after 3 $noAvis | append $avisItems }}
+
+{{/* Bloc C: activitats passades de la Nau Bostik */}}
 {{ $propiesPast := where $propies "Date" "<" $now }}
-{{ $historic := $futRest | append ($propiesPast.ByDate.Reverse) }}
-{{ $historicIni := first 24 $historic }}
-{{ $historicJson := slice }}
-{{ range (after 24 $historic) }}
-  {{ $historicJson = $historicJson | append (dict
+{{ $passades := $propiesPast.ByDate.Reverse }}
+{{ $passadesIni := first 24 $passades }}
+{{ $passadesJson := slice }}
+{{ range (after 24 $passades) }}
+  {{ $passadesJson = $passadesJson | append (dict
        "title" .Title
        "url"   .RelPermalink
        "date"  (.Date | time.Format "02/01/2006")
@@ -42,7 +45,7 @@
 
     {{ if $propiesFut }}
     <ul class="act-list">
-      {{ range first 3 ($propiesFut.ByDate) }}
+      {{ range first 3 $noAvis }}
       <li class="act-item">
         {{ if .Params.imatge }}
         <a class="act-item__img" href="{{ .RelPermalink }}">
@@ -71,10 +74,17 @@
       {{ range ($entitatsFut.ByDate) }}
       {{ $logo := partial "logo-entitat" .Params.entitat }}
       <li class="act-item act-item--entitat">
-        {{ with $logo }}
-        <span class="act-item__logo"><img src="{{ . }}" alt="{{ $.Params.entitat }}" loading="lazy"></span>
+        {{ if .Params.imatge }}
+        <a class="act-item__img act-item__img--cover" href="{{ .RelPermalink }}">
+          <img src="{{ .Params.imatge | relURL }}" alt="{{ .Title }}" loading="lazy">
+        </a>
+        {{ else if $logo }}
+        <a class="act-item__img act-item__img--logo" href="{{ .RelPermalink }}">
+          <img src="{{ $logo }}" alt="" loading="lazy">
+        </a>
         {{ end }}
         <div class="act-item__body">
+          {{ if and $logo (not .Params.imatge) }}<span class="act-item__logo"><img src="{{ $logo }}" alt="" loading="lazy"></span>{{ end }}
           <span class="act-item__entitat">{{ .Params.entitat }}</span>
           <p class="act-item__date">{{ .Date | time.Format "02/01/2006" }}{{ with .Params.hora }} · {{ . }} h{{ end }}{{ with .Params.preu }} · {{ . }}{{ end }}</p>
           <h3 class="act-item__title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
@@ -87,7 +97,7 @@
     <p class="act-empty">Cap activitat d'entitat programada properament.</p>
     {{ end }}
 
-    <a class="act-archive-link" href="{{ "activitats-entitats/" | relLangURL }}">{{ i18n "agenda_archive_show" }} &rarr;</a>
+    <a class="btn btn-secondary act-archive-btn" href="{{ "activitats-entitats/" | relLangURL }}">{{ i18n "agenda_archive_show" }} &rarr;</a>
   </section>
 
   {{/* ═══ COLUMNA 3: Tallers fixes + CTA ═══ */}}
@@ -115,15 +125,53 @@
 
 </div>
 
-{{/* ═══ BLOC B: Històric d'activitats de la Nau Bostik ═══ */}}
+{{/* ═══ BLOC B: Properes activitats de la Nau Bostik ═══ */}}
+{{ if $properesFut }}
+<section class="act-historica" id="activitats-properes">
+  <div class="section-header">
+    <h2 class="act-historica__title">Properes activitats</h2>
+  </div>
+  <div class="act-hscroll-wrap">
+    <ul class="act-historica-grid act-historica-grid--hscroll">
+      {{ range $properesFut }}
+      {{ if .Params.avis }}
+      <li class="act-item act-item--avis">
+        <div class="act-item__body">
+          <p class="act-item__badge">{{ if eq .Params.avis "tancament" }}Tancat{{ else }}Avís{{ end }}</p>
+          {{ with .Params.data_fi }}<p class="act-item__date">Fins al {{ . | time.Format "02/01/2006" }}</p>{{ end }}
+          <h3 class="act-item__title">{{ .LinkTitle }}</h3>
+          {{ with .Params.descripcio }}<p class="act-item__desc">{{ . }}</p>{{ end }}
+        </div>
+      </li>
+      {{ else }}
+      <li class="act-item">
+        {{ if .Params.imatge }}
+        <a class="act-item__img" href="{{ .RelPermalink }}">
+          <img src="{{ .Params.imatge | relURL }}" alt="{{ .Title }}" loading="lazy">
+        </a>
+        {{ end }}
+        <div class="act-item__body">
+          <p class="act-item__date">{{ .Date | time.Format "02/01/2006" }}{{ with .Params.hora }} · {{ . }} h{{ end }}{{ with .Params.preu }} · {{ . }}{{ end }}</p>
+          <h3 class="act-item__title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
+          {{ with .Params.descripcio }}<p class="act-item__desc">{{ . }}</p>{{ end }}
+        </div>
+      </li>
+      {{ end }}
+      {{ end }}
+    </ul>
+  </div>
+</section>
+{{ end }}
+
+{{/* ═══ BLOC C: Activitats passades de la Nau Bostik ═══ */}}
 <section class="act-historica" id="activitats-historica">
   <div class="section-header">
-    <h2 class="act-historica__title">Activitats de la Nau Bostik</h2>
-    <p class="lead">De la més propera a realitzar-se a la més antiga</p>
+    <h2 class="act-historica__title">Activitats passades</h2>
   </div>
 
-  <ul class="act-historica-grid" id="act-historica-grid">
-    {{ range $historicIni }}
+  <div class="act-hscroll-wrap">
+  <ul class="act-historica-grid act-historica-grid--hscroll" id="act-historica-grid">
+    {{ range $passadesIni }}
     <li class="act-item">
       {{ if .Params.imatge }}
       <a class="act-item__img" href="{{ .RelPermalink }}">
@@ -137,10 +185,10 @@
       </div>
     </li>
     {{ end }}
+    {{ if $passadesJson }}<li class="act-historica-sentinel" id="act-historica-sentinel"></li>{{ end }}
   </ul>
+  </div>
 
-  <div class="act-historica-sentinel" id="act-historica-sentinel"></div>
-
-  <script type="application/json" id="act-historica-data">{{ $historicJson | jsonify | safeHTML }}</script>
+  <script type="application/json" id="act-historica-data">{{ $passadesJson | jsonify | safeHTML }}</script>
 </section>
 {{ end }}

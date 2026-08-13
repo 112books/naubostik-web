@@ -6,9 +6,11 @@
     {{- range . }}
     {{- $href := absLangURL .URL }}
     {{- $cls := "menu-link" }}
-    {{- if $page.IsMenuCurrent .Menu . }}
+    {{- $pageURL := $page.RelPermalink }}
+    {{- $menuURL := .URL | relURL }}
+    {{- if eq $pageURL $menuURL }}
       {{- $cls = printf "%s is-active" $cls }}
-    {{- else if $page.HasMenuCurrent .Menu .}}
+    {{- else if and (ne $menuURL "/") (strings.HasPrefix $pageURL $menuURL) }}
       {{- $cls = printf "%s is-ancestor" $cls }}
     {{- end }}
     <li>

@@ -4,7 +4,7 @@ date = 2026-06-21
 entitat = "Editorial 112 Books"
 planta = "Tercera planta"
 preu = "Gratuït"
-imatge = "https://naubostik.com/wp-content/uploads/2026/06/112revelats-112books-02-retrats-lents-cartell-ca-scaled.png"
+imatge = "img/activitats/112revelats-retrats-lents-2026.png"
 descripcio = "Segon repte fotogràfic col·lectiu de 112 Revelats: retrats amb llum natural i exposicions llargues. Participa i aprèn tècnica analògica."
 draft = false
 +++

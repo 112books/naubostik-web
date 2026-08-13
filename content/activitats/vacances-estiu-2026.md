@@ -2,9 +2,10 @@
 title = "Vacances d'estiu 2026"
 date = 2026-08-01
 draft = false
+destacat = true
 hora = "08:00"
 planta = "Nau Bostik"
-imatge = "https://naubostik.com/wp-content/uploads/2026/07/260801_VACANCES-BOSTIK_p-1024x638.jpg"
+imatge = "img/activitats/vacances-estiu-2026.jpg"
 descripcio = "Les oficines resten tancades durant tot l'agost. Ens retrobem al setembre amb les piles carregades!"
 preu = ""
 data_fi = 2026-08-31

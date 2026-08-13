@@ -1,6 +1,7 @@
 +++
 title = "Mercat · agost"
 date = 2026-08-23
+destacat = true
 hora = "10:00"
 hora_fi = "19:00"
 preu = "3€"

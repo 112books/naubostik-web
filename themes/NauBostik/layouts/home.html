@@ -48,8 +48,9 @@
   {{ if ge $end $now }}{{ $actEntFut = $actEntFut | append . }}{{ end }}
 {{ end }}
 
-{{/* 3 cards NB: els més pròxims primer */}}
-{{ $nbCards := first 3 ($actNBFut.ByDate) }}
+{{/* 3 cards NB: les destacades primer; si no n'hi ha, les 3 més pròximes */}}
+{{ $nbDescat := where $actNBFut "Params.destacat" true }}
+{{ $nbCards := cond (gt (len $nbDescat) 0) ($nbDescat.ByDate) (first 3 ($actNBFut.ByDate)) }}
 
 {{/* Recursos de portada per omplir slots buits */}}
 {{ $portada := index site.Data "portada" }}

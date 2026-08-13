@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
   initWordCloud();
   initShareCopy();
   initActivitatsHistoric();
+  initHscrollFade();
+  initFooterLogo();
 });
 
 function initShareCopy() {
@@ -134,11 +136,14 @@ function initRandomEspais() {
 
 function initHeaderScroll() {
   const body = document.body;
-  const THRESHOLD = 70;
+  const ON  = 80;
+  const OFF = 55;
 
   function update() {
     const sc = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
-    body.classList.toggle('is-scrolled', sc > THRESHOLD);
+    const isScrolled = body.classList.contains('is-scrolled');
+    if (!isScrolled && sc > ON)  body.classList.add('is-scrolled');
+    if (isScrolled  && sc < OFF) body.classList.remove('is-scrolled');
   }
 
   window.addEventListener('scroll', update, { passive: true });
@@ -428,10 +433,41 @@ function initEventCalendar() {
   });
 }
 
+function initFooterLogo() {
+  var logo = document.querySelector('.footer-logo');
+  if (!logo) return;
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      logo.classList.toggle('is-compact', !e.isIntersecting);
+    });
+  }, { threshold: 0 });
+  io.observe(logo);
+}
+
+function initHscrollFade() {
+  document.querySelectorAll('.act-hscroll-wrap').forEach(function(wrap) {
+    var grid = wrap.querySelector('.act-historica-grid--hscroll');
+    if (!grid) return;
+    function check() {
+      var atEnd = grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 4;
+      wrap.classList.toggle('is-end', atEnd);
+    }
+    grid.addEventListener('scroll', check, { passive: true });
+    check();
+  });
+}
+
 function initActivitatsHistoric() {
-  var grid     = document.getElementById('act-historica-grid');
-  var sentinel = document.getElementById('act-historica-sentinel');
-  var dataEl   = document.getElementById('act-historica-data');
+  [
+    { gridId: 'act-historica-grid',     sentinelId: 'act-historica-sentinel',     dataId: 'act-historica-data' },
+    { gridId: 'act-ent-historica-grid', sentinelId: 'act-ent-historica-sentinel', dataId: 'act-ent-historica-data' }
+  ].forEach(function(ids) { initHistoricGrid(ids.gridId, ids.sentinelId, ids.dataId); });
+}
+
+function initHistoricGrid(gridId, sentinelId, dataId) {
+  var grid     = document.getElementById(gridId);
+  var sentinel = document.getElementById(sentinelId);
+  var dataEl   = document.getElementById(dataId);
   if (!grid || !sentinel || !dataEl) return;
 
   var items;
@@ -445,6 +481,7 @@ function initActivitatsHistoric() {
     return;
   }
 
+  var isHscroll = grid.classList.contains('act-historica-grid--hscroll');
   var CHUNK = 24;
   var idx   = 0;
 
@@ -475,6 +512,10 @@ function initActivitatsHistoric() {
     return html;
   }
 
+  var ioOptions = isHscroll
+    ? { root: grid, rootMargin: '0px 600px 0px 0px' }
+    : { rootMargin: '800px 0px' };
+
   var io = new IntersectionObserver(function(entries) {
     if (!entries[0].isIntersecting) return;
     sentinel.classList.add('is-loading');
@@ -482,14 +523,14 @@ function initActivitatsHistoric() {
     for (var n = 0; n < CHUNK && idx < items.length; n++, idx++) {
       html += card(items[idx]);
     }
-    grid.insertAdjacentHTML('beforeend', html);
+    sentinel.insertAdjacentHTML('beforebegin', html);
     if (idx >= items.length) {
       io.unobserve(sentinel);
       sentinel.remove();
       return;
     }
     sentinel.classList.remove('is-loading');
-  }, { rootMargin: '800px 0px' });
+  }, ioOptions);
 
   io.observe(sentinel);
 }

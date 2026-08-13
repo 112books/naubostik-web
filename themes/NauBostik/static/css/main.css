@@ -131,6 +131,15 @@ body.is-scrolled .site-logo img {
 .footer-logo img {
   width: 150px;
   height: auto;
+  transition: width 0.4s ease;
+}
+
+body.is-scrolled .footer-logo img {
+  width: 80px;
+}
+
+.footer-logo.is-compact img {
+  width: 72px;
 }
 
 .claim-bar {
@@ -285,7 +294,7 @@ body.is-scrolled .main-nav ul {
 .header-cta {
   display: inline-block;
   margin-left: 0.5rem;
-  padding: 0.55rem 1.1rem;
+  padding: 0.55rem 1.5rem;
   border: 1px solid var(--color-accent);
   background: var(--color-accent);
   color: #fff !important;
@@ -2476,7 +2485,13 @@ main.container {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--color-secondary);
+  color: var(--color-accent);
+}
+
+.act-item__img--logo img {
+  object-fit: contain;
+  padding: 0.5rem;
+  background: var(--color-surface);
 }
 
 .act-item__date {
@@ -2524,6 +2539,32 @@ main.container {
 
 .act-item--past .act-item__title a {
   color: var(--color-muted);
+}
+
+.act-item--entitat {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.act-item--entitat .act-item__img {
+  flex: 0 0 72px;
+  width: 72px;
+  aspect-ratio: 1 / 1;
+}
+
+.act-item--avis {
+  border-left: 3px solid var(--color-accent);
+  padding-left: 0.75rem;
+}
+
+.act-item__badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-accent);
+  margin: 0;
 }
 
 .act-item--taller {
@@ -2654,6 +2695,54 @@ main.container {
   .act-historica-grid {
     grid-template-columns: 1fr;
   }
+}
+
+.act-hscroll-wrap {
+  position: relative;
+}
+
+.act-hscroll-wrap::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 1rem;
+  width: 80px;
+  background: linear-gradient(to right, transparent, #fff);
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.act-hscroll-wrap.is-end::after {
+  opacity: 0;
+}
+
+.act-historica-grid--hscroll {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 1.25rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+.act-historica-grid--hscroll .act-item {
+  flex: 0 0 220px;
+  scroll-snap-align: start;
+}
+
+.act-historica-grid--hscroll .act-historica-sentinel {
+  flex: 0 0 1px;
+  align-self: stretch;
+}
+
+.act-archive-btn {
+  display: inline-block;
+  margin-top: 1.5rem;
 }
 
 /* === PROPOSA ACTIVITAT === */

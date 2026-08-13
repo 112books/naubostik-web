@@ -1,6 +1,7 @@
 +++
 title = "Exposició · Habitar, projectar i treballar des del cooperativisme"
 date = 2026-09-02
+destacat = true
 data_fi = 2026-10-31
 hora = "10:00"
 hora_fi = "19:00"

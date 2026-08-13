@@ -1,4 +1,1 @@
-{{ $logos := site.Data.entitats_logos }}
-{{ with index $logos . }}
-{{ . | strings.TrimPrefix "/" | relURL }}
-{{ end }}
+{{ $logos := index site.Data "entitats-logos" }}{{ with index $logos . }}{{ . | strings.TrimPrefix "/" | relURL }}{{ end -}}

@@ -311,8 +311,11 @@ Objectius transversals (no-negociables):
 - **Estil de plantilles Hugo:** usar `partial`, `block`, `define`, `relLangURL`
   per als enllaços interns (mai URLs hardcoded amb el domini).
 - **Frontmatter:** TOML (`+++ ... +++`) com a estil dominant al repo.
-- **imatges:** sota `static/images/...`, referenciades per `relURL` o via
-  `Params.imatge` i plantilles.
+- **Imatges — regla absoluta:** TOTES les imatges han d'estar en local, sota
+  `static/img/...`. **Mai URLs externes** (ni `naubostik.com/wp-content/...`,
+  ni Unsplash, ni cap altre domini). Si una imatge importada té URL externa,
+  cal descarregar-la amb `curl` a la carpeta corresponent i actualitzar el
+  frontmatter. Referenciades sempre amb `relURL` a les plantilles.
 - **No afegir commentaris al codi** llevat que la tasca els demani explícitament.
 - **No commitar** sense instrucció explícita de l'usuari.
 - **No pujar a producció** (`naubostik.com`) sota cap concepte fins avís explícit.
