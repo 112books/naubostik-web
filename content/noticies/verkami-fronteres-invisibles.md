@@ -1,7 +1,7 @@
 +++
 title = "Verkami · Fronteres Invisibles, el joc de taula"
 date = 2024-12-10
-imatge = "https://naubostik.com/wp-content/uploads/2024/12/nova-imatge-joc-de-taula-1024x683.jpeg"
+imatge = "img/noticies/verkami_fronteres.jpg"
 draft = false
 +++
 
@@ -13,3 +13,5 @@ Participa a la campanya i aconsegueix el joc amb recompenses exclusives.
 
 **Web:** fronteresinvisible.wixsite.com/frinvisibles  
 **Instagram:** @frinvisibles
+
+<figure class="historia-fig"><img src="/img/noticies/nova-imatge-joc-de-taula-1024x683.jpeg" alt="nova-imatge-joc-de-taula-1024x683" loading="lazy"></figure>

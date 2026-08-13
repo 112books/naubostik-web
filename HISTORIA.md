@@ -1386,3 +1386,54 @@ ruting a `glm-5.2` (Z.ai / origen GLM). Sessió serves com a baseline.
   Correcció: eliminar `| relURL` quan la URL ja és absoluta (http/https).
 - **Valoració subjectiva:** 4 — contingut real importat ràpidament via
   WebFetch, reestructura de portada neta. Petit rework al `relURL` de fotos.
+
+### 2026-08-13 — Història completa (6 capítols) + 13 notícies restants + imatges 100% locals
+
+- **Model + provider:** `opencode/big-pickle` (OpenCode).
+- **Tasca:** (1) importar la història de la Nau des de naubostik.com amb
+  paginador numèric i galeries amb lightbox; (2) completar les notícies
+  (13 de les 23 que faltaven) amb text íntegre i imatges del cos a local;
+  (3) localitzar les portades de les 10 notícies preexistents (apuntaven al WP).
+- **Fitxers creats:**
+  - `content/qui-som/historia/_index.md` + `1.md`…`6.md` (6 capítols, 106 imatges a `static/img/historia/`).
+  - `themes/NauBostik/layouts/qui-som/historia/list.html` — paginador numèric 1–6 amb `.Paginate .Pages 1` (el global ignorava el `paginate` del frontmatter) + `replaceRE` per reescriure `/img/historia/` amb el prefix del baseURL (subpath `/naubostik-web/` de GH Pages).
+  - 13 fitxes noves a `content/noticies/`: `513-m2`, `capacitacio-eerr-oxigen-medic-ess-azimut-360`, `exposicio-documental`, `exposicio-inside-out-lci`, `festa-major-alternativa`, `festes-de-primavera-2019`, `festival-culturista`, `hem-fet-els-deures`, `horstik-hort-comunitari`, `open-house-coworking`, `pre-halloween-market`, `salo-dels-vins-naturals`, `vii-fira-steampunk`.
+  - `static/img/noticies/` — 45 imatges del cos + 10 portades (54 JPG en total, normalitzades amb sips a 1400px màx).
+- **Fitxers modificats:**
+  - `content/noticies/*.md` (10 preexistents) — `imatge` remot del WP → `img/noticies/…` local (sense barra inicial perquè `relURL` afegeixi el subpath). La portada `h4.png` de l'entrevista-Horstik ja no existeix al WP; s'ha reutilitzat una imatge de l'hort. Enllaç intern `[Nau Bostik](https://naubostik.com/)` a "la-nau-bostik-te-present-i-te-futur" convertit a text pla.
+  - `themes/NauBostik/layouts/noticies/single.html` — `replaceRE` del prefix a les imatges del `.Content` (mateix patró que la història).
+  - `themes/NauBostik/static/css/main.css` — estils `.historia-*`.
+  - `docs/idees-a-implementar.md` — /noticies/ i història marcades com a fetes.
+- **Errors comesos:** (1) el primer parser regex no capturava el contingut aniuat en `div`s (festes-de-primavera sortia buida) — reescrit amb `HTMLParser`; (2) `relURL` no afegeix el subpath si la cadena comença per `/` (les imatges de notícies sortien sense prefix en el servidor de prova) — corregit traient la barra inicial del frontmatter i amb `replaceRE` al single; (3) enllaços malformats per `strong` dins d'`a` — arreglats amb marcatge de context al parser.
+- **Valoració subjectiva:** 4 — feina completa i verificada amb Playwright (0 imatges trencades en 23 notícies i 6 capítols), però va requerir 2 rework del conversor.
+
+### 2026-08-13 — Pàgina de notícia (single) redissenyada: hero, galeria lightbox, compartir a xarxes
+
+- **Model + provider:** `opencode/big-pickle` (OpenCode).
+- **Tasca:** disseny final de cada notícia d'acord amb el disseny actual del
+  web: imatge de portada (hero), data llarga en català, cos amb galeries
+  d'imatges clicables, botons de compartir a xarxes estàndard i notícies
+  relacionades.
+- **Fitxers creats:**
+  - `themes/NauBostik/layouts/_partials/noticia-share.html` — X, Facebook,
+    LinkedIn, WhatsApp, email (SVG inline, URLs estàndard amb `querify`) +
+    botó "copia l'enllaç" (`data-copy`).
+- **Fitxers modificats:**
+  - `themes/NauBostik/layouts/noticies/single.html` — hero amb `imatge` del
+    frontmatter, meta amb `time.Format ":date_long"` (català), títol amb barra
+    accent, cos amb figures convertides a galeria (`data-gallery="noticia-{slug}"`,
+    reutilitza el lightbox existent), secció "Més notícies" (3 recents).
+  - `themes/NauBostik/static/js/main.js` — `initShareCopy` (clipboard + fallback
+    execCommand, feedback `is-copied`).
+  - `themes/NauBostik/static/css/main.css` — `.noticia-single*`, `.noticia-share*`
+    (touch targets 44×44px), `.noticia-relacionades`, iframe responsive
+    (aspect-ratio 16/9) perquè no desbordi al mobile.
+  - `themes/NauBostik/layouts/qui-som/list.html` — fix botó "Llegeix la història":
+    `relURL` amb `/` inicial no afegia el subpath `/naubostik-web/` a GH Pages.
+- **Verificació:** Playwright als 3 entorns (local arrel, GH Pages, producció
+  arrel) — `src`/`href` amb prefix correcte; galeria amb lightbox (contador
+  3/10, fletxes, Esc); copia enllaç; 0 imatges trencades; mobile 375px sense
+  overflow horitzontal (el fix de l'iframe el va resoldre) i share en columna.
+- **Valoració subjectiva:** 4 — coherent amb el disseny existent (DM Sans,
+  accent taronja, radius 3px), accessible (aria-labels, 44px) i sense
+  regressions.

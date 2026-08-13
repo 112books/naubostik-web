@@ -42,18 +42,20 @@ Recull de funcionalitats i millores pendents per a naubostik.com. Document viu �
 - Revisar que el formulari "Proposa la teva activitat" arriba al correu de gestió (Netlify Forms)
 
 ### /noticies/
-**Pendent — disseny de la pàgina llista:**
-- Primera notícia: la marcada com `destacada`, format gran amb fotografia
-- Cos: cards en 2 columnes (foto · títol · data · resum · "Llegir més")
-- Bloc inferior separat: notícies de territori, sense imatge, diferenciades visualment
-- La pàgina individual de notícia existeix (`_default/single.html`); revisar disseny
+**Implementat (2026-08-13):** Pàgina llista amb cards (foto · títol · data · resum · "Llegir més") i paginador numèric. Totes les **23 notícies de producció importades** amb imatges del cos a `static/img/noticies/` (figures amb peu, galeries, vídeo YouTube a "Hem fet els deures"), portades 100% locals (les 10 que usaven URL del WP s'han localitzat). Enllaços interns morts (naubostik.com) convertits a text pla.
+
+**Pendent:**
+- Classificar `destacada = true` / `territori = true` a les notícies actuals per alimentar la portada
+- El vídeo de YouTube de "Hem fet els deures!" és l'únic element extern que queda (iframe embed)
 
 ### /qui-som/
+**Implementat (2026-08-13):**
+- Secció "Història" — 6 capítols importats de naubostik.com, cadascun en pàgina pròpia amb paginador numèric (1–6) i galeries amb lightbox. Pestanya al /qui-som/ amb resum + botó "Llegeix la història completa →".
+
 **Pendent:**
 - Resum i motivació (com al web actual de producció)
 - Equip gestor amb fitxes: fotografia, nom complet, funció, correu corporatiu
 - Col·laboradors: mateixa estructura, camp `tipus: colaborador`
-- Secció "Història" — importar de naubostik.com/nau-bostik-2-2/una-mica-dhistoria/
 - Secció "Transparència" — cards amb memòria de cada any
 - Identitat visual — importar de naubostik.com/identitat-visual-de-la-nau-bostik/
 
@@ -83,8 +85,8 @@ Recull de funcionalitats i millores pendents per a naubostik.com. Document viu �
 - **Proposta d'activitats** — FAQ + camps: qui, què, tipologia, antelació, necessitats tècniques (aigua, llum, potència, catering, neteja, foto/vídeo) — prioritzar serveis interns
 
 ### Contingut pendent d'importar
-- Entitats residents de naubostik.com/entitats-residents/ → `/collectius/`
+- Entitats residents de naubostik.com/entitats-residents/ → `/collectius/` **(fet 2026-08-13, 22 entitats)**
 - Events passats i futurs del web de producció → `/activitats/`
-- Notícies del web de producció → `/noticies/`
-- Història de la Nau → `/qui-som/`
+- Notícies del web de producció → `/noticies/` **(fet 2026-08-13, 23/23)**
+- Història de la Nau → `/qui-som/` **(fet 2026-08-13, 6 capítols)**
 - Fotografies reals dels espais → `static/img/espais/`

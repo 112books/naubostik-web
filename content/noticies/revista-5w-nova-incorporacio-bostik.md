@@ -1,7 +1,7 @@
 +++
 title = "Revista 5W, la nova incorporació a la Bostik"
 date = 2023-04-01
-imatge = "https://naubostik.com/wp-content/uploads/2023/04/00_portada_2020-1200x630-3.jpeg"
+imatge = "img/noticies/00_portada_2020-1200x630-3.jpg"
 draft = false
 +++
 
@@ -12,3 +12,5 @@ La revista cobreix cultura, conflictes, drets humans, migració, moviments socia
 Amb més de 4.600 membres i en creixement constant, 5W ofereix contingut públic i material exclusiu per a persones subscrites. El seu darrer número, «Número 8: Aigua», reflexiona sobre un recurs preciós: «No haver de pensar en l'aigua és un privilegi».
 
 La revista s'incorpora com a nova entitat resident a la Nau Bostik.
+
+<figure class="historia-fig"><img src="/img/noticies/color-2-1200x630-1-1024x538.jpeg" alt="color-2-1200x630-1-1024x538" loading="lazy"></figure>

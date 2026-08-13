@@ -1,0 +1,26 @@
+{{ define "main" }}
+{{ $p := .Paginate .Pages 1 }}
+{{ $prefix := strings.TrimSuffix "/" (urls.Parse site.BaseURL).Path }}
+
+<div class="page-header">
+  <h1>{{ .Title }}</h1>
+  {{ with .Params.lead }}<p class="lead">{{ . }}</p>{{ end }}
+</div>
+
+{{ range $p.Pages }}
+{{ $content := .Content | replaceRE "/img/historia/" (printf "%s/img/historia/" $prefix) }}
+<article class="historia-capitol">
+  {{ $content | safeHTML }}
+</article>
+{{ end }}
+
+{{ if gt $p.TotalPages 1 }}
+<nav class="historia-paginador" aria-label="Paginació de la història">
+  <span class="historia-paginador__label">Pàgines:</span>
+  {{ range $p.Pagers }}
+  <a class="historia-paginador__link{{ if eq .PageNumber $p.PageNumber }} is-active{{ end }}" href="{{ .URL }}">{{ .PageNumber }}</a>
+  {{ end }}
+</nav>
+{{ end }}
+
+{{ end }}

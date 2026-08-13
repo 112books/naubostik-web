@@ -2,7 +2,7 @@
 title = "La Nau Bostik fa 10 anys"
 date = 2025-02-15
 destacada = true
-imatge = "https://naubostik.com/wp-content/uploads/2025/07/Logo-NAU-BOSTIK-10-color-1024x967.jpg"
+imatge = "img/noticies/10anys-bostik.jpg"
 draft = false
 +++
 
@@ -15,3 +15,5 @@ Un grup improbable de veïnes, veïns i activistes socials van posar en marxa la
 **Futur.** Reclamem el reconeixement com a referent cultural a la perifèria: *un equipament públic de gestió comunitària, amb l'autogestió com a tret identitari i fortament vinculat a l'Economia Social i Solidària.*
 
 A través de la Bostik exercim el dret a la ciutat. Perquè la ciutat és de qui l'habita i li dóna sentit.
+
+<figure class="historia-fig"><img src="/img/noticies/Logo-NAU-BOSTIK-10-color-1024x967.jpg" alt="Logo-NAU-BOSTIK-10-color-1024x967" loading="lazy"></figure>

@@ -22,7 +22,46 @@ document.addEventListener('DOMContentLoaded', function() {
   initEventCalendar();
   initHomeTabs();
   initWordCloud();
+  initShareCopy();
 });
+
+function initShareCopy() {
+  const btn = document.querySelector('.noticia-share__item--copy');
+  if (!btn) return;
+
+  btn.addEventListener('click', function() {
+    const url = btn.getAttribute('data-copy') || window.location.href;
+    const done = function() {
+      btn.classList.add('is-copied');
+      btn.setAttribute('aria-label', 'Enllaç copiat');
+      setTimeout(function() {
+        btn.classList.remove('is-copied');
+        btn.setAttribute('aria-label', 'Copia l\'enllaç');
+      }, 2000);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(done, function() { fallback(url, done); });
+    } else {
+      fallback(url, done);
+    }
+  });
+
+  function fallback(url, done) {
+    const ta = document.createElement('textarea');
+    ta.value = url;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'absolute';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      done();
+    } catch (e) { /* noop */ }
+    document.body.removeChild(ta);
+  }
+}
 
 function initHeroSlideshow() {
   const card = document.querySelector('.hero-card.hero-has-photo');

@@ -1,0 +1,109 @@
+# El baseURL es passa per entorn (CI/workflow GH Pages) o via flag local.
+defaultContentLanguage = 'ca'
+theme = "NauBostik"
+buildFuture = true
+paginate = 8
+
+# Web de desenvolupament, no indexable enlloc (§8 CLAUDE.md). sitemap.xml
+# i RSS (index.xml) eren superfície innecessària: encara que no s'enllacin,
+# existien com a fitxers accessibles per URL directa. Es desactiva la seva
+# generació del tot en lloc de confiar només en robots.txt/noindex.
+disableKinds = ["sitemap", "RSS"]
+
+[languages]
+  [languages.ca]
+    title = 'Nau Bostik'
+    languageCode = 'ca'
+    languageName = 'Català'
+    weight = 1
+
+    [languages.ca.params]
+      description = "Nau Bostik. Equipament sociocultural de gestió comunitària situat al barri de La Sagrera."
+
+    [[languages.ca.menu.main]]
+      name = "Activitats"
+      url = "/activitats/"
+      weight = 2
+
+    [[languages.ca.menu.main]]
+      name = "Col·lectius"
+      url = "/collectius/"
+      weight = 3
+
+    [[languages.ca.menu.main]]
+      name = "Espais"
+      url = "/espais/"
+      weight = 4
+
+    [[languages.ca.menu.main]]
+      name = "Qui som"
+      url = "/qui-som/"
+      weight = 5
+
+    [[languages.ca.menu.main]]
+      name = "Notícies"
+      url = "/noticies/"
+      weight = 7
+
+    [[languages.ca.menu.main]]
+      name = "Contacte"
+      url = "/contacte/"
+      weight = 8
+
+    [[languages.ca.menu.main]]
+      name = "Cercar"
+      url = "/cercar/"
+      weight = 9
+
+ignoreLogs = ['warning-goldmark-raw-html']
+
+[markup]
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+  [markup.goldmark.renderer]
+    unsafe = true
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[params]
+  description = "Nau Bostik. Equipament sociocultural de gestió comunitària situat al barri de La Sagrera."
+  # Tira reivindicativa de lemes: mostra-la només a la portada. Desactiva a false.
+  showTicker = true
+
+[[menu.main]]
+  name = "Activitats"
+  url = "/activitats/"
+  weight = 2
+
+[[menu.main]]
+  name = "Col·lectius"
+  url = "/collectius/"
+  weight = 3
+
+[[menu.main]]
+  name = "Espais"
+  url = "/espais/"
+  weight = 4
+
+[[menu.main]]
+  name = "Qui som"
+  url = "/qui-som/"
+  weight = 5
+
+[[menu.main]]
+  name = "Notícies"
+  url = "/noticies/"
+  weight = 7
+
+[[menu.main]]
+  name = "Contacte"
+  url = "/contacte/"
+  weight = 8
+
+[[menu.main]]
+  name = "Cercar"
+  url = "/cercar/"
+  weight = 9

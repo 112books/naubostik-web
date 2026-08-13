@@ -1,7 +1,7 @@
 +++
 title = "Entrevista a Lluís Filella, impulsor de l'Horstik"
 date = 2023-03-05
-imatge = "https://naubostik.com/wp-content/uploads/2022/11/h4.png"
+imatge = "img/noticies/noticia_horstik.jpg"
 draft = false
 +++
 

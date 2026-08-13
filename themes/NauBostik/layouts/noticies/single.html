@@ -1,9 +1,54 @@
 {{ define "main" }}
-<div class="page-header">
-  <h1>{{ .Title }}</h1>
-</div>
+{{ $prefix := strings.TrimSuffix "/" (urls.Parse site.BaseURL).Path }}
+{{ $gallery := printf "noticia-%s" .File.BaseFileName }}
 
-<div class="content">
-  {{ .Content }}
-</div>
+<article class="noticia-single">
+  {{ with .Params.imatge }}
+  <figure class="noticia-single__hero">
+    <img src="{{ . | relURL }}" alt="" fetchpriority="high">
+  </figure>
+  {{ end }}
+
+  <header class="noticia-single__header">
+    <p class="noticia-single__meta">
+      <time datetime="{{ $.Date.Format "2006-01-02" }}">{{ $.Date | time.Format ":date_long" }}</time>
+      {{ if $.Params.destacada }}<span class="noticia-badge">Destacat</span>{{ end }}
+    </p>
+    <h1 class="noticia-single__title">{{ .Title }}</h1>
+  </header>
+
+  <div class="content noticia-single__content">
+    {{ $cos := .Content | replaceRE "/img/noticies/" (printf "%s/img/noticies/" $prefix) }}
+    {{ $cos = $cos | replaceRE `<figure class="historia-fig"><img src="([^"]+)"(.*?)</figure>` (printf `<a class="espai-gallery-item noticia-single__galeria-item" data-gallery="%s" href="$1"><figure class="historia-fig"><img src="$1"$2</figure></a>` $gallery) }}
+    {{ $cos | safeHTML }}
+  </div>
+
+  {{ partial "noticia-share.html" . }}
+</article>
+
+{{ $recents := where (where site.RegularPages "Section" "noticies") "Permalink" "!=" .Permalink }}
+{{ $recents = first 3 ($recents.ByDate.Reverse) }}
+{{ if $recents }}
+<section class="section noticia-relacionades">
+  <div class="section-header">
+    <h2 class="section-title">Més notícies</h2>
+    <a href="{{ "noticies/" | relLangURL }}" class="section-link">Totes les notícies &rarr;</a>
+  </div>
+  <ul class="noticia-list">
+    {{ range $recents }}
+    <li class="noticia-card">
+      <a class="noticia-card__img-wrap" href="{{ .RelPermalink }}" tabindex="-1" aria-hidden="true">
+        {{ with .Params.imatge }}<img src="{{ . | relURL }}" alt="" loading="lazy">{{ else }}<div class="noticia-card__img-placeholder"></div>{{ end }}
+      </a>
+      <article class="noticia-card__body">
+        <p class="noticia-card__meta">{{ .Date.Format "02/01/2006" }}{{ if .Params.destacada }} · <span class="noticia-badge">Destacat</span>{{ end }}</p>
+        <h3 class="noticia-card__title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
+        <p class="noticia-card__excerpt">{{ .Summary | truncate 180 }}</p>
+        <a class="noticia-card__more" href="{{ .RelPermalink }}">Llegir més &rarr;</a>
+      </article>
+    </li>
+    {{ end }}
+  </ul>
+</section>
+{{ end }}
 {{ end }}
