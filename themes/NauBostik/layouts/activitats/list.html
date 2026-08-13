@@ -1,8 +1,6 @@
 {{ define "main" }}
 {{ $now := now }}
 {{ $allActivitats := where site.RegularPages "Section" "activitats" }}
-{{ $months := dict "January" "Gener" "February" "Febrer" "March" "Març" "April" "Abril" "May" "Maig" "June" "Juny" "July" "Juliol" "August" "Agost" "September" "Setembre" "October" "Octubre" "November" "Novembre" "December" "Desembre" }}
-{{ $days := dict "Monday" "dilluns" "Tuesday" "dimarts" "Wednesday" "dimecres" "Thursday" "dijous" "Friday" "divendres" "Saturday" "dissabte" "Sunday" "diumenge" }}
 
 {{ $entitats := slice }}
 {{ $plantes := slice }}
@@ -50,9 +48,12 @@
 
 <section class="agenda-view" id="agenda-mensual">
   {{ range ($allActivitats.GroupByDate "2006-01" "asc") }}
-  {{ $t := printf "%s-01" .Key | time.AsTime }}
+  {{ $parts := split .Key "-" }}
+  {{ $year := index $parts 0 }}
+  {{ $monthNum := index $parts 1 | int }}
+  {{ $monthNames := slice "" "Gener" "Febrer" "Març" "Abril" "Maig" "Juny" "Juliol" "Agost" "Setembre" "Octubre" "Novembre" "Desembre" }}
   <div class="agenda-month">
-    <h2 class="agenda-month-title">{{ index $months ($t | time.Format "January") }} {{ $t | time.Format "2006" }}</h2>
+    <h2 class="agenda-month-title">{{ index $monthNames $monthNum }} {{ $year }}</h2>
     <ul class="agenda-list">
       {{ range .Pages.ByDate }}
       <li class="agenda-item{{ if .Date.Before $now }} agenda-item--past{{ end }}"
@@ -81,7 +82,8 @@
   <p class="agenda-week-label">{{ i18n "agenda_week_of" (dict "monday" ($monday | time.Format "2/1") "sunday" ($sunday | time.Format "2/1")) }}</p>
   {{ $prevWeekKey = $weekKey }}
   {{ end }}
-  <h3 class="agenda-day-title">{{ index $days ($date | time.Format "Monday") }}, {{ $date | time.Format "02/01/2006" }}</h3>
+  {{ $dayNames := slice "diumenge" "dilluns" "dimarts" "dimecres" "dijous" "divendres" "dissabte" }}
+  <h3 class="agenda-day-title">{{ index $dayNames $wdNum }}, {{ $date | time.Format "02/01/2006" }}</h3>
   <ul class="agenda-list">
     {{ range .Pages.ByDate }}
     <li class="agenda-item{{ if .Date.Before $now }} agenda-item--past{{ end }}"
