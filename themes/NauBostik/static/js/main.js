@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initHeroSlideshow();
   initAgenda();
   initEventCalendar();
+  initHomeTabs();
 });
 
 function initHeroSlideshow() {
@@ -259,6 +260,31 @@ function initAgenda() {
     });
   });
 }
+function initHomeTabs() {
+  var nav = document.querySelector('.tab-nav');
+  if (!nav) return;
+
+  var btns   = nav.querySelectorAll('.tab-btn');
+  var panels = document.querySelectorAll('.tab-panel');
+
+  panels.forEach(function(panel) {
+    if (!panel.classList.contains('is-active')) {
+      panel.classList.add('tab-panel--hidden');
+    }
+  });
+
+  btns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      btns.forEach(function(b) { b.classList.remove('is-active'); b.setAttribute('aria-selected', 'false'); });
+      panels.forEach(function(p) { p.classList.add('tab-panel--hidden'); });
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-selected', 'true');
+      var target = document.getElementById('tab-' + btn.dataset.tab);
+      if (target) target.classList.remove('tab-panel--hidden');
+    });
+  });
+}
+
 function initEventCalendar() {
   var cal = document.querySelector('.event-calendar');
   if (!cal) return;

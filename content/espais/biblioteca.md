@@ -4,6 +4,7 @@ date = 2026-08-11
 ubicacio = "Primera planta"
 destacat = true
 cedible = false
+portada = true
 fotografies = [
   "/img/espais/biblioteca-01.jpg",
   "/img/espais/biblioteca-02.jpg",

@@ -128,3 +128,4 @@ TOML, revisa els frontmatters (els valors string sempre entre cometes dobles,
 les dates sense cometes).
 
 **No fer commit.** L'usuari revisarà i farà commit manualment.
+w

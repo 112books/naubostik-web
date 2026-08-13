@@ -38,7 +38,7 @@ en 3 categories: ** funcionals per defecte** (consens dels models),
 
 Les organitzem en 7 àrees funcionals (no per secció del site).
 
-### Àrea A — Identitat i relato (5 funcions)
+### Àrea A — Identitat i relat (5 funcions)
 
 | # | Funció | Prioritat | Destí | Responsable | Notes equip |
 |---|--------|-----------|-------|-------------|-------------|

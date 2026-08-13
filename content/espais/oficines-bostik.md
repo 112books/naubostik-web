@@ -3,6 +3,7 @@ title = "Oficines Bostik"
 date = 2026-08-11
 ubicacio = "Tercera planta"
 cedible = false
+portada = true
 draft = false
 fotografies = [
   "/img/espais/oficines-bostik-1.jpg",
