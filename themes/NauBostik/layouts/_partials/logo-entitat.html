@@ -1,0 +1,4 @@
+{{ $logos := site.Data.entitats_logos }}
+{{ with index $logos . }}
+{{ . | strings.TrimPrefix "/" | relURL }}
+{{ end }}

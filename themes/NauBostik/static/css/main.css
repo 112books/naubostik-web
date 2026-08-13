@@ -2584,6 +2584,78 @@ main.container {
   }
 }
 
+/* === ACTIVITATS: BLOC HISTÒRIC (cards 5 columnes) === */
+
+.act-historica {
+  margin-top: 3rem;
+}
+
+.act-historica__title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--color-primary);
+}
+
+.act-historica-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.25rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+}
+
+.act-historica-sentinel {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+  min-height: 40px;
+}
+
+.act-historica-sentinel.is-loading::before {
+  content: "";
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: act-historica-spin 0.8s linear infinite;
+}
+
+@keyframes act-historica-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1200px) {
+  .act-historica-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .act-historica-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .act-historica-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 400px) {
+  .act-historica-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* === PROPOSA ACTIVITAT === */
 
 .proposa-grid {

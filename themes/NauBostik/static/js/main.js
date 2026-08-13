@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initHomeTabs();
   initWordCloud();
   initShareCopy();
+  initActivitatsHistoric();
 });
 
 function initShareCopy() {
@@ -425,4 +426,70 @@ function initEventCalendar() {
       URL.revokeObjectURL(url);
     });
   });
+}
+
+function initActivitatsHistoric() {
+  var grid     = document.getElementById('act-historica-grid');
+  var sentinel = document.getElementById('act-historica-sentinel');
+  var dataEl   = document.getElementById('act-historica-data');
+  if (!grid || !sentinel || !dataEl) return;
+
+  var items;
+  try {
+    items = JSON.parse(dataEl.textContent);
+  } catch (e) {
+    return;
+  }
+  if (!Array.isArray(items) || !items.length) {
+    sentinel.remove();
+    return;
+  }
+
+  var CHUNK = 24;
+  var idx   = 0;
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function card(item) {
+    var html = '<li class="act-item">';
+    if (item.img) {
+      html += '<a class="act-item__img" href="' + escapeHtml(item.url) + '">' +
+              '<img src="' + escapeHtml(item.img) + '" alt="' + escapeHtml(item.title) + '" loading="lazy">' +
+              '</a>';
+    }
+    html += '<div class="act-item__body">';
+    html += '<p class="act-item__date">' + escapeHtml(item.date);
+    if (item.hora) html += ' · ' + escapeHtml(item.hora) + ' h';
+    if (item.preu) html += ' · ' + escapeHtml(item.preu);
+    html += '</p>';
+    html += '<h3 class="act-item__title"><a href="' + escapeHtml(item.url) + '">' + escapeHtml(item.title) + '</a></h3>';
+    if (item.desc) html += '<p class="act-item__desc">' + escapeHtml(item.desc) + '</p>';
+    html += '</div></li>';
+    return html;
+  }
+
+  var io = new IntersectionObserver(function(entries) {
+    if (!entries[0].isIntersecting) return;
+    sentinel.classList.add('is-loading');
+    var html = '';
+    for (var n = 0; n < CHUNK && idx < items.length; n++, idx++) {
+      html += card(items[idx]);
+    }
+    grid.insertAdjacentHTML('beforeend', html);
+    if (idx >= items.length) {
+      io.unobserve(sentinel);
+      sentinel.remove();
+      return;
+    }
+    sentinel.classList.remove('is-loading');
+  }, { rootMargin: '800px 0px' });
+
+  io.observe(sentinel);
 }

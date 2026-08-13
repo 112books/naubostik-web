@@ -11,6 +11,24 @@
 {{ $propiesFut  := where $propies  "Date" ">=" $now }}
 {{ $entitatsFut := where $entitats "Date" ">=" $now }}
 
+{{/* Bloc B: la resta d'activitats pròpies (futures que no hi caben + passades),
+     de la més propera a realitzar-se a la més antiga. */}}
+{{ $futRest := after 3 ($propiesFut.ByDate) }}
+{{ $propiesPast := where $propies "Date" "<" $now }}
+{{ $historic := $futRest | append ($propiesPast.ByDate.Reverse) }}
+{{ $historicIni := first 24 $historic }}
+{{ $historicJson := slice }}
+{{ range (after 24 $historic) }}
+  {{ $historicJson = $historicJson | append (dict
+       "title" .Title
+       "url"   .RelPermalink
+       "date"  (.Date | time.Format "02/01/2006")
+       "hora"  (.Params.hora | default "")
+       "preu"  (.Params.preu | default "")
+       "img"   (.Params.imatge | relURL)
+       "desc"  (.Params.descripcio | default "")) }}
+{{ end }}
+
 <div class="page-header">
   <h1>{{ i18n "activitats_title" }}</h1>
   <p class="lead">{{ i18n "activitats_lead" }}</p>
@@ -24,7 +42,7 @@
 
     {{ if $propiesFut }}
     <ul class="act-list">
-      {{ range ($propiesFut.ByDate) }}
+      {{ range first 3 ($propiesFut.ByDate) }}
       <li class="act-item">
         {{ if .Params.imatge }}
         <a class="act-item__img" href="{{ .RelPermalink }}">
@@ -42,23 +60,6 @@
     {{ else }}
     <p class="act-empty">No hi ha activitats properes programades.</p>
     {{ end }}
-
-    {{ $propiesPast := where $propies "Date" "<" $now }}
-    {{ if $propiesPast }}
-    <details class="act-archive">
-      <summary>{{ i18n "agenda_archive_show" }}</summary>
-      <ul class="act-list act-list--past">
-        {{ range ($propiesPast.ByDate.Reverse) }}
-        <li class="act-item act-item--past">
-          <div class="act-item__body">
-            <p class="act-item__date">{{ .Date | time.Format "02/01/2006" }}{{ with .Params.hora }} · {{ . }} h{{ end }}</p>
-            <h3 class="act-item__title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
-          </div>
-        </li>
-        {{ end }}
-      </ul>
-    </details>
-    {{ end }}
   </section>
 
   {{/* ═══ COLUMNA 2: Entitats residents ═══ */}}
@@ -68,11 +69,10 @@
     {{ if $entitatsFut }}
     <ul class="act-list">
       {{ range ($entitatsFut.ByDate) }}
-      <li class="act-item">
-        {{ if .Params.imatge }}
-        <a class="act-item__img" href="{{ .RelPermalink }}">
-          <img src="{{ .Params.imatge | relURL }}" alt="{{ .Title }}" loading="lazy">
-        </a>
+      {{ $logo := partial "logo-entitat" .Params.entitat }}
+      <li class="act-item act-item--entitat">
+        {{ with $logo }}
+        <span class="act-item__logo"><img src="{{ . }}" alt="{{ $.Params.entitat }}" loading="lazy"></span>
         {{ end }}
         <div class="act-item__body">
           <span class="act-item__entitat">{{ .Params.entitat }}</span>
@@ -87,23 +87,7 @@
     <p class="act-empty">Cap activitat d'entitat programada properament.</p>
     {{ end }}
 
-    {{ $entitatsPast := where $entitats "Date" "<" $now }}
-    {{ if $entitatsPast }}
-    <details class="act-archive">
-      <summary>{{ i18n "agenda_archive_show" }}</summary>
-      <ul class="act-list act-list--past">
-        {{ range ($entitatsPast.ByDate.Reverse) }}
-        <li class="act-item act-item--past">
-          <div class="act-item__body">
-            <span class="act-item__entitat">{{ .Params.entitat }}</span>
-            <p class="act-item__date">{{ .Date | time.Format "02/01/2006" }}</p>
-            <h3 class="act-item__title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
-          </div>
-        </li>
-        {{ end }}
-      </ul>
-    </details>
-    {{ end }}
+    <a class="act-archive-link" href="{{ "activitats-entitats/" | relLangURL }}">{{ i18n "agenda_archive_show" }} &rarr;</a>
   </section>
 
   {{/* ═══ COLUMNA 3: Tallers fixes + CTA ═══ */}}
@@ -130,4 +114,33 @@
   </section>
 
 </div>
+
+{{/* ═══ BLOC B: Històric d'activitats de la Nau Bostik ═══ */}}
+<section class="act-historica" id="activitats-historica">
+  <div class="section-header">
+    <h2 class="act-historica__title">Activitats de la Nau Bostik</h2>
+    <p class="lead">De la més propera a realitzar-se a la més antiga</p>
+  </div>
+
+  <ul class="act-historica-grid" id="act-historica-grid">
+    {{ range $historicIni }}
+    <li class="act-item">
+      {{ if .Params.imatge }}
+      <a class="act-item__img" href="{{ .RelPermalink }}">
+        <img src="{{ .Params.imatge | relURL }}" alt="{{ .Title }}" loading="lazy">
+      </a>
+      {{ end }}
+      <div class="act-item__body">
+        <p class="act-item__date">{{ .Date | time.Format "02/01/2006" }}{{ with .Params.hora }} · {{ . }} h{{ end }}{{ with .Params.preu }} · {{ . }}{{ end }}</p>
+        <h3 class="act-item__title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
+        {{ with .Params.descripcio }}<p class="act-item__desc">{{ . }}</p>{{ end }}
+      </div>
+    </li>
+    {{ end }}
+  </ul>
+
+  <div class="act-historica-sentinel" id="act-historica-sentinel"></div>
+
+  <script type="application/json" id="act-historica-data">{{ $historicJson | jsonify | safeHTML }}</script>
+</section>
 {{ end }}
