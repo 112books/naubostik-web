@@ -1437,3 +1437,18 @@ ruting a `glm-5.2` (Z.ai / origen GLM). Sessió serves com a baseline.
 - **Valoració subjectiva:** 4 — coherent amb el disseny existent (DM Sans,
   accent taronja, radius 3px), accessible (aria-labels, 44px) i sense
   regressions.
+
+## Importació dels 495 esdeveniments de The Events Calendar (2026-08-13)
+- **Objectiu:** portar tota l'agenda del WP (495 esdeveniments, 2021–2026) al
+  Hugo local amb el mateix disseny que el tema (`list`/`single` d'activitats).
+- **Fets:**
+  - API REST `tribe/events/v1/events` → 495 esdeveniments (5 pàgines de 100).
+  - 924 imatges descarregades i normalitzades (sips, màx 1400px) a
+    `static/img/activitats/`; mapa URL→local; 12 URLs 404 reals omeses.
+  - Conversor Python genera les fitxes `.md` amb la neteja HTML heretada del
+    convert de notícies. 495 fitxes + 10 locals preservades.
+  - Slugs numèrics/`-copy` reanomenats a llegibles (títol+any, dedup `-2`).
+  - `single.html`: fix `relURL` de la `imatge` + galeria del cos amb lightbox
+    (`data-gallery="activitat-{slug}"`, mateix patró que notícies).
+- **Verificació Playwright:** 0 imatges trencades, 470 heros, 444 galeries,
+  3 botons de calendari per single, 5 futurs al llistat + arxiu de passats.

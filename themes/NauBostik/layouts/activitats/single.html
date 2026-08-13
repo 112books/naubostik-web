@@ -1,4 +1,6 @@
 {{ define "main" }}
+{{ $prefix := strings.TrimSuffix "/" (urls.Parse site.BaseURL).Path }}
+{{ $gallery := printf "activitat-%s" .File.BaseFileName }}
 {{ $dateStart := .Date }}
 {{ $dateEnd   := .Params.data_fi | default .Date }}
 {{ $hora      := .Params.hora | default "" }}
@@ -64,12 +66,14 @@
 
   {{ with .Params.imatge }}
   <figure class="event-photo">
-    <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
+    <img src="{{ . | relURL }}" alt="{{ $.Title }}" loading="lazy">
   </figure>
   {{ end }}
 
   <div class="event-body content">
-    {{ .Content }}
+    {{ $cos := .Content | replaceRE "/img/activitats/" (printf "%s/img/activitats/" $prefix) }}
+    {{ $cos = $cos | replaceRE `<figure class="historia-fig"><img src="([^"]+)"(.*?)</figure>` (printf `<a class="espai-gallery-item event-body__galeria-item" data-gallery="%s" href="$1"><figure class="historia-fig"><img src="$1"$2</figure></a>` $gallery) }}
+    {{ $cos | safeHTML }}
   </div>
 
   <footer class="event-footer">
