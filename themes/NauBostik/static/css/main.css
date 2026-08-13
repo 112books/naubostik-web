@@ -523,6 +523,7 @@ main.container {
   color: #fff;
   padding: 0;
   overflow: hidden;
+  margin-bottom: 4rem;
 }
 
 .identitat-xifres {
@@ -537,53 +538,57 @@ main.container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2.5rem 3rem;
+  padding: 1.25rem 1.75rem;
   border-right: 1px solid rgba(255,255,255,0.2);
-  flex: 1 1 180px;
+  flex: 1 1 160px;
   text-align: center;
+  white-space: nowrap;
 }
 .identitat-xifra:last-child {
   border-right: none;
 }
 
 .identitat-xifra__num {
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1;
   color: #fff;
+  white-space: nowrap;
 }
 
 .identitat-xifra__label {
-  font-size: 0.8rem;
+  font-size: 0.68rem;
   font-weight: 500;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.75);
-  margin-top: 0.5rem;
+  margin-top: 0.35rem;
+  white-space: normal;
+  max-width: 9rem;
 }
 
 .identitat-paraules {
   position: relative;
-  height: 220px;
+  height: 100px;
   width: 100%;
   overflow: hidden;
 }
 
 .identitat-paraules span {
   position: absolute;
-  font-size: 1rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.12);
   white-space: nowrap;
-  transition: opacity 0.8s ease;
+  transition: color 1.6s ease;
   user-select: none;
 }
 
 .identitat-paraules span.is-visible {
-  color: rgba(255,255,255,0.9);
+  color: rgba(255,255,255,0.88);
 }
 
 /* Fallback no-JS: flex wrap amb totes visibles */
@@ -2168,6 +2173,20 @@ main.container {
 
 .tab-panel--hidden {
   display: none;
+}
+
+.equip-grup__label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+.equip-grup__label--col {
+  margin-top: 2rem;
 }
 
 .tab-panel__link {

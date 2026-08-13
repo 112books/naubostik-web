@@ -1,6 +1,13 @@
-membres:
+treballadors:
   - nom: "Equip de Gestió"
     rol: "Coordinació i gestió de l'espai"
     foto: ""
     email: "info@naubostik.com"
-    bio: "L'equip de coordinació s'ocupa del dia a dia de la Nau Bostik: relació amb entitats, manteniment, comunicació i projectes comunitaris."
+    bio: "L'equip que s'ocupa del dia a dia de la Nau Bostik: relació amb entitats, manteniment, comunicació i projectes comunitaris."
+
+colaboradors:
+  - nom: "Col·laboradors"
+    rol: "Suport i projectes específics"
+    foto: ""
+    email: ""
+    bio: "Persones i entitats que col·laboren puntualment amb la Nau Bostik en projectes, comunicació i dinamització."

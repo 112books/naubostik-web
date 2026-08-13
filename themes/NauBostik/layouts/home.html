@@ -245,7 +245,7 @@
   </div>
 
   <div class="tab-nav" role="tablist" aria-label="La Nau">
-    <button class="tab-btn" data-tab="espais" role="tab" aria-selected="false" aria-controls="tab-espais" type="button">Espais</button>
+    <button class="tab-btn is-active" data-tab="espais" role="tab" aria-selected="true" aria-controls="tab-espais" type="button">Espais</button>
     <button class="tab-btn" data-tab="equip" role="tab" aria-selected="false" aria-controls="tab-equip" type="button">Equip humà</button>
   </div>
 
@@ -274,18 +274,13 @@
   {{/* TAB: Equip humà */}}
   <div class="tab-panel" id="tab-equip" role="tabpanel">
     {{ with $equip }}
+    {{ if .treballadors }}
+    <p class="equip-grup__label">Equip de gestió</p>
     <div class="equip-grid">
-      {{ range .membres }}
+      {{ range .treballadors }}
       <div class="equip-card">
-        {{ if .foto }}
-        <div class="equip-card__foto">
-          <img src="{{ .foto | relURL }}" alt="{{ .nom }}" loading="lazy">
-        </div>
-        {{ else }}
-        <div class="equip-card__foto equip-card__foto--placeholder">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        </div>
-        {{ end }}
+        {{ if .foto }}<div class="equip-card__foto"><img src="{{ .foto | relURL }}" alt="{{ .nom }}" loading="lazy"></div>
+        {{ else }}<div class="equip-card__foto equip-card__foto--placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>{{ end }}
         <div class="equip-card__body">
           <h3 class="equip-card__nom">{{ .nom }}</h3>
           <p class="equip-card__rol">{{ .rol }}</p>
@@ -295,6 +290,24 @@
       </div>
       {{ end }}
     </div>
+    {{ end }}
+    {{ if .colaboradors }}
+    <p class="equip-grup__label equip-grup__label--col">Col·laboradors</p>
+    <div class="equip-grid">
+      {{ range .colaboradors }}
+      <div class="equip-card">
+        {{ if .foto }}<div class="equip-card__foto"><img src="{{ .foto | relURL }}" alt="{{ .nom }}" loading="lazy"></div>
+        {{ else }}<div class="equip-card__foto equip-card__foto--placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>{{ end }}
+        <div class="equip-card__body">
+          <h3 class="equip-card__nom">{{ .nom }}</h3>
+          <p class="equip-card__rol">{{ .rol }}</p>
+          {{ with .bio }}<p class="equip-card__bio">{{ . }}</p>{{ end }}
+          {{ with .email }}<a class="equip-card__email" href="mailto:{{ . }}">{{ . }}</a>{{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
+    {{ end }}
     {{ end }}
     <p class="tab-panel__link"><a href="{{ "qui-som/" | relLangURL }}">Qui som &rarr;</a></p>
   </div>

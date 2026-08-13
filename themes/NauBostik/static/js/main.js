@@ -268,9 +268,12 @@ function initHomeTabs() {
   var btns   = nav.querySelectorAll('.tab-btn');
   var panels = document.querySelectorAll('.tab-panel');
 
-  // Estat inicial: totes les pestanyes tancades
-  btns.forEach(function(b) { b.classList.remove('is-active'); b.setAttribute('aria-selected', 'false'); });
-  panels.forEach(function(p) { p.classList.add('tab-panel--hidden'); });
+  // Estat inicial: la pestanya activa al HTML és la visible per defecte
+  panels.forEach(function(panel) {
+    var tabId = panel.id.replace('tab-', '');
+    var activeBtn = nav.querySelector('.tab-btn.is-active[data-tab="' + tabId + '"]');
+    if (!activeBtn) panel.classList.add('tab-panel--hidden');
+  });
 
   btns.forEach(function(btn) {
     btn.addEventListener('click', function() {
@@ -338,7 +341,7 @@ function initWordCloud() {
     active.add(wordArr[i]);
   }
 
-  setInterval(pulse, 900);
+  setInterval(pulse, 2000);
 }
 
 function initEventCalendar() {

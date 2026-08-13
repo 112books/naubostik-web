@@ -2,7 +2,7 @@
 title = "Nau Betor"
 date = 2026-08-11
 ubicacio = "Planta baixa"
-cedible = true
+cedible = false
 draft = false
 fotografies = [
   "/img/espais/nau-betor-1.jpg",
