@@ -1656,10 +1656,20 @@ main.show-past .agenda-item--past {
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
 }
 
+.activitat-cards--2 { grid-template-columns: repeat(2, 1fr); }
+.activitat-cards--3 { grid-template-columns: repeat(3, 1fr); }
+.activitat-cards--4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 900px) {
+  .activitat-cards--3,
+  .activitat-cards--4 { grid-template-columns: repeat(2, 1fr); }
+}
+
 @media (max-width: 600px) {
-  .activitat-cards--home {
-    grid-template-columns: 1fr;
-  }
+  .activitat-cards--home,
+  .activitat-cards--2,
+  .activitat-cards--3,
+  .activitat-cards--4 { grid-template-columns: 1fr; }
 }
 
 /* === EVENT SINGLE === */

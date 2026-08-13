@@ -38,7 +38,7 @@
     <h2 class="section-title">{{ i18n "home_section_setmana" }}</h2>
     <a href="{{ "activitats/" | relLangURL }}" class="section-link">{{ i18n "home_link_veure_agenda" }} &rarr;</a>
   </div>
-  <div class="activitat-cards activitat-cards--home">
+  <div class="activitat-cards activitat-cards--home activitat-cards--{{ len $destacades }}">
     {{ range $destacades }}
     <a class="activitat-card" href="{{ .RelPermalink }}">
       <div class="activitat-card__image">
