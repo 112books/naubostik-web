@@ -90,3 +90,11 @@ Recull de funcionalitats i millores pendents per a naubostik.com. Document viu �
 - Notícies del web de producció → `/noticies/` **(fet 2026-08-13, 23/23)**
 - Història de la Nau → `/qui-som/` **(fet 2026-08-13, 6 capítols)**
 - Fotografies reals dels espais → `static/img/espais/`
+
+
+## Errades a corregir:
+Sembla que ara a portada han canviat les activitats propies a mostrar. Harien de sortir només les destacades i haurien de councidir amb les qeu ara hi ha a naubostik.com en producció..
+
+cal a aquest segon blog tal vegada dividir-lo en properes activitats i un trecer blic amb les passades.
+
+I també cal Revisar les imatges dels logos dels colectius a la pestanya del blic La Nau Bostik de la portada.
