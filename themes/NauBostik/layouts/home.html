@@ -33,11 +33,28 @@
 {{ $now := now }}
 {{ $allAct := where site.RegularPages "Section" "activitats" }}
 {{ $noTaller := where $allAct "Params.taller_fix" "!=" true }}
-{{ $actNB := where $noTaller "Params.entitat" nil }}
+{{ $actNB  := where $noTaller "Params.entitat" nil }}
 {{ $actEnt := where $noTaller "Params.entitat" "!=" nil }}
-{{ $actNBFut := where $actNB "Date" ">=" $now }}
-{{ $actEntFut := where $actEnt "Date" ">=" $now }}
-{{ $nbCards := last 3 ($actNBFut.ByDate) }}
+
+{{/* Filtre futurs per data_fi quan existeix (cobreix events multidia i avisos) */}}
+{{ $actNBFut := slice }}
+{{ range $actNB }}
+  {{ $end := .Params.data_fi | default .Date }}
+  {{ if ge $end $now }}{{ $actNBFut = $actNBFut | append . }}{{ end }}
+{{ end }}
+{{ $actEntFut := slice }}
+{{ range $actEnt }}
+  {{ $end := .Params.data_fi | default .Date }}
+  {{ if ge $end $now }}{{ $actEntFut = $actEntFut | append . }}{{ end }}
+{{ end }}
+
+{{/* 3 cards NB: els més pròxims primer */}}
+{{ $nbCards := first 3 ($actNBFut.ByDate) }}
+
+{{/* Recursos de portada per omplir slots buits */}}
+{{ $portada := index site.Data "portada" }}
+{{ $recursos := slice }}
+{{ with $portada }}{{ with .recursos }}{{ $recursos = . }}{{ end }}{{ end }}
 
 {{ if or $nbCards $actEntFut }}
 <section class="section">
@@ -46,18 +63,42 @@
     <a href="{{ "activitats/" | relLangURL }}" class="section-link">{{ i18n "home_link_veure_agenda" }} &rarr;</a>
   </div>
   <div class="home-act-grid">
-    {{/* 3 cards NB */}}
+    {{/* 3 cards NB, completes amb recursos si cal */}}
+    {{ $slots := 3 }}
+    {{ $shown := 0 }}
     {{ range $nbCards }}
-    <a class="home-act-card" href="{{ .RelPermalink }}">
-      {{ if .Params.imatge }}
-      <div class="home-act-card__img">
-        <img src="{{ .Params.imatge }}" alt="{{ .Title }}" loading="lazy">
+      {{ $shown = add $shown 1 }}
+      {{ if .Params.avis }}
+      <div class="home-act-card home-act-card--avis">
+        <div class="home-act-card__body">
+          <p class="home-act-card__badge">{{ if eq .Params.avis "tancament" }}Tancat{{ else }}Avís{{ end }}</p>
+          {{ with .Params.data_fi }}<p class="home-act-card__date">Fins al {{ . | time.Format "02/01/2006" }}</p>{{ end }}
+          <h3 class="home-act-card__title">{{ .LinkTitle }}</h3>
+          {{ with .Params.descripcio }}<p class="home-act-card__desc">{{ . }}</p>{{ end }}
+        </div>
       </div>
+      {{ else }}
+      <a class="home-act-card" href="{{ .RelPermalink }}">
+        {{ if .Params.imatge }}
+        <div class="home-act-card__img">
+          <img src="{{ .Params.imatge }}" alt="{{ .Title }}" loading="lazy">
+        </div>
+        {{ end }}
+        <div class="home-act-card__body">
+          <p class="home-act-card__date">{{ .Date | time.Format "02/01/2006" }}{{ with .Params.hora }} · {{ . }} h{{ end }}{{ with .Params.preu }} · {{ . }}{{ end }}</p>
+          <h3 class="home-act-card__title">{{ .LinkTitle }}</h3>
+          {{ with .Params.descripcio }}<p class="home-act-card__desc">{{ . }}</p>{{ end }}
+        </div>
+      </a>
       {{ end }}
+    {{ end }}
+    {{/* Slots buits → recursos */}}
+    {{ range first (sub $slots $shown) $recursos }}
+    <a class="home-act-card home-act-card--recurs" href="{{ .url | relLangURL }}">
       <div class="home-act-card__body">
-        <p class="home-act-card__date">{{ .Date | time.Format "02/01/2006" }}{{ with .Params.hora }} · {{ . }} h{{ end }}{{ with .Params.preu }} · {{ . }}{{ end }}</p>
-        <h3 class="home-act-card__title">{{ .LinkTitle }}</h3>
-        {{ with .Params.descripcio }}<p class="home-act-card__desc">{{ . }}</p>{{ end }}
+        <p class="home-act-card__badge">{{ .tipus | default "Participa" }}</p>
+        <h3 class="home-act-card__title">{{ .titol }}</h3>
+        {{ with .descripcio }}<p class="home-act-card__desc">{{ . }}</p>{{ end }}
       </div>
     </a>
     {{ end }}
@@ -91,16 +132,16 @@
       <span class="identitat-xifra__label">entitats residents</span>
     </div>
     <div class="identitat-xifra">
-      <span class="identitat-xifra__num">6.500 m²</span>
+      <span class="identitat-xifra__num">6.000 m²</span>
       <span class="identitat-xifra__label">d'espai cultural</span>
+    </div>
+    <div class="identitat-xifra">
+      <span class="identitat-xifra__num">12</span>
+      <span class="identitat-xifra__label">naus obertes al barri</span>
     </div>
     <div class="identitat-xifra">
       <span class="identitat-xifra__num">+10</span>
       <span class="identitat-xifra__label">anys d'autogestió</span>
-    </div>
-    <div class="identitat-xifra">
-      <span class="identitat-xifra__num">4</span>
-      <span class="identitat-xifra__label">plantes obertes al barri</span>
     </div>
   </div>
   <div class="identitat-paraules" aria-hidden="true">

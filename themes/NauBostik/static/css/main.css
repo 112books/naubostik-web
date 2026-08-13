@@ -1825,6 +1825,61 @@ main.container {
   overflow: hidden;
 }
 
+/* Card de tancament / avís */
+.home-act-card--avis {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+.home-act-card--avis .home-act-card__title {
+  color: #fff;
+}
+.home-act-card--avis .home-act-card__date,
+.home-act-card--avis .home-act-card__desc {
+  color: rgba(255,255,255,0.75);
+}
+.home-act-card--avis .home-act-card__badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 0 0 0.35rem;
+  padding: 0;
+  background: none;
+}
+.home-act-card--avis .home-act-card__body {
+  flex: 1;
+  justify-content: center;
+  padding: 1.5rem 1.25rem;
+}
+
+/* Card de recurs */
+.home-act-card--recurs {
+  border-style: dashed;
+  border-color: var(--color-border);
+  background: transparent;
+}
+.home-act-card--recurs .home-act-card__badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 0 0 0.35rem;
+}
+.home-act-card--recurs .home-act-card__body {
+  flex: 1;
+  justify-content: center;
+  padding: 1.5rem 1.25rem;
+}
+.home-act-card--recurs:hover {
+  border-color: var(--color-accent);
+  background: var(--color-surface);
+}
+
 .home-act-entitats {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sharp);
