@@ -1651,3 +1651,13 @@ main.show-past .agenda-item--past {
     grid-template-columns: 1fr;
   }
 }
+
+.activitat-cards--home {
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+@media (max-width: 600px) {
+  .activitat-cards--home {
+    grid-template-columns: 1fr;
+  }
+}

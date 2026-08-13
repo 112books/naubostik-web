@@ -29,21 +29,35 @@
   </div>
 </section>
 
+{{ $now := now }}
+{{ $futures := where site.RegularPages "Section" "activitats" }}
+{{ $futures = where $futures "Date" ">=" $now }}
+{{ $futures = where $futures "Params.imatge" "!=" nil }}
+{{ $futures = $futures.ByDate }}
+{{ $destacades := first 4 $futures }}
+{{ if $destacades }}
 <section class="section">
   <div class="section-header">
     <h2 class="section-title">{{ i18n "home_section_setmana" }}</h2>
     <a href="{{ "activitats/" | relLangURL }}" class="section-link">{{ i18n "home_link_veure_agenda" }} &rarr;</a>
   </div>
-  <div class="grid-3">
-    {{ range first 3 (where site.RegularPages "Section" "activitats") }}
-    <div class="card">
-      <h3><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
-      <p>{{ .Summary }}</p>
-      <a class="card-link" href="{{ .RelPermalink }}">{{ i18n "read_more" }} &rarr;</a>
-    </div>
+  <div class="activitat-cards activitat-cards--home">
+    {{ range $destacades }}
+    <a class="activitat-card" href="{{ .RelPermalink }}">
+      <div class="activitat-card__image">
+        <img src="{{ .Params.imatge }}" alt="{{ .Title }}" loading="lazy">
+      </div>
+      <div class="activitat-card__body">
+        {{ with .Params.preu }}<span class="activitat-card__preu">{{ . }}</span>{{ end }}
+        <h3 class="activitat-card__title">{{ .LinkTitle }}</h3>
+        <p class="activitat-card__date">{{ .Date | time.Format "02/01/2006" }}{{ with .Params.hora }} · {{ . }}{{ end }}</p>
+        {{ with .Params.descripcio }}<p class="activitat-card__desc">{{ . }}</p>{{ end }}
+      </div>
+    </a>
     {{ end }}
   </div>
 </section>
+{{ end }}
 
 <section class="section section-metric">
   <h2 class="section-title">{{ i18n "home_section_metric_title" }}</h2>
