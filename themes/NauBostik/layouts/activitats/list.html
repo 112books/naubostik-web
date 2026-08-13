@@ -74,7 +74,7 @@
   {{ range ($allActivitats.GroupByDate "2006-01-02" "asc") }}
   {{ $date := .Key | time.AsTime }}
   {{ $wdNum := $date.Weekday | printf "%d" | int }}
-  {{ $daysToMon := mod (add $wdNum 6) 7 }}
+  {{ $daysToMon := mod (add $wdNum 6) 7 | int }}
   {{ $monday := $date.AddDate 0 0 (mul -1 $daysToMon) }}
   {{ $sunday := $monday.AddDate 0 0 6 }}
   {{ $weekKey := $monday.Format "2006-01-02" }}
