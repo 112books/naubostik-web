@@ -1,36 +1,98 @@
 {{ define "main" }}
+{{ $now := now }}
+{{ $allActivitats := where site.RegularPages "Section" "activitats" }}
+{{ $months := dict "January" "Gener" "February" "Febrer" "March" "Març" "April" "Abril" "May" "Maig" "June" "Juny" "July" "Juliol" "August" "Agost" "September" "Setembre" "October" "Octubre" "November" "Novembre" "December" "Desembre" }}
+{{ $days := dict "Monday" "dilluns" "Tuesday" "dimarts" "Wednesday" "dimecres" "Thursday" "dijous" "Friday" "divendres" "Saturday" "dissabte" "Sunday" "diumenge" }}
+
+{{ $entitats := slice }}
+{{ $plantes := slice }}
+{{ range $allActivitats }}
+  {{ with .Params.entitat }}
+    {{ if not (in $entitats .) }}{{ $entitats = $entitats | append . }}{{ end }}
+  {{ end }}
+  {{ $p := .Params.planta | default "Nau Bostik" }}
+  {{ if not (in $plantes $p) }}{{ $plantes = $plantes | append $p }}{{ end }}
+{{ end }}
+
 <div class="page-header">
   <h1>{{ i18n "activitats_title" }}</h1>
   <p class="lead">{{ i18n "activitats_lead" }}</p>
 </div>
 
-<h2 class="agenda-section-title">{{ i18n "activitats_propia_title" }}</h2>
-<p class="agenda-section-desc">{{ i18n "activitats_propia_desc" }}</p>
+<div class="agenda-controls">
+  <div class="agenda-toggle" role="group">
+    <button class="agenda-toggle-btn is-active" data-view="mensual" type="button">{{ i18n "agenda_view_month" }}</button>
+    <button class="agenda-toggle-btn" data-view="setmanal" type="button">{{ i18n "agenda_view_week" }}</button>
+  </div>
 
-<ul class="post-list">
-  {{ range where (where site.RegularPages "Section" "activitats") "Params.entitat" nil }}
-  <li class="post-card">
-    <article>
-      <h3><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
-      <p class="post-meta">{{ .Date.Format "02/01/2006" }}</p>
-      <p class="post-excerpt">{{ .Summary }}</p>
-    </article>
-  </li>
+  {{ if $entitats }}
+  <div class="agenda-filters" data-filter-group="entitat">
+    <button class="agenda-filter-btn is-active" data-filter-type="entitat" data-filter-value="" type="button">{{ i18n "agenda_filter_all" }}</button>
+    {{ range $entitats }}
+    <button class="agenda-filter-btn" data-filter-type="entitat" data-filter-value="{{ . }}" type="button">{{ . }}</button>
+    {{ end }}
+  </div>
   {{ end }}
-</ul>
 
-<h2 class="agenda-section-title">{{ i18n "activitats_entitats_title" }}</h2>
-<p class="agenda-section-desc">{{ i18n "activitats_entitats_desc" }}</p>
-
-<ul class="post-list">
-  {{ range where (where site.RegularPages "Section" "activitats") "Params.entitat" "!=" nil }}
-  <li class="post-card">
-    <article>
-      <h3><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
-      <p class="post-meta">{{ .Date.Format "02/01/2006" }} · {{ .Params.entitat }}</p>
-      <p class="post-excerpt">{{ .Summary }}</p>
-    </article>
-  </li>
+  {{ if gt (len $plantes) 1 }}
+  <div class="agenda-filters" data-filter-group="planta">
+    <button class="agenda-filter-btn is-active" data-filter-type="planta" data-filter-value="" type="button">{{ i18n "agenda_filter_all" }}</button>
+    {{ range $plantes }}
+    <button class="agenda-filter-btn" data-filter-type="planta" data-filter-value="{{ . }}" type="button">{{ . }}</button>
+    {{ end }}
+  </div>
   {{ end }}
-</ul>
+
+  <button class="agenda-archive-btn" type="button"
+    data-archive-show="{{ i18n "agenda_archive_show" }}"
+    data-archive-hide="{{ i18n "agenda_archive_hide" }}">{{ i18n "agenda_archive_show" }}</button>
+</div>
+
+<section class="agenda-view" id="agenda-mensual">
+  {{ range ($allActivitats.GroupByDate "2006-01" "asc") }}
+  {{ $t := printf "%s-01" .Key | time.AsTime }}
+  <div class="agenda-month">
+    <h2 class="agenda-month-title">{{ index $months ($t | time.Format "January") }} {{ $t | time.Format "2006" }}</h2>
+    <ul class="agenda-list">
+      {{ range .Pages.ByDate }}
+      <li class="agenda-item{{ if .Date.Before $now }} agenda-item--past{{ end }}"
+          data-entitat="{{ .Params.entitat | default "" }}"
+          data-planta="{{ .Params.planta | default "Nau Bostik" }}">
+        {{ if .Params.hora }}<span class="agenda-item__time">{{ .Params.hora }}</span>{{ end }}
+        <a class="agenda-item__title" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+        <span class="agenda-item__meta">{{ with .Params.entitat }}{{ . }}{{ else }}Nau Bostik{{ end }}{{ with .Params.planta }} · {{ . }}{{ end }}</span>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+  {{ end }}
+</section>
+
+<section class="agenda-view" id="agenda-setmanal">
+  {{ $prevWeekKey := "" }}
+  {{ range ($allActivitats.GroupByDate "2006-01-02" "asc") }}
+  {{ $date := .Key | time.AsTime }}
+  {{ $wdNum := $date.Weekday | printf "%d" | int }}
+  {{ $daysToMon := mod (add $wdNum 6) 7 }}
+  {{ $monday := $date.AddDate 0 0 (mul -1 $daysToMon) }}
+  {{ $sunday := $monday.AddDate 0 0 6 }}
+  {{ $weekKey := $monday.Format "2006-01-02" }}
+  {{ if ne $weekKey $prevWeekKey }}
+  <p class="agenda-week-label">{{ i18n "agenda_week_of" (dict "monday" ($monday | time.Format "2/1") "sunday" ($sunday | time.Format "2/1")) }}</p>
+  {{ $prevWeekKey = $weekKey }}
+  {{ end }}
+  <h3 class="agenda-day-title">{{ index $days ($date | time.Format "Monday") }}, {{ $date | time.Format "02/01/2006" }}</h3>
+  <ul class="agenda-list">
+    {{ range .Pages.ByDate }}
+    <li class="agenda-item{{ if .Date.Before $now }} agenda-item--past{{ end }}"
+        data-entitat="{{ .Params.entitat | default "" }}"
+        data-planta="{{ .Params.planta | default "Nau Bostik" }}">
+      {{ if .Params.hora }}<span class="agenda-item__time">{{ .Params.hora }}</span>{{ end }}
+      <a class="agenda-item__title" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+      <span class="agenda-item__meta">{{ with .Params.entitat }}{{ . }}{{ else }}Nau Bostik{{ end }}{{ with .Params.planta }} · {{ . }}{{ end }}</span>
+    </li>
+    {{ end }}
+  </ul>
+  {{ end }}
+</section>
 {{ end }}
