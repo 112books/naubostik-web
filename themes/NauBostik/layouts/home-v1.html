@@ -1,0 +1,343 @@
+{{ define "main" }}
+
+{{ $heroImages := slice }}
+{{ with (index site.Data "hero-slideshow") }}{{ $heroImages = .images }}{{ end }}
+<section class="hero">
+  <div class="hero-card hero-placeholder{{ if $heroImages }} hero-has-photo{{ end }}">
+    {{ if $heroImages }}
+    <div class="hero-slideshow" aria-hidden="true">
+      {{ range $i, $img := $heroImages }}
+      <div class="hero-slide{{ if eq $i 0 }} is-active{{ end }}" style="background-image:url('{{ $img.src | relURL }}')"></div>
+      {{ end }}
+    </div>
+    {{ if gt (len $heroImages) 1 }}
+    <button type="button" class="hero-arrow hero-arrow-prev" aria-label="{{ i18n "home_hero_prev" }}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button type="button" class="hero-arrow hero-arrow-next" aria-label="{{ i18n "home_hero_next" }}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    {{ end }}
+    {{ end }}
+    <p class="hero-kicker">{{ i18n "home_hero_kicker" }}</p>
+    <h1>{{ i18n "home_hero_title_line1" }}{{ with i18n "home_hero_title_line2" }}<br>{{ . }}{{ end }}</h1>
+    <p class="hero-sub">{{ i18n "home_hero_sub" }}</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="{{ "activitats/" | relLangURL }}">{{ i18n "home_btn_agenda" }}</a>
+      <a class="btn btn-secondary" href="{{ "qui-som/" | relLangURL }}">{{ i18n "home_btn_qui_som" }}</a>
+    </div>
+  </div>
+</section>
+
+{{/* ── AQUESTA SETMANA: 4 columnes ── */}}
+{{ $now := now }}
+{{ $allAct := where site.RegularPages "Section" "activitats" }}
+{{ $noTaller := where $allAct "Params.taller_fix" "!=" true }}
+{{ $actNB  := where $noTaller "Params.entitat" nil }}
+{{ $actEnt := where $noTaller "Params.entitat" "!=" nil }}
+
+{{/* Filtre futurs per data_fi quan existeix (cobreix events multidia i avisos) */}}
+{{ $actNBFut := slice }}
+{{ range $actNB }}
+  {{ $end := .Params.data_fi | default .Date }}
+  {{ if ge $end $now }}{{ $actNBFut = $actNBFut | append . }}{{ end }}
+{{ end }}
+{{ $actEntFut := slice }}
+{{ range $actEnt }}
+  {{ $end := .Params.data_fi | default .Date }}
+  {{ if ge $end $now }}{{ $actEntFut = $actEntFut | append . }}{{ end }}
+{{ end }}
+
+{{/* 3 cards NB: les destacades primer; si no n'hi ha, les 3 més pròximes */}}
+{{ $nbDescat := where $actNBFut "Params.destacat" true }}
+{{ $nbCards := cond (gt (len $nbDescat) 0) ($nbDescat.ByDate) (first 3 ($actNBFut.ByDate)) }}
+
+{{/* Recursos de portada per omplir slots buits */}}
+{{ $portada := index site.Data "portada" }}
+{{ $recursos := slice }}
+{{ with $portada }}{{ with .recursos }}{{ $recursos = . }}{{ end }}{{ end }}
+
+{{ if or $nbCards $actEntFut }}
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">{{ i18n "home_section_setmana" }}</h2>
+    <a href="{{ "activitats/" | relLangURL }}" class="section-link">{{ i18n "home_link_veure_agenda" }} &rarr;</a>
+  </div>
+  <div class="home-act-grid">
+    {{/* 3 cards NB, completes amb recursos si cal */}}
+    {{ $slots := 3 }}
+    {{ $shown := 0 }}
+    {{ range $nbCards }}
+      {{ $shown = add $shown 1 }}
+      {{ if .Params.avis }}
+      <div class="home-act-card home-act-card--avis">
+        <div class="home-act-card__body">
+          <p class="home-act-card__badge">{{ if eq .Params.avis "tancament" }}Tancat{{ else }}Avís{{ end }}</p>
+          {{ with .Params.data_fi }}<p class="home-act-card__date">Fins al {{ . | time.Format "02/01/2006" }}</p>{{ end }}
+          <h3 class="home-act-card__title">{{ .LinkTitle }}</h3>
+          {{ with .Params.descripcio }}<p class="home-act-card__desc">{{ . }}</p>{{ end }}
+        </div>
+      </div>
+      {{ else }}
+      <a class="home-act-card" href="{{ .RelPermalink }}">
+        {{ if .Params.imatge }}
+        <div class="home-act-card__img">
+          <img src="{{ .Params.imatge }}" alt="{{ .Title }}" loading="lazy">
+        </div>
+        {{ end }}
+        <div class="home-act-card__body">
+          <p class="home-act-card__date">{{ .Date | time.Format "02/01/2006" }}{{ with .Params.hora }} · {{ . }} h{{ end }}{{ with .Params.preu }} · {{ . }}{{ end }}</p>
+          <h3 class="home-act-card__title">{{ .LinkTitle }}</h3>
+          {{ with .Params.descripcio }}<p class="home-act-card__desc">{{ . }}</p>{{ end }}
+        </div>
+      </a>
+      {{ end }}
+    {{ end }}
+    {{/* Slots buits → recursos */}}
+    {{ range first (sub $slots $shown) $recursos }}
+    <a class="home-act-card home-act-card--recurs" href="{{ .url | relLangURL }}">
+      <div class="home-act-card__body">
+        <p class="home-act-card__badge">{{ .tipus | default "Participa" }}</p>
+        <h3 class="home-act-card__title">{{ .titol }}</h3>
+        {{ with .descripcio }}<p class="home-act-card__desc">{{ . }}</p>{{ end }}
+      </div>
+    </a>
+    {{ end }}
+
+    {{/* Col 4: llista entitats */}}
+    <div class="home-act-entitats">
+      <p class="home-act-entitats__label">Entitats residents</p>
+      {{ if $actEntFut }}
+      <ul class="home-act-entitats__list">
+        {{ range ($actEntFut.ByDate) }}
+        <li>
+          <a href="{{ .RelPermalink }}">
+            <span class="home-act-entitats__date">{{ .Date | time.Format "02/01" }}{{ with .Params.hora }} · {{ . }} h{{ end }}</span>
+            <span class="home-act-entitats__title">{{ .LinkTitle }}</span>
+          </a>
+        </li>
+        {{ end }}
+      </ul>
+      {{ else }}
+      <p class="home-act-entitats__empty">Cap activitat propera</p>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+
+{{/* ── LA NAU BOSTIK: tres pestanyes ── */}}
+{{ $espaisAll      := where site.RegularPages "Section" "espais" }}
+{{ $espaisCedibles := where $espaisAll "Params.cedible" true }}
+{{ $espaisPortada  := where $espaisAll "Params.portada" true }}
+{{ $espaisTab := $espaisCedibles | append $espaisPortada }}
+{{ $equip := index site.Data "equip" }}
+
+<section class="section">
+  <div class="section-header section-header--with-tabs">
+    <h2 class="section-title">La Nau Bostik</h2>
+    <div class="tab-nav" role="tablist" aria-label="La Nau Bostik">
+      <button class="tab-btn is-active" data-tab="xifres" role="tab" aria-selected="true" aria-controls="tab-xifres" type="button">En xifres</button>
+      <button class="tab-btn" data-tab="collectius" role="tab" aria-selected="false" aria-controls="tab-collectius" type="button">Col·lectius</button>
+      <button class="tab-btn" data-tab="espais" role="tab" aria-selected="false" aria-controls="tab-espais" type="button">Espais</button>
+      <button class="tab-btn" data-tab="equip" role="tab" aria-selected="false" aria-controls="tab-equip" type="button">Equip humà</button>
+    </div>
+  </div>
+
+  {{/* TAB: En xifres */}}
+  <div class="tab-panel is-active" id="tab-xifres" role="tabpanel">
+    <div class="section-identitat">
+      <div class="identitat-xifres">
+        <div class="identitat-xifra">
+          <span class="identitat-xifra__num">+30</span>
+          <span class="identitat-xifra__label">entitats residents</span>
+        </div>
+        <div class="identitat-xifra">
+          <span class="identitat-xifra__num">6.000 m²</span>
+          <span class="identitat-xifra__label">d'espai cultural</span>
+        </div>
+        <div class="identitat-xifra">
+          <span class="identitat-xifra__num">12</span>
+          <span class="identitat-xifra__label">naus obertes al barri</span>
+        </div>
+        <div class="identitat-xifra">
+          <span class="identitat-xifra__num">+10</span>
+          <span class="identitat-xifra__label">anys d'autogestió</span>
+        </div>
+      </div>
+      <div class="identitat-paraules" aria-hidden="true">
+        <span>CULTURA</span>
+        <span>ART URBÀ</span>
+        <span>AUTOGESTIÓ</span>
+        <span>CREACIÓ ARTÍSTICA</span>
+        <span>VALORS</span>
+        <span>LLIBERTAT</span>
+        <span>ESPORT</span>
+        <span>DANSA</span>
+        <span>MÚSICA</span>
+        <span>COMUNITAT</span>
+        <span>FOTOGRAFIA</span>
+        <span>ARQUITECTURA</span>
+        <span>COOPERATIVISME</span>
+        <span>SAGRERA</span>
+        <span>BARCELONA</span>
+        <span>ECOLOGIA</span>
+        <span>ENERGIA RENOVABLE</span>
+        <span>COOPERATIVA</span>
+        <span>CIRC</span>
+        <span>ARTS ESCÈNIQUES</span>
+        <span>FORMACIÓ</span>
+        <span>IMATGE</span>
+        <span>PROGRAMARI LLIURE</span>
+        <span>EDITORIAL</span>
+        <span>RECURSOS CULTURALS</span>
+        <span>EXPOSICIONS FOTOGRÀFIQUES</span>
+        <span>ART</span>
+        <span>PINTURA</span>
+      </div>
+    </div>
+    <p class="tab-panel__link"><a href="{{ "qui-som/" | relLangURL }}">Llegiu la nostra història &rarr;</a></p>
+  </div>
+
+  {{/* TAB: Col·lectius */}}
+  {{ $collectius := where site.RegularPages "Section" "collectius" }}
+  <div class="tab-panel tab-panel--hidden" id="tab-collectius" role="tabpanel">
+    <div class="home-col-logos">
+      {{ range $collectius.ByTitle }}
+      <a href="{{ .RelPermalink }}" class="home-col-logo-card" title="{{ .Title }}">
+        {{ if .Params.logo }}
+        <img src="{{ .Params.logo | strings.TrimPrefix "/" | relURL }}" alt="{{ .Title }}" loading="lazy">
+        {{ else }}
+        <span class="home-col-logo-card__name">{{ .Title }}</span>
+        {{ end }}
+      </a>
+      {{ end }}
+    </div>
+    <p class="tab-panel__link"><a href="{{ "collectius/" | relLangURL }}">Veure tots els col·lectius &rarr;</a></p>
+  </div>
+
+  {{/* TAB: Espais */}}
+  <div class="tab-panel tab-panel--hidden" id="tab-espais" role="tabpanel">
+    <div class="planta-grid">
+      {{ range $espaisTab }}
+      <a href="{{ .RelPermalink }}" class="espai-card">
+        <div class="espai-card-image">
+          {{ $foto := "" }}
+          {{ with .Params.fotografies }}{{ $foto = index . 0 }}{{ end }}
+          {{ if not $foto }}{{ with .Params.logo }}{{ $foto = . }}{{ end }}{{ end }}
+          {{ if $foto }}
+          <img src="{{ $foto | strings.TrimPrefix "/" | relURL }}" alt="{{ .Title }}" loading="lazy">
+          {{ else }}
+          <div class="espai-card-placeholder"><img src="{{ "img/logo-nb-taronja.jpg" | relURL }}" alt="Nau Bostik"></div>
+          {{ end }}
+        </div>
+        <h3 class="espai-card-title">{{ .Title }}</h3>
+      </a>
+      {{ end }}
+    </div>
+    <p class="tab-panel__link"><a href="{{ "cessio-despais/" | relLangURL }}">Informació sobre cessió d'espais &rarr;</a></p>
+  </div>
+
+  {{/* TAB: Equip humà */}}
+  <div class="tab-panel" id="tab-equip" role="tabpanel">
+    {{ with $equip }}
+    {{ if .treballadors }}
+    <p class="equip-grup__label">Equip de gestió</p>
+    <div class="equip-grid">
+      {{ range .treballadors }}
+      <div class="equip-card">
+        {{ if .foto }}<div class="equip-card__foto"><img src="{{ .foto }}" alt="{{ .nom }}" loading="lazy"></div>
+        {{ else }}<div class="equip-card__foto equip-card__foto--placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>{{ end }}
+        <div class="equip-card__body">
+          <h3 class="equip-card__nom">{{ .nom }}</h3>
+          <p class="equip-card__rol">{{ .rol }}</p>
+          {{ with .bio }}<p class="equip-card__bio">{{ . }}</p>{{ end }}
+          {{ with .email }}<a class="equip-card__email" href="mailto:{{ . }}">{{ . }}</a>{{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
+    {{ end }}
+    {{ if .colaboradors }}
+    <p class="equip-grup__label equip-grup__label--col">Col·laboradors</p>
+    <div class="equip-grid">
+      {{ range .colaboradors }}
+      <div class="equip-card">
+        {{ if .foto }}<div class="equip-card__foto"><img src="{{ .foto }}" alt="{{ .nom }}" loading="lazy"></div>
+        {{ else }}<div class="equip-card__foto equip-card__foto--placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>{{ end }}
+        <div class="equip-card__body">
+          <h3 class="equip-card__nom">{{ .nom }}</h3>
+          <p class="equip-card__rol">{{ .rol }}</p>
+          {{ with .bio }}<p class="equip-card__bio">{{ . }}</p>{{ end }}
+          {{ with .email }}<a class="equip-card__email" href="mailto:{{ . }}">{{ . }}</a>{{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
+    {{ end }}
+    {{ end }}
+    <p class="tab-panel__link"><a href="{{ "qui-som/" | relLangURL }}">Qui som &rarr;</a></p>
+  </div>
+
+</section>
+
+{{ $noticiesAll := where site.RegularPages "Section" "noticies" }}
+{{ if $noticiesAll }}
+{{ $noticiesDescat := where $noticiesAll "Params.destacada" true }}
+{{ $noticiesTerrit := where $noticiesAll "Params.territori" true }}
+{{ $noticiesNorm   := where $noticiesAll "Params.territori" "!=" true }}
+{{ $noticiesHero := index ($noticiesDescat.ByDate.Reverse) 0 }}
+{{ if not $noticiesHero }}{{ $noticiesHero = index ($noticiesNorm.ByDate.Reverse) 0 }}{{ end }}
+{{ $noticiesRecents := first 5 ($noticiesNorm.ByDate.Reverse) }}
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">{{ i18n "home_section_noticies" }}</h2>
+    <a href="{{ "noticies/" | relLangURL }}" class="section-link">{{ i18n "home_link_veure_totes" }} &rarr;</a>
+  </div>
+  <div class="home-news-grid">
+    {{/* Col 1: notícia destacada */}}
+    {{ with $noticiesHero }}
+    <a class="home-news-hero" href="{{ .RelPermalink }}">
+      {{ with .Params.imatge }}<div class="home-news-hero__img"><img src="{{ . | relURL }}" alt="{{ $.Title }}" loading="lazy"></div>{{ end }}
+      <div class="home-news-hero__body">
+        {{ if .Params.destacada }}<span class="home-news-badge">Destacat</span>{{ end }}
+        <h3 class="home-news-hero__title">{{ .LinkTitle }}</h3>
+        <p class="home-news-hero__meta">{{ .Date.Format "02/01/2006" }}</p>
+        <p class="home-news-hero__excerpt">{{ .Summary | truncate 160 }}</p>
+      </div>
+    </a>
+    {{ end }}
+    {{/* Col 2: darreres notícies */}}
+    <ul class="home-news-recents">
+      {{ range $noticiesRecents }}
+      <li class="home-news-item">
+        <a href="{{ .RelPermalink }}">
+          {{ with .Params.imatge }}<div class="home-news-item__thumb"><img src="{{ . | relURL }}" alt="" loading="lazy"></div>{{ end }}
+          <div class="home-news-item__text">
+            <p class="home-news-item__date">{{ .Date.Format "02/01/2006" }}</p>
+            <h4 class="home-news-item__title">{{ .LinkTitle }}</h4>
+          </div>
+        </a>
+      </li>
+      {{ end }}
+    </ul>
+    {{/* Col 3: notícies de territori (RSS automàtic) */}}
+    {{ $territori := index site.Data "noticies-territori" }}
+    {{ if and $territori $territori.items }}
+    <div class="home-news-territori">
+      <p class="home-news-territori__label">Del territori</p>
+      <ul class="home-news-territori__list">
+        {{ range first 5 $territori.items }}
+        <li><a href="{{ .url }}" target="_blank" rel="noopener">
+          <span class="home-news-territori__meta">{{ .date | time.Format "02/01" }}{{ with .source }} · {{ . }}{{ end }}</span>
+          <span class="home-news-territori__title">{{ .title }}</span>
+        </a></li>
+        {{ end }}
+      </ul>
+    </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
+
+{{ end }}
