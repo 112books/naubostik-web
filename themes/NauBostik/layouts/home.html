@@ -206,7 +206,7 @@
       {{ range $collectius.ByTitle }}
       <a href="{{ .RelPermalink }}" class="home-col-logo-card" title="{{ .Title }}">
         {{ if .Params.logo }}
-        <img src="{{ .Params.logo }}" alt="{{ .Title }}" loading="lazy">
+        <img src="{{ .Params.logo | strings.TrimPrefix "/" | relURL }}" alt="{{ .Title }}" loading="lazy">
         {{ else }}
         <span class="home-col-logo-card__name">{{ .Title }}</span>
         {{ end }}
