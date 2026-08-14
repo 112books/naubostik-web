@@ -31,7 +31,7 @@
       </a>
       {{ end }}
       <div class="act-item__body">
-        {{ if and $logo (not .Params.imatge) }}<span class="act-item__logo"><img src="{{ $logo }}" alt="" loading="lazy"></span>{{ end }}
+
         <span class="act-item__entitat">{{ .Params.entitat }}</span>
         <p class="act-item__date">{{ .Date | time.Format "02/01/2006" }}{{ with .Params.hora }} · {{ . }} h{{ end }}{{ with .Params.preu }} · {{ . }}{{ end }}</p>
         <h3 class="act-item__title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
@@ -81,7 +81,7 @@
         </a>
         {{ end }}
         <div class="act-item__body">
-          {{ if and $logo (not .Params.imatge) }}<span class="act-item__logo"><img src="{{ $logo }}" alt="" loading="lazy"></span>{{ end }}
+  
           <span class="act-item__entitat">{{ .Params.entitat }}</span>
           <p class="act-item__date">{{ .Date | time.Format "02/01/2006" }}{{ with .Params.hora }} · {{ . }} h{{ end }}{{ with .Params.preu }} · {{ . }}{{ end }}</p>
           <h3 class="act-item__title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>

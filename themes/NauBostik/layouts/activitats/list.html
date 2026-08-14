@@ -8,17 +8,36 @@
 {{ $propies  := where $noTaller "Params.entitat" nil }}
 {{ $entitats := where (where $noTaller "Params.entitat" "!=" nil) "Params.entitat" "!=" "" }}
 
-{{ $propiesFut  := where $propies  "Date" ">=" $now }}
-{{ $entitatsFut := where $entitats "Date" ">=" $now }}
+{{/* Build future slices using data_fi fallback (covers multiday events and avisos) */}}
+{{ $propiesFutSlice := slice }}
+{{ range $propies }}
+  {{ $end := .Params.data_fi | default .Date }}
+  {{ if ge $end $now }}{{ $propiesFutSlice = $propiesFutSlice | append . }}{{ end }}
+{{ end }}
+{{ $entitatsFutSlice := slice }}
+{{ range $entitats }}
+  {{ $end := .Params.data_fi | default .Date }}
+  {{ if ge $end $now }}{{ $entitatsFutSlice = $entitatsFutSlice | append . }}{{ end }}
+{{ end }}
 
-{{/* Bloc B: properes pròpies sense els 3 primers no-avis (ja a Columna 1) */}}
-{{ $noAvis := (where $propiesFut "Params.avis" nil).ByDate }}
-{{ $avisItems := (where $propiesFut "Params.avis" "!=" nil).ByDate }}
-{{ $properesFut := after 3 $noAvis | append $avisItems }}
+{{/* Columna 1: activitats destacades futures / Bloc B: la resta */}}
+{{ $destacades  := slice }}
+{{ $properesFut := slice }}
+{{ range $propiesFutSlice }}
+  {{ if .Params.destacat }}
+    {{ $destacades  = $destacades  | append . }}
+  {{ else }}
+    {{ $properesFut = $properesFut | append . }}
+  {{ end }}
+{{ end }}
+{{ $entitatsFut := $entitatsFutSlice }}
 
-{{/* Bloc C: activitats passades de la Nau Bostik */}}
-{{ $propiesPast := where $propies "Date" "<" $now }}
-{{ $passades := $propiesPast.ByDate.Reverse }}
+{{/* Bloc C: activitats passades (exclou les que data_fi >= ara), ordre desc */}}
+{{ $passades := slice }}
+{{ range $propies.ByDate.Reverse }}
+  {{ $end := .Params.data_fi | default .Date }}
+  {{ if lt $end $now }}{{ $passades = $passades | append . }}{{ end }}
+{{ end }}
 {{ $passadesIni := first 24 $passades }}
 {{ $passadesJson := slice }}
 {{ range (after 24 $passades) }}
@@ -43,9 +62,9 @@
   <section class="act-col act-col--nb">
     <h2 class="act-col__title">Activitats</h2>
 
-    {{ if $propiesFut }}
+    {{ if $destacades }}
     <ul class="act-list">
-      {{ range first 3 $noAvis }}
+      {{ range $destacades }}
       <li class="act-item">
         {{ if .Params.imatge }}
         <a class="act-item__img" href="{{ .RelPermalink }}">
@@ -61,7 +80,7 @@
       {{ end }}
     </ul>
     {{ else }}
-    <p class="act-empty">No hi ha activitats properes programades.</p>
+    <p class="act-empty">No hi ha activitats destacades programades.</p>
     {{ end }}
   </section>
 
@@ -84,7 +103,6 @@
         </a>
         {{ end }}
         <div class="act-item__body">
-          {{ if and $logo (not .Params.imatge) }}<span class="act-item__logo"><img src="{{ $logo }}" alt="" loading="lazy"></span>{{ end }}
           <span class="act-item__entitat">{{ .Params.entitat }}</span>
           <p class="act-item__date">{{ .Date | time.Format "02/01/2006" }}{{ with .Params.hora }} · {{ . }} h{{ end }}{{ with .Params.preu }} · {{ . }}{{ end }}</p>
           <h3 class="act-item__title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
