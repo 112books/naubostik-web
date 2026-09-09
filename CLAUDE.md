@@ -488,3 +488,13 @@ sessió queda enregistrat:
 
 L'objectiu és poder comparar models de manera reproducible al cap de diverses
 sessions: GLM-5.2 (a partir del qual encenem), i qualsevol altre que es provi.
+
+---
+
+## Control horari
+
+Skill actiu: `gestor-hores` — registra automàticament el temps de treball per sessió.
+
+- Logs a `.taques/naubostik.com/YYYY-MM-DD.md` (creat automàticament)
+- Comandes: `/time-log [tasca] [hores]`, `/time-report [periode]`, `/time-config [hores] [tarifa]`
+- No modificar manualment els fitxers `.taques/` — són append-only
